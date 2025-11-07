@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{general/fragmentos :: head}"></head>
+<body>
+<header th:replace="~{general/fragmentos :: header}"></header>
+<main class="container py-3">
+  <h3>Productos</h3>
+  <div class="row row-cols-3" th:if="${productos}">
+    <div class="col mb-3" th:each="p : ${productos}">
+      <div class="card p-2">
+        <div class="card-body">
+          <h5 class="card-title" th:text="${p.nombre}"></h5>
+          <p class="card-text" th:text="${p.descripcion}">Descripción</p>
+          <a class="btn btn-success" th:href="@{'/producto/' + ${p.idProducto}}">Ver detalles</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<footer th:replace="~{general/fragmentos :: footer}"></footer>
+</body>
+</html>

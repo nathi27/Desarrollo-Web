@@ -3,9 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package com.pasteleria.service;
+package com.pasteleria.controler;
 
 
-public class FirebaseStorageService {
+public class ProductoControler {
 
 }

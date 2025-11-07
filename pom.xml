@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>23</java.version>
+        <java.version>25</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -102,6 +102,7 @@
             <artifactId>firebase-admin</artifactId>             
             <version>9.5.0</version>         
         </dependency>
+       
                 
                 
                 

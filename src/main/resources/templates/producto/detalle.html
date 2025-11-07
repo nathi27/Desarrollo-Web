@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{general/fragmentos :: head}"></head>
+  <body>
+    <header th:replace="~{general/fragmentos :: header}"></header>
+
+    <main class="container py-3">
+      <a class="btn btn-outline-secondary mb-3" th:href="@{/producto/listado}">
+        <i class="fa-solid fa-arrow-left"></i> Volver al catálogo
+      </a>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 th:text="${producto.nombre}">Nombre del producto</h3>
+        </div>
+        <div class="card-body">
+          <p class="mb-2">
+            <strong>Descripción:</strong>
+            <span th:text="${producto.descripcion}">...</span>
+          </p>
+
+          <p class="mb-3" th:if="${producto.conservacion}">
+            <strong>Conservación:</strong>
+            <span th:text="${producto.conservacion}">...</span>
+          </p>
+
+          <div class="row">
+            <div class="col-md-4">
+              <h5>Tamaños</h5>
+              <div th:if="${#lists.isEmpty(tamanos)}" class="text-muted">Sin tamaños</div>
+              <ul class="list-group" th:if="${!#lists.isEmpty(tamanos)}">
+                <li class="list-group-item" th:each="t : ${tamanos}" th:text="${t.etiqueta}">Pequeño</li>
+              </ul>
+            </div>
+
+            <div class="col-md-4">
+              <h5>Sabores</h5>
+              <div th:if="${#lists.isEmpty(sabores)}" class="text-muted">Sin sabores</div>
+              <ul class="list-group" th:if="${!#lists.isEmpty(sabores)}">
+                <li class="list-group-item" th:each="s : ${sabores}" th:text="${s.etiqueta}">Chocolate</li>
+              </ul>
+            </div>
+
+            <div class="col-md-4">
+              <h5>Ingredientes</h5>
+              <div th:if="${#lists.isEmpty(ingredientes)}" class="text-muted">Sin ingredientes</div>
+              <ul class="list-group" th:if="${!#lists.isEmpty(ingredientes)}">
+                <li class="list-group-item" th:each="i : ${ingredientes}" th:text="${i.nombre}">Harina</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <span class="badge bg-success" th:text="${producto.activo} ? 'Disponible' : 'No disponible'"></span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+  </body>
+</html>
