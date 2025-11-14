@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.7</version> <!-- esta parte de la version buscar si nos afectará tambien -->
+        <version>3.5.5</version> <!-- esta parte de la version buscar si nos afectará tambien -->
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.pasteleria</groupId>
@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>25</java.version> <!-- buscar una version a la que a todos nos sirva -->
+        <java.version>24</java.version> <!-- buscar una version a la que a todos nos sirva -->
     </properties>
     <dependencies>
         <dependency>
@@ -97,7 +97,7 @@
             <artifactId>firebase-admin</artifactId>             
             <version>9.5.0</version>         
         </dependency>
-        
+        <!-- Esto es de los tipos de roles
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -106,7 +106,7 @@
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity6</artifactId>
-        </dependency>
+        </dependency> -->
        
         <!-- Se agregan más dependencias aqui -->      
     </dependencies>

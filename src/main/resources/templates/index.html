@@ -4,12 +4,258 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{general/fragmentos :: head}"></head>
+  <head th:replace="~{general/fragmentos :: head}">
+    <style>
+        .about-card {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin: 40px auto;
+            max-width: 800px;
+        }
+        .about-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 13px 13px 0 0;
+            padding: 25px;
+            text-align: center;
+        }
+        .about-body {
+            padding: 30px;
+            text-align: center;
+        }
+        .btn-ver-mas {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border: none;
+            color: white;
+            padding: 10px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .products-section {
+            padding: 40px 0;
+        }
+        .product-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            height: 100%;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .product-image {
+            height: 200px;
+            background-color: #f8f9fa;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 3rem;
+        }
+        .product-body {
+            padding: 20px;
+        }
+        .product-title {
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .product-description {
+            color: #666;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        .section-title {
+            color: #333;
+            margin-bottom: 40px;
+            font-weight: 300;
+            text-align: center;
+        }
+        .footer-section {
+            background-color: #f8f9fa;
+            padding: 40px 0;
+            margin-top: 60px;
+            text-align: center;
+        }
+        .footer-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .footer-info {
+            color: #666;
+            margin: 5px 0;
+        }
+    </style>
+  </head>
   <body>
     <header th:replace="~{general/fragmentos :: header}"></header>
-    <main class="container py-4">
-      <a class="btn btn-primary" th:href="@{/producto/listado}">Ver catálogo</a>
+    
+    <main>
+        <!-- Sección Sobre Nosotros en cuadro -->
+        <div class="about-card">
+            <div class="about-header">
+                <h1 class="mb-0"> Sobre Nosotros </h1>
+            </div>
+            <div class="about-body">
+                <button class="btn btn-ver-mas">Ver más</button>
+            </div>
+        </div>
+
+        <!-- Sección Productos -->
+        <section class="products-section">
+            <div class="container">
+                <h2 class="section-title">Productos </h2>
+                
+                <div class="row">
+                    <!-- Pío -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card product-card" onclick="window.location.href='/producto/1'">
+                            <div class="product-image">
+                                <i class="fas fa-pie-chart"></i>
+                            </div>
+                            <div class="product-body">
+                                <h5 class="product-title">Pie</h5>
+                                <p class="product-description">
+                                    Tradicional tarta rellena de mermeladas de frutas frescas.
+                                    La mejor combinación entre el crocante de la masa y el dulce y jugozo relleno
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Macarons -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card product-card" onclick="window.location.href='/producto/2'">
+                            <div class="product-image">
+                                <i class="fas fa-cookie"></i>
+                            </div>
+                            <div class="product-body">
+                                <h5 class="product-title">Macarons</h5>
+                                <p class="product-description">
+                                    Delicados macarons franceses con rellenos irresistibles de frutas y chocolate
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Galleras -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card product-card" onclick="window.location.href='/producto/3'">
+                            <div class="product-image">
+                                <i class="fas fa-bread-slice"></i>
+                            </div>
+                            <div class="product-body">
+                                <h5 class="product-title">Galletas</h5>
+                                <p class="product-description">
+                                    Crujientes por fuera, suaves por dentro.
+                                    El sabor casero de siempre
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Domas -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card product-card" onclick="window.location.href='/producto/4'">
+                            <div class="product-image">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="product-body">
+                                <h5 class="product-title">Donas</h5>
+                                <p class="product-description">
+                                    Glaseadas, rellenas o con chispas...
+                                    ¡Puro placer en cada bocado!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lunch cake -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card product-card" onclick="window.location.href='/producto/5'">
+                            <div class="product-image">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="product-body">
+                                <h5 class="product-title">Lunch cake</h5>
+                                <p class="product-description">
+                                    Pastel pequeño personalizado junto a otras reposterias a elegir.
+                                    Perfecto para un regalo especial
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pastel -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card product-card" onclick="window.location.href='/producto/6'">
+                            <div class="product-image">
+                                <i class="fas fa-birthday-cake"></i>
+                            </div>
+                            <div class="product-body">
+                                <h5 class="product-title">Pastel</h5>
+                                <p class="product-description">
+                                    Frescos, frutales y perfectos para celebrar lo que quieras
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Brownies -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card product-card" onclick="window.location.href='/producto/7'">
+                            <div class="product-image">
+                                <i class="fas fa-square"></i>
+                            </div>
+                            <div class="product-body">
+                                <h5 class="product-title">Brownies</h5>
+                                <p class="product-description">
+                                    Deliciosos, 100% artesanales y personalizados
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pastel personalizado -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card product-card" onclick="window.location.href='/producto/8'">
+                            <div class="product-image">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div class="product-body">
+                                <h5 class="product-title">Pastel personalizado</h5>
+                                <p class="product-description">
+                                    Perfectos en ocasión especial.
+                                    Puedes personalizarlo como más te guste
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer-section">
+            <div class="container">
+                <p class="footer-title">Mimis Bakery</p>
+                <p class="footer-info">8985-2145</p>
+                <p class="footer-info"> El Carmen, Cartago</p>
+                <p class="footer-info">mimisbakerycr@gmail.com</p>
+            </div>
+        </div>
     </main>
+    
     <footer th:replace="~{general/fragmentos :: footer}"></footer>
   </body>
 </html>
