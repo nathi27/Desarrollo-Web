@@ -3,59 +3,213 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
+<!--
+CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
+-->
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{general/fragmentos :: head}"></head>
+  <head th:replace="~{general/fragmentos :: head}">
+    <style>
+        .product-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 0;
+            border-radius: 15px 15px 0 0;
+        }
+        .price-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin: 25px 0;
+            border: 2px solid #e9ecef;
+        }
+        .price-label {
+            font-size: 1.1rem;
+            color: #6c757d;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .product-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin: 0;
+        }
+        .btn-add-cart {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        .btn-add-cart:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+        }
+        .info-card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+        .info-card .card-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 12px 12px 0 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .feature-list li {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        .feature-list li:before {
+            content: "•";
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-right: 12px;
+        }
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        .availability-badge {
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 20px;
+        }
+        .section-divider {
+            border-top: 2px solid #e9ecef;
+            margin: 30px 0;
+        }
+    </style>
+  </head>
   <body>
     <header th:replace="~{general/fragmentos :: header}"></header>
 
-    <main class="container py-3">
-      <a class="btn btn-outline-secondary mb-3" th:href="@{/producto/listado}">
-        <i class="fa-solid fa-arrow-left"></i> Volver al catálogo
-      </a>
+    <main class="container py-4">
+      <!-- Botón Volver -->
+      <div class="mb-4">
+        <a class="btn btn-outline-primary" th:href="@{/catalogo}">
+          <i class="fa-solid fa-arrow-left me-2"></i>Volver al catálogo
+        </a>
+      </div>
 
-      <div class="card">
-        <div class="card-header">
-          <h3 th:text="${producto.nombre}">Nombre del producto</h3>
+      <!-- Tarjeta Principal del Producto -->
+      <div class="card shadow-lg border-0">
+        <!-- Header con Nombre del Producto -->
+        <div class="product-hero text-center">
+          <h1 class="display-6 fw-bold mb-0" th:text="${producto.nombre}">Nombre del producto</h1>
         </div>
-        <div class="card-body">
-          <p class="mb-2">
-            <strong>Descripción:</strong>
-            <span th:text="${producto.descripcion}">...</span>
-          </p>
 
-          <p class="mb-3" th:if="${producto.conservacion}">
-            <strong>Conservación:</strong>
-            <span th:text="${producto.conservacion}">...</span>
-          </p>
-
-          <div class="row">
-            <div class="col-md-4">
-              <h5>Tamaños</h5>
-              <div th:if="${#lists.isEmpty(tamanos)}" class="text-muted">Sin tamaños</div>
-              <ul class="list-group" th:if="${!#lists.isEmpty(tamanos)}">
-                <li class="list-group-item" th:each="t : ${tamanos}" th:text="${t.etiqueta}">Pequeño</li>
-              </ul>
+        <div class="card-body p-4">
+          <!-- Sección de Precio Mejorada -->
+          <div class="price-section">
+            <div class="price-label">
+              <i class="fas fa-tag me-2"></i>Precio
             </div>
-
-            <div class="col-md-4">
-              <h5>Sabores</h5>
-              <div th:if="${#lists.isEmpty(sabores)}" class="text-muted">Sin sabores</div>
-              <ul class="list-group" th:if="${!#lists.isEmpty(sabores)}">
-                <li class="list-group-item" th:each="s : ${sabores}" th:text="${s.etiqueta}">Chocolate</li>
-              </ul>
-            </div>
-
-            <div class="col-md-4">
-              <h5>Ingredientes</h5>
-              <div th:if="${#lists.isEmpty(ingredientes)}" class="text-muted">Sin ingredientes</div>
-              <ul class="list-group" th:if="${!#lists.isEmpty(ingredientes)}">
-                <li class="list-group-item" th:each="i : ${ingredientes}" th:text="${i.nombre}">Harina</li>
-              </ul>
+            <div class="product-price">
+              ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
             </div>
           </div>
 
-          <div class="mt-4">
-            <span class="badge bg-success" th:text="${producto.activo} ? 'Disponible' : 'No disponible'"></span>
+          <!-- Descripción -->
+          <div class="info-card">
+            <div class="card-header">
+              <i class="fas fa-info-circle me-2"></i>Descripción
+            </div>
+            <div class="card-body">
+              <p class="card-text mb-0 lead" th:text="${producto.descripcion}">Descripción del producto</p>
+            </div>
+          </div>
+
+          <!-- Conservación -->
+          <div class="info-card" th:if="${producto.conservacion}">
+            <div class="card-header">
+              <i class="fas fa-snowflake me-2"></i>Instrucciones de Conservación
+            </div>
+            <div class="card-body">
+              <p class="card-text mb-0" th:text="${producto.conservacion}">Instrucciones de conservación</p>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <!-- Tamaños Disponibles -->
+            <div class="col-lg-4 mb-3">
+              <div class="info-card h-100">
+                <div class="card-header">
+                  <i class="fas fa-ruler-combined me-2"></i>Tamaños Disponibles
+                </div>
+                <div class="card-body">
+                  <div th:if="${#lists.isEmpty(tamanos)}" class="text-muted text-center">Sin tamaños</div>
+                  <ul class="feature-list" th:if="${!#lists.isEmpty(tamanos)}">
+                    <li th:each="t : ${tamanos}" th:text="${t.etiqueta}">Tamaño</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sabores -->
+            <div class="col-lg-4 mb-3">
+              <div class="info-card h-100">
+                <div class="card-header">
+                  <i class="fas fa-palette me-2"></i>Sabores
+                </div>
+                <div class="card-body">
+                  <div th:if="${#lists.isEmpty(sabores)}" class="text-muted text-center">Sin sabores</div>
+                  <ul class="feature-list" th:if="${!#lists.isEmpty(sabores)}">
+                    <li th:each="s : ${sabores}" th:text="${s.etiqueta}">Sabor</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ingredientes -->
+            <div class="col-lg-4 mb-3">
+              <div class="info-card h-100">
+                <div class="card-header">
+                  <i class="fas fa-list-alt me-2"></i>Ingredientes
+                </div>
+                <div class="card-body">
+                  <div th:if="${#lists.isEmpty(ingredientes)}" class="text-muted text-center">Sin ingredientes</div>
+                  <ul class="feature-list" th:if="${!#lists.isEmpty(ingredientes)}">
+                    <li th:each="i : ${ingredientes}" th:text="${i.nombre}">Ingrediente</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-divider"></div>
+
+          <!-- Acciones -->
+          <div class="text-center">
+            <button class="btn btn-add-cart mb-3">
+              <i class="fas fa-shopping-cart me-2"></i>Agregar al Carrito
+            </button>
+            <div>
+              <span class="badge availability-badge bg-success" 
+                    th:text="${producto.activo} ? 'Disponible' : 'No disponible'">
+                Disponible
+              </span>
+            </div>
           </div>
         </div>
       </div>

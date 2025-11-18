@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package com.pasteleria.controler;
 
+import com.pasteleria.domain.Producto;
 import com.pasteleria.service.ProductoService;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,17 +15,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class ProductoController {
+
     private final ProductoService servicio;
-    public ProductoController(ProductoService s){ this.servicio=s; }
+
+    public ProductoController(ProductoService s) {
+        this.servicio = s;
+    }
 
     @GetMapping("/producto/listado")
-    public String listado(Model model){
+    public String listado(Model model) {
         model.addAttribute("productos", servicio.listarActivos());
         return "producto/listado";
     }
 
     @GetMapping("/producto/{id}")
-    public String detalle(@PathVariable Long id, Model model){
+    public String detalle(@PathVariable Long id, Model model) {
         model.addAttribute("producto", servicio.ver(id));
         model.addAttribute("tamanos", servicio.tamanos(id));
         model.addAttribute("sabores", servicio.sabores(id));
@@ -31,4 +37,39 @@ public class ProductoController {
         return "producto/detalle";
     }
 
+    @GetMapping("/catalogo")
+    public String catalogo(Model model) {
+        // Obtener todos los productos activos
+        List<Producto> todosProductos = servicio.listarActivos();
+
+        // Filtrar por categorías basado en el nombre
+        List<Producto> piesTortas = todosProductos.stream()
+                .filter(p -> p.getNombre().contains("Pie")
+                || p.getNombre().contains("Torta")
+                || p.getNombre().contains("Pavlova"))
+                .collect(Collectors.toList());
+
+        List<Producto> macarons = todosProductos.stream()
+                .filter(p -> p.getNombre().toLowerCase().contains("macaron")
+                || p.getNombre().toLowerCase().contains("dona")
+                || p.getNombre().toLowerCase().contains("brownie"))
+                .collect(Collectors.toList());
+
+        List<Producto> galletas = todosProductos.stream()
+                .filter(p -> p.getNombre().contains("Galleta")
+                || p.getNombre().contains("Brookie"))
+                .collect(Collectors.toList());
+
+        List<Producto> pasteles = todosProductos.stream()
+                .filter(p -> p.getNombre().contains("Pastel")
+                || p.getNombre().contains("Lunch"))
+                .collect(Collectors.toList());
+
+        model.addAttribute("productosPiesTortas", piesTortas);
+        model.addAttribute("productosMacarons", macarons);
+        model.addAttribute("productosGalletas", galletas);
+        model.addAttribute("productosPasteles", pasteles);
+
+        return "producto/catalogo";
+    }
 }

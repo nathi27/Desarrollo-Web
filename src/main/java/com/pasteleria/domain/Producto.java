@@ -2,18 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package com.pasteleria.domain;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@Entity @Table(name = "producto")
+@Entity
+@Table(name = "producto")
 public class Producto {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto")
     private Long idProducto;
 
@@ -24,6 +27,9 @@ public class Producto {
 
     @Column(columnDefinition = "TEXT")
     private String conservacion;
+
+    @Column(precision = 10, scale = 2)
+    private BigDecimal precio;
 
     private Boolean activo;
 
