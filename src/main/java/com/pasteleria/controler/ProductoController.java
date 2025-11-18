@@ -72,4 +72,9 @@ public class ProductoController {
 
         return "producto/catalogo";
     }
+    
+    @GetMapping("/carrito")
+    public String carrito() {
+        return "producto/carrito";
+    }
 }
