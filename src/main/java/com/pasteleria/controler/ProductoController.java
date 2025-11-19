@@ -30,10 +30,13 @@ public class ProductoController {
 
     @GetMapping("/producto/{id}")
     public String detalle(@PathVariable Long id, Model model) {
-        model.addAttribute("producto", servicio.ver(id));
+        Producto producto = servicio.ver(id);
+        model.addAttribute("producto", producto);
         model.addAttribute("tamanos", servicio.tamanos(id));
         model.addAttribute("sabores", servicio.sabores(id));
         model.addAttribute("ingredientes", servicio.ingredientes(id));
+        model.addAttribute("stockDisponible", producto != null ? producto.getStock() : 0);
+        
         return "producto/detalle";
     }
 

@@ -52,6 +52,18 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 transform: translateY(-3px);
                 box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
             }
+            /* NUEVO ESTILO PARA BOTÓN DESHABILITADO */
+            .btn-add-cart:disabled {
+                background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+                cursor: not-allowed;
+                opacity: 0.7;
+                transform: none;
+                box-shadow: none;
+            }
+            .btn-add-cart:disabled:hover {
+                transform: none;
+                box-shadow: none;
+            }
             .info-card {
                 border: none;
                 border-radius: 12px;
@@ -106,6 +118,20 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 z-index: 1050;
                 min-width: 300px;
             }
+            /* NUEVO ESTILO PARA INFORMACIÓN DE STOCK */
+            .stock-info {
+                text-align: center;
+                margin-bottom: 15px;
+                font-size: 1rem;
+            }
+            .stock-disponible {
+                color: #28a745;
+                font-weight: 600;
+            }
+            .stock-agotado {
+                color: #dc3545;
+                font-weight: 600;
+            }
         </style>
     </head>
     <body>
@@ -127,7 +153,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 </div>
 
                 <div class="card-body p-4">
-                    <!-- Sección de Precio Mejorada -->
+                    <!-- Sección de Precio -->
                     <div class="price-section">
                         <div class="price-label">
                             <i class="fas fa-tag me-2"></i>Precio
@@ -135,6 +161,18 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                         <div class="product-price">
                             ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
                         </div>
+                    </div>
+
+                    <!-- Información de Stock -->
+                    <div class="stock-info">
+                        <span th:if="${producto.stock > 0}">
+                            <i class="fas fa-check-circle me-2 stock-disponible"></i>
+                            <span class="stock-disponible" th:text="'Stock disponible: ' + ${producto.stock} + ' unidades'"></span>
+                        </span>
+                        <span th:if="${producto.stock == 0}">
+                            <i class="fas fa-times-circle me-2 stock-agotado"></i>
+                            <span class="stock-agotado">Producto agotado</span>
+                        </span>
                     </div>
 
                     <!-- Descripción -->
@@ -208,13 +246,17 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
 
                     <!-- Acciones -->
                     <div class="text-center">
-                        <!-- Botón Agregar al Carrito CORREGIDO -->
-                        <button class="btn btn-add-cart mb-3" onclick="agregarAlCarritoDesdeDetalle()">
+                        <!-- Botón Agregar al Carrito MEJORADO -->
+                        <button class="btn btn-add-cart mb-3" 
+                                th:disabled="${producto.stock == 0}"
+                                th:onclick="${producto.stock > 0} ? 'agregarAlCarritoDesdeDetalle()' : ''"
+                                th:text="${producto.stock > 0} ? 'Agregar al Carrito' : 'Producto Agotado'">
                             <i class="fas fa-shopping-cart me-2"></i>Agregar al Carrito
                         </button>
                         <div>
-                            <span class="badge availability-badge bg-success" 
-                                  th:text="${producto.activo} ? 'Disponible' : 'No disponible'">
+                            <span class="badge availability-badge" 
+                                  th:class="${producto.stock > 0} ? 'bg-success' : 'bg-danger'"
+                                  th:text="${producto.stock > 0} ? 'Disponible' : 'No disponible'">
                                 Disponible
                             </span>
                         </div>
@@ -225,13 +267,9 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
 
         <footer th:replace="~{general/fragmentos :: footer}"></footer>
 
-        <!-- SCRIPT PARA EL CARRITO - VERSIÓN CORREGIDA -->
         <script>
-            // Stock simulado - DEBE ESTAR ANTES DE LAS FUNCIONES
-            const stockDisponible = {
-                1: 10, 2: 8, 3: 6, 4: 12, 5: 15, 6: 20, 7: 18, 
-                8: 25, 9: 30, 10: 22, 11: 8, 12: 6, 13: 10, 14: 15
-            };
+            // Stock disponible desde la base de datos (ya viene en el producto)
+            // Ya no necesitamos el stock simulado porque viene del backend
 
             // Función específica para esta página
             function agregarAlCarritoDesdeDetalle() {
@@ -240,36 +278,51 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 const nombre = "[[${producto.nombre}]]";
                 const precio = [[${producto.precio}]];
                 const descripcion = "[[${producto.descripcion}]]";
+                const stock = [[${producto.stock}]];
                 
-                console.log("Agregando producto:", {id, nombre, precio, descripcion});
+                console.log("Agregando producto:", {id, nombre, precio, stock});
                 
-                agregarAlCarrito(id, nombre, precio, descripcion);
+                // Validar stock antes de agregar
+                if (stock <= 0) {
+                    mostrarMensaje('❌ ' + nombre + ' está agotado', 'error');
+                    return;
+                }
+                
+                agregarAlCarrito(id, nombre, precio, descripcion, stock);
             }
 
-            // Función principal para agregar al carrito
-            function agregarAlCarrito(id, nombre, precio, descripcion) {
-                console.log("Ejecutando agregarAlCarrito con:", {id, nombre, precio});
+            // Función principal para agregar al carrito (MEJORADA)
+            function agregarAlCarrito(id, nombre, precio, descripcion, stock) {
+                console.log("Ejecutando agregarAlCarrito con:", {id, nombre, precio, stock});
                 
                 let carrito = JSON.parse(localStorage.getItem('carritoPasteleria') || '[]');
                 const productoExistente = carrito.find(item => item.id === id);
                 
                 if (productoExistente) {
-                    if (productoExistente.cantidad < stockDisponible[id]) {
-                        productoExistente.cantidad += 1;
-                        mostrarMensaje('✅ Producto agregado al carrito', 'success');
-                    } else {
-                        mostrarMensaje('❌ Cantidad mayor al stock disponible', 'error');
+                    // Verificar que no exceda el stock disponible
+                    if (productoExistente.cantidad >= stock) {
+                        mostrarMensaje('❌ Cantidad mayor al stock disponible. Stock máximo: ' + stock, 'error');
                         return;
                     }
+                    
+                    productoExistente.cantidad += 1;
+                    mostrarMensaje('✅ ' + nombre + ' agregado al carrito', 'success');
                 } else {
+                    // Verificar stock para nuevo producto
+                    if (stock <= 0) {
+                        mostrarMensaje('❌ ' + nombre + ' está agotado', 'error');
+                        return;
+                    }
+                    
                     carrito.push({
                         id: id,
                         nombre: nombre,
                         precio: parseFloat(precio),
                         descripcion: descripcion,
-                        cantidad: 1
+                        cantidad: 1,
+                        stockMaximo: stock // Guardamos el stock máximo para validaciones
                     });
-                    mostrarMensaje('✅ Producto agregado al carrito', 'success');
+                    mostrarMensaje('✅ ' + nombre + ' agregado al carrito', 'success');
                 }
                 
                 localStorage.setItem('carritoPasteleria', JSON.stringify(carrito));

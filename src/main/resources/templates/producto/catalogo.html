@@ -1,299 +1,637 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{general/fragmentos :: head}">
-    <style>
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.1"><polygon points="0,0 1000,50 1000,100 0,100"/></svg>');
-            background-size: cover;
-        }
-        .catalog-section {
-            padding: 50px 0;
-        }
-        .category-card {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            margin-bottom: 50px;
-            background: white;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        .category-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px 30px;
-            position: relative;
-        }
-        .category-header::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 4px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 2px;
-        }
-        .category-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            opacity: 0.9;
-        }
-        .category-body {
-            padding: 30px;
-        }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-        .product-card {
-            border: none;
-            border-radius: 15px;
-            padding: 25px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s ease;
-        }
-        .product-card:hover::before {
-            left: 100%;
-        }
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        }
-        .product-name {
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 12px;
-            font-size: 1.3rem;
-            line-height: 1.3;
-        }
-        .product-description {
-            color: #6c757d;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .product-price {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #28a745;
-            margin-bottom: 15px;
-        }
-        .btn-ver-detalles {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-ver-detalles::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn-ver-detalles:hover::before {
-            left: 100%;
-        }
-        .btn-ver-detalles:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-        }
-        .section-divider {
-            border: none;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #667eea, transparent);
-            margin: 60px auto;
-            width: 60%;
-        }
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-        .shape {
-            position: absolute;
-            opacity: 0.1;
-            background: white;
-            border-radius: 50%;
-        }
-        .shape-1 { width: 80px; height: 80px; top: 10%; left: 10%; }
-        .shape-2 { width: 120px; height: 120px; bottom: 15%; right: 10%; }
-        .shape-3 { width: 60px; height: 60px; top: 60%; left: 80%; }
-    </style>
-  </head>
-  <body>
-    <header th:replace="~{general/fragmentos :: header}"></header>
-    
-    <main>
-        <!-- Hero Section Mejorada -->
-        <section class="hero-section">
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-            </div>
-            <div class="container position-relative">
-                <h1 class="display-4 fw-bold mb-3">Catálogo de Productos</h1>
-                <p class="lead mb-0 opacity-75">Descubre nuestra exquisita selección de productos artesanales</p>
-            </div>
-        </section>
+    <head th:replace="~{general/fragmentos :: head}">
+        <style>
+            .hero-section {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 80px 0;
+                text-align: center;
+                margin-bottom: 50px;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.1"><polygon points="0,0 1000,50 1000,100 0,100"/></svg>');
+                background-size: cover;
+            }
 
-        <!-- Catálogo Mejorado -->
-        <section class="catalog-section">
-            <div class="container">
-                <!-- Pies y tortas -->
-                <div class="card category-card">
-                    <div class="category-header text-center">
-                        <div class="category-icon">
-                            <i class="fas fa-pie-chart"></i>
+            /* Filtros Section */
+            .filters-section {
+                background: white;
+                padding: 30px;
+                border-radius: 15px;
+                box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+                margin-bottom: 40px;
+                border: 1px solid #e9ecef;
+            }
+            .search-box {
+                position: relative;
+            }
+            .search-box .form-control {
+                padding-left: 45px;
+                border-radius: 25px;
+                border: 2px solid #e9ecef;
+                transition: all 0.3s ease;
+            }
+            .search-box .form-control:focus {
+                border-color: #667eea;
+                box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.1);
+            }
+            .search-icon {
+                position: absolute;
+                left: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #6c757d;
+                z-index: 5;
+            }
+            .category-filters {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                align-items: center;
+            }
+            .filter-btn {
+                border: 2px solid #e9ecef;
+                background: white;
+                color: #495057;
+                padding: 8px 20px;
+                border-radius: 25px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+            .filter-btn:hover, .filter-btn.active {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border-color: #667eea;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            }
+            
+            .filter-btn:active,
+            .filter-btn:focus {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border-color: #667eea;
+                outline: none;
+                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            }
+            .reset-filters {
+                background: #6c757d;
+                color: white;
+                border: none;
+                padding: 8px 20px;
+                border-radius: 25px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+            .reset-filters:hover {
+                background: #5a6268;
+                transform: translateY(-2px);
+            }
+
+            .catalog-section {
+                padding: 30px 0;
+            }
+            .category-card {
+                border: none;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+                margin-bottom: 50px;
+                background: white;
+                overflow: hidden;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .category-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            }
+            .category-header {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 25px 30px;
+                position: relative;
+            }
+            .category-header::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 40px;
+                height: 4px;
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                border-radius: 2px;
+            }
+            .category-icon {
+                font-size: 2rem;
+                margin-bottom: 15px;
+                opacity: 0.9;
+            }
+            .category-body {
+                padding: 30px;
+            }
+            .products-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 25px;
+                margin-top: 20px;
+            }
+            .product-card {
+                border: none;
+                border-radius: 15px;
+                padding: 25px;
+                background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+            .product-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+                transition: left 0.5s ease;
+            }
+            .product-card:hover::before {
+                left: 100%;
+            }
+            .product-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+                background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            }
+            .product-name {
+                font-weight: 700;
+                color: #2c3e50;
+                margin-bottom: 12px;
+                font-size: 1.3rem;
+                line-height: 1.3;
+            }
+            .product-description {
+                color: #6c757d;
+                font-size: 0.95rem;
+                margin-bottom: 20px;
+                line-height: 1.5;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .product-price {
+                font-size: 1.4rem;
+                font-weight: 700;
+                color: #28a745;
+                margin-bottom: 15px;
+            }
+            .btn-ver-detalles {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border: none;
+                color: white;
+                padding: 12px 25px;
+                border-radius: 25px;
+                font-weight: 600;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+                width: 100%; /* Hacer que ocupe todo el ancho */
+                text-align: center;
+            }
+            .btn-ver-detalles::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+                transition: left 0.5s ease;
+            }
+            .btn-ver-detalles:hover::before {
+                left: 100%;
+            }
+            .btn-ver-detalles:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            }
+            .section-divider {
+                border: none;
+                height: 1px;
+                background: linear-gradient(90deg, transparent, #667eea, transparent);
+                margin: 60px auto;
+                width: 60%;
+            }
+            .floating-shapes {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+            }
+            .shape {
+                position: absolute;
+                opacity: 0.1;
+                background: white;
+                border-radius: 50%;
+            }
+            .shape-1 {
+                width: 80px;
+                height: 80px;
+                top: 10%;
+                left: 10%;
+            }
+            .shape-2 {
+                width: 120px;
+                height: 120px;
+                bottom: 15%;
+                right: 10%;
+            }
+            .shape-3 {
+                width: 60px;
+                height: 60px;
+                top: 60%;
+                left: 80%;
+            }
+
+            /* Estados de filtro */
+            .category-hidden {
+                display: none;
+            }
+            .product-hidden {
+                display: none;
+            }
+            .no-results {
+                text-align: center;
+                padding: 60px 20px;
+                color: #6c757d;
+            }
+            .no-results i {
+                font-size: 4rem;
+                margin-bottom: 20px;
+                opacity: 0.5;
+            }
+            .product-actions {
+                display: flex;
+                justify-content: center; /* Centrar el botón */
+                align-items: center;
+                margin-top: 15px;
+            }
+            .toast-notification {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1050;
+                min-width: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <header th:replace="~{general/fragmentos :: header}"></header>
+
+        <main>
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="floating-shapes">
+                    <div class="shape shape-1"></div>
+                    <div class="shape shape-2"></div>
+                    <div class="shape shape-3"></div>
+                </div>
+                <div class="container position-relative">
+                    <h1 class="display-4 fw-bold mb-3">Catálogo de Productos</h1>
+                    <p class="lead mb-0 opacity-75">Descubre nuestra exquisita selección de productos artesanales</p>
+                </div>
+            </section>
+
+            <!-- Sistema de Filtros -->
+            <section class="filters-section">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="search-box">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="form-control" id="searchInput" placeholder="Buscar productos por nombre...">
+                            </div>
                         </div>
-                        <h2 class="mb-0">Pies y Tortas</h2>
-                    </div>
-                    <div class="category-body">
-                        <div class="products-grid">
-                            <div class="product-card" th:each="producto : ${productosPiesTortas}">
-                                <h4 class="product-name" th:text="${producto.nombre}">Nombre del producto</h4>
-                                <p class="product-description" th:text="${producto.descripcion}">Descripción del producto</p>
-                                <div class="product-price">
-                                    ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
-                                </div>
-                                <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
-                                    <i class="fas fa-eye me-2"></i>Ver Detalles
-                                </a>
+                        <div class="col-md-6">
+                            <div class="category-filters">
+                                <span class="me-2 fw-bold">Filtrar por:</span>
+                                <button class="filter-btn active" data-category="all">Todos</button>
+                                <button class="filter-btn" data-category="pies-tortas">Pies y Tortas</button>
+                                <button class="filter-btn" data-category="macarons">Macarons</button>
+                                <button class="filter-btn" data-category="galletas">Galletas</button>
+                                <button class="filter-btn" data-category="pasteles">Pasteles</button>
+                                <button class="reset-filters ms-2" id="resetFilters">
+                                    <i class="fas fa-redo me-1"></i>Limpiar
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Macarons -->
-                <div class="card category-card">
-                    <div class="category-header text-center">
-                        <div class="category-icon">
-                            <i class="fas fa-cookie-bite"></i>
+            <!-- Catálogo con Filtros -->
+            <section class="catalog-section">
+                <div class="container">
+                    <!-- Pies y tortas -->
+                    <div class="card category-card" data-category="pies-tortas">
+                        <div class="category-header text-center">
+                            <div class="category-icon">
+                                <i class="fas fa-pie-chart"></i>
+                            </div>
+                            <h2 class="mb-0">Pies y Tortas</h2>
                         </div>
-                        <h2 class="mb-0">Macarons</h2>
-                    </div>
-                    <div class="category-body">
-                        <div class="products-grid">
-                            <div class="product-card" th:each="producto : ${productosMacarons}">
-                                <h4 class="product-name" th:text="${producto.nombre}">Nombre del producto</h4>
-                                <p class="product-description" th:text="${producto.descripcion}">Descripción del producto</p>
-                                <div class="product-price">
-                                    ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
+                        <div class="category-body">
+                            <div class="products-grid">
+                                <div class="product-card" th:each="producto : ${productosPiesTortas}" 
+                                     th:data-name="${producto.nombre}" data-category="pies-tortas">
+                                    <h4 class="product-name" th:text="${producto.nombre}">Nombre del producto</h4>
+                                    <p class="product-description" th:text="${producto.descripcion}">Descripción del producto</p>
+                                    <div class="product-price">
+                                        ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
+                                    </div>
+                                    <div class="product-actions">
+                                        <!-- SOLO BOTÓN VER DETALLES -->
+                                        <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
+                                            <i class="fas fa-eye me-2"></i>Ver Detalles
+                                        </a>
+                                    </div>
                                 </div>
-                                <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
-                                    <i class="fas fa-eye me-2"></i>Ver Detalles
-                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Galletas -->
-                <div class="card category-card">
-                    <div class="category-header text-center">
-                        <div class="category-icon">
-                            <i class="fas fa-cookie"></i>
+                    <!-- Macarons -->
+                    <div class="card category-card" data-category="macarons">
+                        <div class="category-header text-center">
+                            <div class="category-icon">
+                                <i class="fas fa-cookie-bite"></i>
+                            </div>
+                            <h2 class="mb-0">Macarons</h2>
                         </div>
-                        <h2 class="mb-0">Galletas</h2>
-                    </div>
-                    <div class="category-body">
-                        <div class="products-grid">
-                            <div class="product-card" th:each="producto : ${productosGalletas}">
-                                <h4 class="product-name" th:text="${producto.nombre}">Nombre del producto</h4>
-                                <p class="product-description" th:text="${producto.descripcion}">Descripción del producto</p>
-                                <div class="product-price">
-                                    ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
+                        <div class="category-body">
+                            <div class="products-grid">
+                                <div class="product-card" th:each="producto : ${productosMacarons}" 
+                                     th:data-name="${producto.nombre}" data-category="macarons">
+                                    <h4 class="product-name" th:text="${producto.nombre}">Nombre del producto</h4>
+                                    <p class="product-description" th:text="${producto.descripcion}">Descripción del producto</p>
+                                    <div class="product-price">
+                                        ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
+                                    </div>
+                                    <div class="product-actions">
+                                        <!-- SOLO BOTÓN VER DETALLES -->
+                                        <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
+                                            <i class="fas fa-eye me-2"></i>Ver Detalles
+                                        </a>
+                                    </div>
                                 </div>
-                                <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
-                                    <i class="fas fa-eye me-2"></i>Ver Detalles
-                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Pasteles -->
-                <div class="card category-card">
-                    <div class="category-header text-center">
-                        <div class="category-icon">
-                            <i class="fas fa-birthday-cake"></i>
+                    <!-- Galletas -->
+                    <div class="card category-card" data-category="galletas">
+                        <div class="category-header text-center">
+                            <div class="category-icon">
+                                <i class="fas fa-cookie"></i>
+                            </div>
+                            <h2 class="mb-0">Galletas</h2>
                         </div>
-                        <h2 class="mb-0">Pasteles</h2>
-                    </div>
-                    <div class="category-body">
-                        <div class="products-grid">
-                            <div class="product-card" th:each="producto : ${productosPasteles}">
-                                <h4 class="product-name" th:text="${producto.nombre}">Nombre del producto</h4>
-                                <p class="product-description" th:text="${producto.descripcion}">Descripción del producto</p>
-                                <div class="product-price">
-                                    ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
+                        <div class="category-body">
+                            <div class="products-grid">
+                                <div class="product-card" th:each="producto : ${productosGalletas}" 
+                                     th:data-name="${producto.nombre}" data-category="galletas">
+                                    <h4 class="product-name" th:text="${producto.nombre}">Nombre del producto</h4>
+                                    <p class="product-description" th:text="${producto.descripcion}">Descripción del producto</p>
+                                    <div class="product-price">
+                                        ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
+                                    </div>
+                                    <div class="product-actions">
+                                        <!-- SOLO BOTÓN VER DETALLES -->
+                                        <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
+                                            <i class="fas fa-eye me-2"></i>Ver Detalles
+                                        </a>
+                                    </div>
                                 </div>
-                                <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
-                                    <i class="fas fa-eye me-2"></i>Ver Detalles
-                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="section-divider"></div>
-            </div>
-        </section>
-    </main>
-    
-    <footer th:replace="~{general/fragmentos :: footer}"></footer>
-  </body>
+                    <!-- Pasteles -->
+                    <div class="card category-card" data-category="pasteles">
+                        <div class="category-header text-center">
+                            <div class="category-icon">
+                                <i class="fas fa-birthday-cake"></i>
+                            </div>
+                            <h2 class="mb-0">Pasteles</h2>
+                        </div>
+                        <div class="category-body">
+                            <div class="products-grid">
+                                <div class="product-card" th:each="producto : ${productosPasteles}" 
+                                     th:data-name="${producto.nombre}" data-category="pasteles">
+                                    <h4 class="product-name" th:text="${producto.nombre}">Nombre del producto</h4>
+                                    <p class="product-description" th:text="${producto.descripcion}">Descripción del producto</p>
+                                    <div class="product-price">
+                                        ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
+                                    </div>
+                                    <div class="product-actions">
+                                        <!-- SOLO BOTÓN VER DETALLES -->
+                                        <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
+                                            <i class="fas fa-eye me-2"></i>Ver Detalles
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mensaje cuando no hay resultados -->
+                    <div id="noResults" class="no-results category-hidden">
+                        <i class="fas fa-search"></i>
+                        <h4>No se encontraron productos</h4>
+                        <p>Intenta con otros términos de búsqueda o cambia los filtros</p>
+                        <button class="reset-filters mt-3" onclick="resetearFiltros()">
+                            <i class="fas fa-redo me-1"></i>Mostrar Todos los Productos
+                        </button>
+                    </div>
+
+                    <div class="section-divider"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}"></footer>
+
+        <script>
+            // SISTEMA DE FILTROS
+            document.addEventListener('DOMContentLoaded', function () {
+                console.log("Inicializando sistema de filtros...");
+
+                const searchInput = document.getElementById('searchInput');
+                const filterButtons = document.querySelectorAll('.filter-btn');
+                const resetButton = document.getElementById('resetFilters');
+                const categoryCards = document.querySelectorAll('.category-card');
+                const noResults = document.getElementById('noResults');
+
+                let activeCategory = 'all';
+                let searchTerm = '';
+
+                // Función para aplicar filtros 
+                function applyFilters() {
+                    console.log("Aplicando filtros:", {activeCategory, searchTerm});
+
+                    let hasVisibleProducts = false;
+                    let hasVisibleCategories = false;
+
+                    categoryCards.forEach(category => {
+                        const categoryType = category.getAttribute('data-category');
+                        const products = category.querySelectorAll('.product-card');
+                        let categoryHasVisibleProducts = false;
+
+                        products.forEach(product => {
+                            const productName = product.getAttribute('data-name').toLowerCase();
+                            const matchesSearch = searchTerm === '' || productName.includes(searchTerm.toLowerCase());
+                            const matchesCategory = activeCategory === 'all' || categoryType === activeCategory;
+
+                            console.log(`Producto: ${productName}, Busqueda: ${matchesSearch}, Categoria: ${matchesCategory}`);
+
+                            if (matchesSearch && matchesCategory) {
+                                product.style.display = 'block';
+                                product.classList.remove('product-hidden');
+                                categoryHasVisibleProducts = true;
+                                hasVisibleProducts = true;
+                            } else {
+                                product.style.display = 'none';
+                                product.classList.add('product-hidden');
+                            }
+                        });
+
+                        // Mostrar/ocultar categoría completa
+                        if (categoryHasVisibleProducts) {
+                            category.style.display = 'block';
+                            category.classList.remove('category-hidden');
+                            hasVisibleCategories = true;
+                        } else {
+                            category.style.display = 'none';
+                            category.classList.add('category-hidden');
+                        }
+                    });
+
+                    // Mostrar mensaje si no hay resultados
+                    if (hasVisibleProducts && hasVisibleCategories) {
+                        noResults.style.display = 'none';
+                        noResults.classList.add('category-hidden');
+                    } else {
+                        noResults.style.display = 'block';
+                        noResults.classList.remove('category-hidden');
+                    }
+
+                    console.log("Resultados visibles:", hasVisibleProducts);
+                }
+
+                // Event Listeners para filtros 
+                searchInput.addEventListener('input', function (e) {
+                    searchTerm = e.target.value.trim();
+                    console.log("Búsqueda cambiada:", searchTerm);
+                    applyFilters();
+                });
+
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        console.log("Botón de filtro clickeado:", this.getAttribute('data-category'));
+
+                        // Remover clase active de todos los botones
+                        filterButtons.forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+
+                        // Agregar clase active al botón clickeado (el CSS se encarga del estilo)
+                        this.classList.add('active');
+
+                        // Actualizar categoría activa
+                        activeCategory = this.getAttribute('data-category');
+                        applyFilters();
+                    });
+                });
+
+                resetButton.addEventListener('click', function () {
+                    console.log("Reseteando filtros...");
+                    resetearFiltros();
+                });
+
+                // Función para resetear filtros
+                function resetearFiltros() {
+                    searchInput.value = '';
+                    searchTerm = '';
+
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+
+                    const allButton = document.querySelector('.filter-btn[data-category="all"]');
+                    allButton.classList.add('active');
+
+                    activeCategory = 'all';
+
+                    applyFilters();
+                    console.log("Filtros reseteados");
+                }
+
+                // Inicializar estilos de botones activos (SOLO CLASES CSS)
+                function inicializarEstilosBotones() {
+                    filterButtons.forEach(btn => {
+                        if (btn.classList.contains('active')) {
+                            // El CSS se encarga del estilo, solo necesitamos la clase
+                        }
+                    });
+                }
+
+                // Aplicar filtros iniciales
+                applyFilters();
+                inicializarEstilosBotones();
+
+                console.log("Sistema de filtros inicializado correctamente");
+            });
+
+            // Función global para resetear filtros (para el botón en no-results)
+            function resetearFiltros() {
+                const searchInput = document.getElementById('searchInput');
+                const filterButtons = document.querySelectorAll('.filter-btn');
+
+                if (searchInput)
+                    searchInput.value = '';
+
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                const allButton = document.querySelector('.filter-btn[data-category="all"]');
+                if (allButton) {
+                    allButton.classList.add('active');
+                }
+
+                // Disparar el evento de aplicar filtros
+                const event = new Event('input', {bubbles: true});
+                if (searchInput)
+                    searchInput.dispatchEvent(event);
+
+                // También llamar a applyFilters directamente por si acaso
+                if (typeof applyFilters === 'function') {
+                    setTimeout(applyFilters, 100);
+                }
+            }
+        </script>
+    </body>
 </html>

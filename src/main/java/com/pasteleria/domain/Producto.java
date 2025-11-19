@@ -33,8 +33,11 @@ public class Producto {
 
     private Boolean activo;
 
+    private Integer stock;
+
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaCreacion;
+    
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
 
