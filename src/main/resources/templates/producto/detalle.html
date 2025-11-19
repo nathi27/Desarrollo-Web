@@ -132,6 +132,19 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 color: #dc3545;
                 font-weight: 600;
             }
+            
+            .selector-tamano, .selector-sabor {
+                width: 100%;
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+            .selector-label {
+                font-weight: bold;
+                margin-bottom: 5px;
+                color: #333;
+            }
         </style>
     </head>
     <body>
@@ -196,7 +209,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                     </div>
 
                     <div class="row mt-4">
-                        <!-- Tamaños Disponibles -->
+                        <!-- Tamaños Disponibles CON SELECTOR -->
                         <div class="col-lg-4 mb-3">
                             <div class="info-card h-100">
                                 <div class="card-header">
@@ -204,14 +217,28 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                                 </div>
                                 <div class="card-body">
                                     <div th:if="${#lists.isEmpty(tamanos)}" class="text-muted text-center">Sin tamaños</div>
-                                    <ul class="feature-list" th:if="${!#lists.isEmpty(tamanos)}">
-                                        <li th:each="t : ${tamanos}" th:text="${t.etiqueta}">Tamaño</li>
-                                    </ul>
+                                    <div th:if="${!#lists.isEmpty(tamanos)}">
+                                        <!-- Selector de Tamaño -->
+                                        <div class="selector-label">Selecciona un tamaño:</div>
+                                        <select class="selector-tamano" id="selectorTamano">
+                                            <option value="">-- Elegir tamaño --</option>
+                                            <option th:each="t : ${tamanos}" 
+                                                    th:value="${t.etiqueta}"
+                                                    th:text="${t.etiqueta}">
+                                                Tamaño
+                                            </option>
+                                        </select>
+                                        
+                                        <!-- Lista de tamaños (solo visual) -->
+                                        <ul class="feature-list mt-3">
+                                            <li th:each="t : ${tamanos}" th:text="${t.etiqueta}">Tamaño</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Sabores -->
+                        <!-- Sabores CON SELECTOR -->
                         <div class="col-lg-4 mb-3">
                             <div class="info-card h-100">
                                 <div class="card-header">
@@ -219,9 +246,23 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                                 </div>
                                 <div class="card-body">
                                     <div th:if="${#lists.isEmpty(sabores)}" class="text-muted text-center">Sin sabores</div>
-                                    <ul class="feature-list" th:if="${!#lists.isEmpty(sabores)}">
-                                        <li th:each="s : ${sabores}" th:text="${s.etiqueta}">Sabor</li>
-                                    </ul>
+                                    <div th:if="${!#lists.isEmpty(sabores)}">
+                                        <!-- Selector de Sabor -->
+                                        <div class="selector-label">Selecciona un sabor:</div>
+                                        <select class="selector-sabor" id="selectorSabor">
+                                            <option value="">-- Elegir sabor --</option>
+                                            <option th:each="s : ${sabores}" 
+                                                    th:value="${s.etiqueta}"
+                                                    th:text="${s.etiqueta}">
+                                                Sabor
+                                            </option>
+                                        </select>
+                                        
+                                        <!-- Lista de sabores -->
+                                        <ul class="feature-list mt-3">
+                                            <li th:each="s : ${sabores}" th:text="${s.etiqueta}">Sabor</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -246,10 +287,10 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
 
                     <!-- Acciones -->
                     <div class="text-center">
-                        <!-- Botón Agregar al Carrito MEJORADO -->
+                        <!-- Botón Agregar al Carrito -->
                         <button class="btn btn-add-cart mb-3" 
                                 th:disabled="${producto.stock == 0}"
-                                th:onclick="${producto.stock > 0} ? 'agregarAlCarritoDesdeDetalle()' : ''"
+                                onclick="agregarAlCarritoDesdeDetalle()"
                                 th:text="${producto.stock > 0} ? 'Agregar al Carrito' : 'Producto Agotado'">
                             <i class="fas fa-shopping-cart me-2"></i>Agregar al Carrito
                         </button>
@@ -268,35 +309,90 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
         <footer th:replace="~{general/fragmentos :: footer}"></footer>
 
         <script>
-            // Stock disponible desde la base de datos (ya viene en el producto)
-            // Ya no necesitamos el stock simulado porque viene del backend
+            // Variables para las selecciones
+            let tamanoSeleccionado = '';
+            let saborSeleccionado = '';
+
+            // Inicializar al cargar la página
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log("Página cargada, inicializando carrito...");
+                actualizarContadorCarrito();
+                
+                // Configurar event listeners para los selectores
+                document.getElementById('selectorTamano').addEventListener('change', function() {
+                    tamanoSeleccionado = this.value;
+                    console.log("Tamaño seleccionado:", tamanoSeleccionado);
+                });
+                
+                document.getElementById('selectorSabor').addEventListener('change', function() {
+                    saborSeleccionado = this.value;
+                    console.log("Sabor seleccionado:", saborSeleccionado);
+                });
+            });
 
             // Función específica para esta página
             function agregarAlCarritoDesdeDetalle() {
                 // Obtener datos del producto desde Thymeleaf
                 const id = [[${producto.idProducto}]];
-                const nombre = "[[${producto.nombre}]]";
+                const nombreBase = "[[${producto.nombre}]]";
                 const precio = [[${producto.precio}]];
                 const descripcion = "[[${producto.descripcion}]]";
                 const stock = [[${producto.stock}]];
                 
-                console.log("Agregando producto:", {id, nombre, precio, stock});
+                // Obtener selecciones actuales
+                const tamanoSelect = document.getElementById('selectorTamano');
+                const saborSelect = document.getElementById('selectorSabor');
+                
+                tamanoSeleccionado = tamanoSelect.value;
+                saborSeleccionado = saborSelect.value;
+                
+                console.log("Agregando producto:", {
+                    id, 
+                    nombre: nombreBase, 
+                    precio, 
+                    stock,
+                    tamano: tamanoSeleccionado,
+                    sabor: saborSeleccionado
+                });
                 
                 // Validar stock antes de agregar
                 if (stock <= 0) {
-                    mostrarMensaje('❌ ' + nombre + ' está agotado', 'error');
+                    mostrarMensaje('❌ ' + nombreBase + ' está agotado', 'error');
                     return;
                 }
                 
-                agregarAlCarrito(id, nombre, precio, descripcion, stock);
+                // Validar que se hayan seleccionado tamaño y sabor si están disponibles
+                const tieneTamanos = [[${!#lists.isEmpty(tamanos)}]];
+                const tieneSabores = [[${!#lists.isEmpty(sabores)}]];
+                
+                if (tieneTamanos && !tamanoSeleccionado) {
+                    mostrarMensaje('❌ Por favor selecciona un tamaño', 'error');
+                    return;
+                }
+                
+                if (tieneSabores && !saborSeleccionado) {
+                    mostrarMensaje('❌ Por favor selecciona un sabor', 'error');
+                    return;
+                }
+                
+                // Construir nombre del producto con las selecciones
+                let nombreFinal = nombreBase;
+                if (tamanoSeleccionado) {
+                    nombreFinal += ` - ${tamanoSeleccionado}`;
+                }
+                if (saborSeleccionado) {
+                    nombreFinal += `, ${saborSeleccionado}`;
+                }
+                
+                agregarAlCarrito(id, nombreFinal, precio, descripcion, stock);
             }
 
-            // Función principal para agregar al carrito (MEJORADA)
+            // Función principal para agregar al carrito
             function agregarAlCarrito(id, nombre, precio, descripcion, stock) {
                 console.log("Ejecutando agregarAlCarrito con:", {id, nombre, precio, stock});
                 
                 let carrito = JSON.parse(localStorage.getItem('carritoPasteleria') || '[]');
-                const productoExistente = carrito.find(item => item.id === id);
+                const productoExistente = carrito.find(item => item.id === id && item.nombre === nombre);
                 
                 if (productoExistente) {
                     // Verificar que no exceda el stock disponible
@@ -320,7 +416,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                         precio: parseFloat(precio),
                         descripcion: descripcion,
                         cantidad: 1,
-                        stockMaximo: stock // Guardamos el stock máximo para validaciones
+                        stockMaximo: stock
                     });
                     mostrarMensaje('✅ ' + nombre + ' agregado al carrito', 'success');
                 }
@@ -361,16 +457,6 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 
                 console.log("Contador actualizado:", totalItems, "productos");
             }
-
-            // Inicializar contador al cargar la página
-            document.addEventListener('DOMContentLoaded', function() {
-                console.log("Página cargada, inicializando carrito...");
-                actualizarContadorCarrito();
-                
-                // Verificar que el carrito funciona
-                const carrito = JSON.parse(localStorage.getItem('carritoPasteleria') || '[]');
-                console.log("Carrito actual:", carrito);
-            });
         </script>
     </body>
 </html>

@@ -349,7 +349,7 @@
                     <div class="card category-card" data-category="pies-tortas">
                         <div class="category-header text-center">
                             <div class="category-icon">
-                                <i class="fas fa-pie-chart"></i>
+                                <!-- Sin emoji -->
                             </div>
                             <h2 class="mb-0">Pies y Tortas</h2>
                         </div>
@@ -363,7 +363,7 @@
                                         ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
                                     </div>
                                     <div class="product-actions">
-                                        <!-- SOLO BOTÓN VER DETALLES -->
+                                        <!-- BOTÓN VER DETALLES  -->
                                         <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
                                             <i class="fas fa-eye me-2"></i>Ver Detalles
                                         </a>
@@ -377,7 +377,7 @@
                     <div class="card category-card" data-category="macarons">
                         <div class="category-header text-center">
                             <div class="category-icon">
-                                <i class="fas fa-cookie-bite"></i>
+                                <!-- Sin emoji -->
                             </div>
                             <h2 class="mb-0">Macarons</h2>
                         </div>
@@ -391,7 +391,7 @@
                                         ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
                                     </div>
                                     <div class="product-actions">
-                                        <!-- SOLO BOTÓN VER DETALLES -->
+                                        <!-- BOTÓN VER DETALLES  -->
                                         <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
                                             <i class="fas fa-eye me-2"></i>Ver Detalles
                                         </a>
@@ -405,7 +405,7 @@
                     <div class="card category-card" data-category="galletas">
                         <div class="category-header text-center">
                             <div class="category-icon">
-                                <i class="fas fa-cookie"></i>
+                                <!-- Sin emoji -->
                             </div>
                             <h2 class="mb-0">Galletas</h2>
                         </div>
@@ -419,7 +419,7 @@
                                         ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
                                     </div>
                                     <div class="product-actions">
-                                        <!-- SOLO BOTÓN VER DETALLES -->
+                                        <!-- BOTÓN VER DETALLES  -->
                                         <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
                                             <i class="fas fa-eye me-2"></i>Ver Detalles
                                         </a>
@@ -433,7 +433,7 @@
                     <div class="card category-card" data-category="pasteles">
                         <div class="category-header text-center">
                             <div class="category-icon">
-                                <i class="fas fa-birthday-cake"></i>
+                                <!-- Sin emoji -->
                             </div>
                             <h2 class="mb-0">Pasteles</h2>
                         </div>
@@ -447,7 +447,7 @@
                                         ₡<span th:text="${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 2, 'POINT')}">0.00</span>
                                     </div>
                                     <div class="product-actions">
-                                        <!-- SOLO BOTÓN VER DETALLES -->
+                                        <!-- BOTÓN VER DETALLES-->
                                         <a th:href="@{'/producto/' + ${producto.idProducto}}" class="btn btn-ver-detalles">
                                             <i class="fas fa-eye me-2"></i>Ver Detalles
                                         </a>
@@ -552,12 +552,11 @@
                     button.addEventListener('click', function () {
                         console.log("Botón de filtro clickeado:", this.getAttribute('data-category'));
 
-                        // Remover clase active de todos los botones
+                        
                         filterButtons.forEach(btn => {
                             btn.classList.remove('active');
                         });
 
-                        // Agregar clase active al botón clickeado (el CSS se encarga del estilo)
                         this.classList.add('active');
 
                         // Actualizar categoría activa
@@ -589,11 +588,10 @@
                     console.log("Filtros reseteados");
                 }
 
-                // Inicializar estilos de botones activos (SOLO CLASES CSS)
+                // Inicializar estilos de botones activos 
                 function inicializarEstilosBotones() {
                     filterButtons.forEach(btn => {
                         if (btn.classList.contains('active')) {
-                            // El CSS se encarga del estilo, solo necesitamos la clase
                         }
                     });
                 }

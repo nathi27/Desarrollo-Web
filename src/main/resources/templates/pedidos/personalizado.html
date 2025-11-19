@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{general/fragmentos :: head}">
+    <title>Pedidos Personalizados - Pastelería</title>
+    <style>
+        .option-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #8B4513;
+        }
+        .option-card.selected {
+            background-color: #8B4513;
+            color: white;
+            border-color: #5D4037;
+        }
+        .section-title {
+            color: #8B4513;
+            border-bottom: 2px solid #D2691E;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+        .btn-primary-custom {
+            background-color: #8B4513;
+            border-color: #8B4513;
+        }
+        .btn-primary-custom:hover {
+            background-color: #5D4037;
+            border-color: #5D4037;
+        }
+    </style>
+</head>
+<body>
+    <header th:replace="~{general/fragmentos :: header}"></header>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">Pedidos Personalizados</h1>
+                <p class="text-center text-muted mb-5">Crea tu pastel perfecto con nuestras opciones personalizadas</p>
+            </div>
+        </div>
+
+        <form th:action="@{/pedidos/procesar}" method="post" class="bg-white p-4 rounded shadow-sm">
+            
+            <!-- Sección Producto -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h3 class="section-title">Producto</h3>
+                    <div class="row">
+                        <div th:each="opcion : ${opcionesProducto}" class="col-md-3 mb-3">
+                            <div class="card option-card text-center p-3" 
+                                 th:data-value="${opcion.valor}"
+                                 th:onclick="seleccionarOpcion(this, 'producto')">
+                                <h5 th:text="${opcion.valor}"></h5>
+                                <small th:if="${opcion.precioAdicional > 0}" 
+                                       th:text="'+ $' + ${opcion.precioAdicional}"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="productoSeleccionado" name="producto">
+                </div>
+            </div>
+
+            <!-- Sección Sabor Bizcocho -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h3 class="section-title">Sabor Bizcocho</h3>
+                    <div class="row">
+                        <div th:each="opcion : ${opcionesBizcocho}" class="col-md-3 mb-3">
+                            <div class="card option-card text-center p-3"
+                                 th:data-value="${opcion.valor}"
+                                 th:onclick="seleccionarOpcion(this, 'bizcocho')">
+                                <h5 th:text="${opcion.valor}"></h5>
+                                <small th:if="${opcion.precioAdicional > 0}" 
+                                       th:text="'+ $' + ${opcion.precioAdicional}"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="bizcochoSeleccionado" name="saborBizcocho">
+                </div>
+            </div>
+
+            <!-- Sección Sabor Relleno -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h3 class="section-title">Sabor Relleno</h3>
+                    <div class="row">
+                        <div th:each="opcion : ${opcionesRelleno}" class="col-md-3 mb-3">
+                            <div class="card option-card text-center p-3"
+                                 th:data-value="${opcion.valor}"
+                                 th:onclick="seleccionarOpcion(this, 'relleno')">
+                                <h5 th:text="${opcion.valor}"></h5>
+                                <small th:if="${opcion.precioAdicional > 0}" 
+                                       th:text="'+ $' + ${opcion.precioAdicional}"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="rellenoSeleccionado" name="saborRelleno">
+                </div>
+            </div>
+
+            <!-- Sección Tamaño -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h3 class="section-title">Tamaño</h3>
+                    <div class="row">
+                        <div th:each="opcion : ${opcionesTamano}" class="col-md-3 mb-3">
+                            <div class="card option-card text-center p-3"
+                                 th:data-value="${opcion.valor}"
+                                 th:onclick="seleccionarOpcion(this, 'tamano')">
+                                <h5 th:text="${opcion.valor}"></h5>
+                                <small th:if="${opcion.precioAdicional > 0}" 
+                                       th:text="'+ $' + ${opcion.precioAdicional}"></small>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="tamanoSeleccionado" name="tamano">
+                </div>
+            </div>
+
+            <!-- Personalización Adicional -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h3 class="section-title">Personalización Adicional</h3>
+                    <div class="form-group">
+                        <label for="personalizacion">¿Tienes alguna solicitud especial? (diseño, mensaje, etc.)</label>
+                        <textarea class="form-control" id="personalizacion" name="personalizacion" 
+                                  rows="4" placeholder="Describe aquí cualquier personalización adicional que desees..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información del Cliente -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h3 class="section-title">Tus Datos</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nombreCliente">Nombre Completo *</label>
+                            <input type="text" class="form-control" id="nombreCliente" name="nombreCliente" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="telefono">Teléfono *</label>
+                            <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email">Correo Electrónico *</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="fechaEntrega">Fecha de Entrega Deseada *</label>
+                            <input type="date" class="form-control" id="fechaEntrega" name="fechaEntrega" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón de Envío -->
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary btn-lg w-100 btn-primary-custom">
+                        Realizar Pedido Personalizado
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+
+    <script>
+        function seleccionarOpcion(elemento, tipo) {
+            // Remover selección de otros elementos del mismo tipo
+            const cards = elemento.parentElement.parentElement.querySelectorAll('.option-card');
+            cards.forEach(card => {
+                card.classList.remove('selected');
+                card.classList.remove('border-primary');
+            });
+            
+            // Seleccionar el elemento actual
+            elemento.classList.add('selected');
+            elemento.classList.add('border-primary');
+            
+            // Actualizar el campo hidden correspondiente
+            document.getElementById(tipo + 'Seleccionado').value = elemento.getAttribute('data-value');
+        }
+
+        // Validación antes de enviar
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const camposRequeridos = ['producto', 'bizcocho', 'relleno', 'tamano'];
+            let valido = true;
+            
+            camposRequeridos.forEach(campo => {
+                const valor = document.getElementById(campo + 'Seleccionado').value;
+                if (!valor) {
+                    valido = false;
+                    alert('Por favor selecciona un ' + campo);
+                }
+            });
+            
+            if (!valido) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{general/fragmentos :: head}">
+    <title>Confirmación de Pedido - Pastelería</title>
+</head>
+<body>
+    <header th:replace="~{general/fragmentos :: header}"></header>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card text-center">
+                    <div class="card-body py-5">
+                        <div class="mb-4">
+                            <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                        </div>
+                        <h1 class="card-title text-success mb-4">¡Pedido Recibido!</h1>
+                        <p class="card-text lead mb-4">
+                            Tu pedido personalizado ha sido recibido exitosamente. 
+                            Nos pondremos en contacto contigo pronto para confirmar los detalles y coordinar la entrega.
+                        </p>
+                        <p class="text-muted mb-4">
+                            Recibirás un correo de confirmación con todos los detalles de tu pedido.
+                        </p>
+                        <div class="mt-4">
+                            <a th:href="@{/}" class="btn btn-primary me-3">Volver al Inicio</a>
+                            <a th:href="@{/catalogo}" class="btn btn-outline-secondary">Seguir Comprando</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+</body>
+</html>

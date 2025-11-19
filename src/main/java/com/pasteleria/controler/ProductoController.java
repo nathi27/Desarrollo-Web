@@ -42,10 +42,10 @@ public class ProductoController {
 
     @GetMapping("/catalogo")
     public String catalogo(Model model) {
-        // Obtener todos los productos activos
+        // Obtiene todos los productos activos
         List<Producto> todosProductos = servicio.listarActivos();
 
-        // Filtrar por categorías basado en el nombre
+        // Filtra por categorías basado en el nombre
         List<Producto> piesTortas = todosProductos.stream()
                 .filter(p -> p.getNombre().contains("Pie")
                 || p.getNombre().contains("Torta")
