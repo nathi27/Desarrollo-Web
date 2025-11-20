@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{general/fragmentos :: head}">
+        <title>Confirmar código - Mimi's Bakery</title>
+    </head>
+    <body>
+
+        <header th:replace="~{general/fragmentos :: header}"></header>
+
+        <main class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+
+                    <div th:if="${mensajeInfo}" class="alert alert-info">
+                        <span th:text="${mensajeInfo}"></span>
+                    </div>
+
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body p-4">
+                            <h1 class="h4 text-center mb-3">Confirmar código</h1>
+                            <p class="text-muted text-center mb-4">
+                                Revisa tu correo y escribe el código que te enviamos.
+                            </p>
+
+                            <form th:action="@{/recuperar/confirmar}"
+                                  th:object="${confirmarCodigoForm}"
+                                  method="post"
+                                  novalidate>
+
+                                <!-- Correo oculto: se envía al backend pero no se muestra -->
+                                <input type="hidden" th:field="*{correo}"/>
+
+                                <!-- Código -->
+                                <div class="mb-3">
+                                    <label class="form-label">Código de verificación</label>
+                                    <input type="text"
+                                           maxlength="6"
+                                           class="form-control"
+                                           th:field="*{codigo}">
+                                    <div class="text-danger small"
+                                         th:if="${#fields.hasErrors('codigo')}"
+                                         th:errors="*{codigo}"></div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100">
+                                    Verificar código
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <p class="text-center mt-3">
+                        ¿No recibiste el código?
+                        <a th:href="@{/recuperar}">Volver a enviar</a>
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}"></footer>
+
+    </body>
+</html>

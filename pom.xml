@@ -27,7 +27,10 @@
         <url/>
     </scm>
     <properties>
-        <java.version>17</java.version> <!-- buscar una version a la que a todos nos sirva -->
+        <java.version>25</java.version> <!-- buscar una version a la que a todos nos sirva -->
+        
+        <start-class>com.pasteleria.PasteleriaApplication</start-class>
+        
     </properties>
     <dependencies>
         <dependency>
@@ -108,7 +111,16 @@
             <artifactId>thymeleaf-extras-springsecurity6</artifactId>
         </dependency> -->
        
-        <!-- Se agregan más dependencias aqui -->      
+        <!-- Se agregan más dependencias aqui -->
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        
+        
+              
+                          
     </dependencies>
         
     <build>

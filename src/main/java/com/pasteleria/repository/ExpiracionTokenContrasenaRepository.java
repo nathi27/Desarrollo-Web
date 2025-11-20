@@ -6,10 +6,17 @@
 package com.pasteleria.repository;
 
 import com.pasteleria.domain.ExpiracionTokenContrasena;
+import com.pasteleria.domain.Usuario;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ExpiracionTokenContrasenaRepository extends JpaRepository<ExpiracionTokenContrasena, Long> {
     Optional<ExpiracionTokenContrasena>
-    findTopByUsuario_CorreoAndCodigoAndUsadoFalseOrderByIdTokenDesc(String correo, String codigo);
+    findTopByUsuarioAndCodigoAndUsadoAndExpiraEnAfterOrderByExpiraEnDesc(
+                Usuario usuario,
+                String codigo,
+                Integer usado,
+                LocalDateTime ahora
+        );
 }
