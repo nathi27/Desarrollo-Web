@@ -2,155 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="~{general/fragmentos :: head}">
     <style>
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 0;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .cart-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .cart-item {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 1px solid #e9ecef;
-            transition: all 0.3s ease;
-        }
-        .cart-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        .product-image {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #6c757d;
-        }
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .quantity-btn {
-            width: 40px;
-            height: 40px;
-            border: 2px solid #667eea;
-            background: white;
-            color: #667eea;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .quantity-btn:hover {
-            background: #667eea;
-            color: white;
-        }
-        .quantity-input {
-            width: 60px;
-            text-align: center;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 8px;
-            font-weight: bold;
-        }
-        .remove-btn {
-            background: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .remove-btn:hover {
-            background: #c82333;
-            transform: scale(1.05);
-        }
-        .price-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 30px;
-        }
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .summary-total {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #28a745;
-            border-bottom: none;
-        }
-        .checkout-btn {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            border: none;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            width: 100%;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-        .checkout-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
-        }
-        .continue-shopping {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-        }
-        .continue-shopping:hover {
-            background: #5a6268;
-            color: white;
-            transform: translateY(-2px);
-        }
-        .empty-cart {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6c757d;
-        }
-        .empty-cart i {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
-        .stock-warning {
-            color: #dc3545;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            display: none;
-        }
-        .subtotal {
-            font-weight: bold;
-            color: #495057;
-            font-size: 1.1rem;
+        /* Estilos originales */
+        .hero-section { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 0; text-align: center; margin-bottom: 40px; }
+        .cart-container { max-width: 1200px; margin: 0 auto; }
+        .cart-item { background: white; border-radius: 15px; padding: 25px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 1px solid #e9ecef; transition: all 0.3s ease; }
+        .cart-item:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .product-image { width: 80px; height: 80px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #6c757d; }
+        .quantity-controls { display: flex; align-items: center; gap: 10px; }
+        .quantity-btn { width: 40px; height: 40px; border: 2px solid #667eea; background: white; color: #667eea; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
+        .quantity-btn:hover { background: #667eea; color: white; }
+        .quantity-input { width: 60px; text-align: center; border: 2px solid #e9ecef; border-radius: 10px; padding: 8px; font-weight: bold; }
+        .remove-btn { background: #dc3545; color: white; border: none; border-radius: 8px; padding: 8px 15px; cursor: pointer; transition: all 0.3s ease; }
+        .remove-btn:hover { background: #c82333; transform: scale(1.05); }
+        .price-section { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; padding: 30px; margin-top: 30px; }
+        .summary-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #dee2e6; }
+        .summary-total { font-size: 1.5rem; font-weight: bold; color: #28a745; border-bottom: none; }
+        .checkout-btn { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); border: none; color: white; padding: 15px 30px; border-radius: 25px; font-weight: bold; font-size: 1.1rem; width: 100%; margin-top: 20px; transition: all 0.3s ease; }
+        .checkout-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3); }
+        .continue-shopping { background: #6c757d; color: white; border: none; padding: 12px 25px; border-radius: 25px; text-decoration: none; display: inline-block; transition: all 0.3s ease; }
+        .continue-shopping:hover { background: #5a6268; color: white; transform: translateY(-2px); }
+        .empty-cart { text-align: center; padding: 60px 20px; color: #6c757d; }
+        .empty-cart i { font-size: 4rem; margin-bottom: 20px; opacity: 0.5; }
+        .stock-warning { color: #dc3545; font-size: 0.9rem; margin-top: 5px; display: none; }
+        .subtotal { font-weight: bold; color: #495057; font-size: 1.1rem; }
+        
+        /* NUEVO CSS AÑADIDO PARA EL BOTÓN DESHABILITADO */
+        .checkout-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
     </style>
   </head>
@@ -167,7 +48,6 @@
 
         <section class="container py-4">
             <div class="cart-container">
-                <!-- Carrito Vacío -->
                 <div id="emptyCart" class="empty-cart">
                     <i class="fas fa-shopping-cart"></i>
                     <h3>Tu carrito está vacío</h3>
@@ -177,13 +57,11 @@
                     </a>
                 </div>
 
-                <!-- Carrito con Productos -->
                 <div id="cartWithItems" style="display: none;">
                     <div class="row">
                         <div class="col-lg-8">
                             <div id="cartItemsContainer">
-                                <!-- Los items del carrito se cargan aquí dinámicamente -->
-                            </div>
+                                </div>
                             <div class="text-start mt-3">
                                 <a th:href="@{/catalogo}" class="continue-shopping">
                                     <i class="fas fa-arrow-left me-2"></i>Continuar Comprando
@@ -215,8 +93,33 @@
                                     <span id="total">₡0.00</span>
                                 </div>
                                 
-                                <button class="checkout-btn">
-                                    <i class="fas fa-credit-card me-2"></i>Proceder al Pago
+                                <div class="payment-methods mt-4 mb-4">
+                                    <h5 class="mb-3">Método de Pago</h5>
+                                    
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="radio" name="metodoPago" id="pagoSinpe" value="Sinpe Móvil">
+                                        <label class="form-check-label" for="pagoSinpe">
+                                            <i class="fas fa-mobile-alt me-2 text-primary"></i> Sinpe Móvil
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="radio" name="metodoPago" id="pagoTarjeta" value="Tarjeta">
+                                        <label class="form-check-label" for="pagoTarjeta">
+                                            <i class="fas fa-credit-card me-2 text-warning"></i> Tarjeta Débito/Crédito
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="radio" name="metodoPago" id="pagoEfectivo" value="Efectivo">
+                                        <label class="form-check-label" for="pagoEfectivo">
+                                            <i class="fas fa-money-bill-wave me-2 text-success"></i> Efectivo contra entrega
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button class="checkout-btn" onclick="procesarPago()" id="btnFinalizar" disabled>
+                                    <i class="fas fa-check-circle me-2"></i>Seleccione un método de pago
                                 </button>
                             </div>
                         </div>
@@ -229,42 +132,25 @@
     <footer th:replace="~{general/fragmentos :: footer}"></footer>
 
     <script>
-        // Stock simulado (de la base de datos)
+        // Stock simulado
         const stockDisponible = {
-            1: 10, // Pie de manzana
-            2: 8,  // Pie de limón
-            3: 6,  // Torta chilena
-            4: 12, // Pavlova
-            5: 15, // Caja de macarons
-            6: 20, // Caja de donas
-            7: 18, // Caja de brownies
-            8: 25, // Galletas personalizadas
-            9: 30, // Galletas corazón
-            10: 22, // Brookies
-            11: 8,  // Pasteles clásicos
-            12: 6,  // Pasteles personalizados
-            13: 10, // Pasteles fríos
-            14: 15  // Lunch cake
+            1: 10, 2: 8, 3: 6, 4: 12, 5: 15, 6: 20, 7: 18, 8: 25, 9: 30, 10: 22, 11: 8, 12: 6, 13: 10, 14: 15
         };
 
-        // Función para obtener el carrito del localStorage
         function obtenerCarrito() {
             const carrito = localStorage.getItem('carritoPasteleria');
             return carrito ? JSON.parse(carrito) : [];
         }
 
-        // Función para guardar el carrito en localStorage
         function guardarCarrito(carrito) {
             localStorage.setItem('carritoPasteleria', JSON.stringify(carrito));
         }
 
-        // Función para agregar producto al carrito
         function agregarAlCarrito(id, nombre, precio, descripcion) {
             const carrito = obtenerCarrito();
             const productoExistente = carrito.find(item => item.id === id);
             
             if (productoExistente) {
-                // Si ya existe, aumentar cantidad si no supera el stock
                 if (productoExistente.cantidad < stockDisponible[id]) {
                     productoExistente.cantidad += 1;
                     mostrarMensaje('Producto agregado al carrito', 'success');
@@ -273,13 +159,8 @@
                     return;
                 }
             } else {
-                // Si no existe, agregar nuevo producto
                 carrito.push({
-                    id: id,
-                    nombre: nombre,
-                    precio: precio,
-                    descripcion: descripcion,
-                    cantidad: 1
+                    id: id, nombre: nombre, precio: precio, descripcion: descripcion, cantidad: 1
                 });
                 mostrarMensaje('Producto agregado al carrito', 'success');
             }
@@ -288,7 +169,6 @@
             actualizarContadorCarrito();
         }
 
-        // Función para eliminar producto del carrito
         function eliminarDelCarrito(id) {
             const carrito = obtenerCarrito();
             const nuevoCarrito = carrito.filter(item => item.id !== id);
@@ -298,21 +178,14 @@
             mostrarMensaje('Producto eliminado del carrito', 'info');
         }
 
-        // Función para actualizar cantidad
         function actualizarCantidad(id, nuevaCantidad) {
-            if (nuevaCantidad < 1) {
-                eliminarDelCarrito(id);
-                return;
-            }
-            
+            if (nuevaCantidad < 1) { eliminarDelCarrito(id); return; }
             if (nuevaCantidad > stockDisponible[id]) {
                 mostrarMensaje('Cantidad mayor al stock disponible', 'error');
                 nuevaCantidad = stockDisponible[id];
             }
-            
             const carrito = obtenerCarrito();
             const producto = carrito.find(item => item.id === id);
-            
             if (producto) {
                 producto.cantidad = nuevaCantidad;
                 guardarCarrito(carrito);
@@ -321,7 +194,6 @@
             }
         }
 
-        // Función para renderizar el carrito
         function renderizarCarrito() {
             const carrito = obtenerCarrito();
             const cartItemsContainer = document.getElementById('cartItemsContainer');
@@ -348,16 +220,11 @@
                     <div class="cart-item">
                         <div class="row align-items-center">
                             <div class="col-md-2">
-                                <div class="product-image">
-                                    <i class="fas fa-birthday-cake"></i>
-                                </div>
+                                <div class="product-image"><i class="fas fa-birthday-cake"></i></div>
                             </div>
                             <div class="col-md-4">
                                 <h5 class="mb-1">${item.nombre}</h5>
                                 <p class="text-muted mb-0 small">${item.descripcion}</p>
-                                <div class="stock-warning" id="stockWarning-${item.id}">
-                                    Cantidad mayor al stock disponible
-                                </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="text-md-center">
@@ -367,9 +234,7 @@
                             <div class="col-md-2">
                                 <div class="quantity-controls">
                                     <button class="quantity-btn" onclick="actualizarCantidad(${item.id}, ${item.cantidad - 1})">-</button>
-                                    <input type="number" class="quantity-input" value="${item.cantidad}" 
-                                           min="1" max="${stockDisponible[item.id]}" 
-                                           onchange="actualizarCantidad(${item.id}, parseInt(this.value))">
+                                    <input type="number" class="quantity-input" value="${item.cantidad}" min="1" max="${stockDisponible[item.id]}" onchange="actualizarCantidad(${item.id}, parseInt(this.value))">
                                     <button class="quantity-btn" onclick="actualizarCantidad(${item.id}, ${item.cantidad + 1})">+</button>
                                 </div>
                             </div>
@@ -377,14 +242,11 @@
                                 <div class="text-end">
                                     <span class="subtotal">₡${itemSubtotal.toLocaleString()}</span>
                                     <br>
-                                    <button class="remove-btn mt-2" onclick="eliminarDelCarrito(${item.id})">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                    <button class="remove-btn mt-2" onclick="eliminarDelCarrito(${item.id})"><i class="fas fa-trash"></i></button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
             
             cartItemsContainer.innerHTML = html;
@@ -399,12 +261,9 @@
             document.getElementById('total').textContent = `₡${total.toLocaleString()}`;
         }
 
-        // Función para actualizar contador del carrito en el header
         function actualizarContadorCarrito() {
             const carrito = obtenerCarrito();
             const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-            
-            // Actualizar badge en el header si existe
             const cartBadge = document.querySelector('.cart-badge');
             if (cartBadge) {
                 cartBadge.textContent = totalItems;
@@ -412,31 +271,79 @@
             }
         }
 
-        // Función para mostrar mensajes
         function mostrarMensaje(mensaje, tipo) {
-            // Crear toast notification
             const toast = document.createElement('div');
             toast.className = `alert alert-${tipo === 'error' ? 'danger' : tipo} alert-dismissible fade show`;
             toast.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 1050; min-width: 300px;';
-            toast.innerHTML = `
-                ${mensaje}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            `;
+            toast.innerHTML = `${mensaje} <button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
             document.body.appendChild(toast);
-            
-            // Auto-remover después de 3 segundos
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.parentNode.removeChild(toast);
-                }
-            }, 3000);
+            setTimeout(() => { if (toast.parentNode) toast.parentNode.removeChild(toast); }, 3000);
         }
 
-        // Inicializar carrito cuando la página carga
+        // =====================================================
+        // NUEVA LÓGICA AGREGADA PARA EL PAGO (HU7 y HU19)
+        // =====================================================
+        
         document.addEventListener('DOMContentLoaded', function() {
             renderizarCarrito();
             actualizarContadorCarrito();
+            
+            // Lógica para habilitar el botón solo si selecciona pago
+            const radiosPago = document.getElementsByName('metodoPago');
+            const btnFinalizar = document.getElementById('btnFinalizar');
+
+            radiosPago.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    btnFinalizar.disabled = false;
+                    btnFinalizar.innerHTML = '<i class="fas fa-check-circle me-2"></i>Finalizar Compra';
+                });
+            });
         });
+
+        // Función para enviar datos al backend
+        function procesarPago() {
+            const carrito = obtenerCarrito();
+            
+            if(!document.querySelector('input[name="metodoPago"]:checked')) {
+                mostrarMensaje('Por favor selecciona un método de pago', 'error');
+                return;
+            }
+
+            const metodoSeleccionado = document.querySelector('input[name="metodoPago"]:checked').value;
+            
+            let subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+            let envio = 2000;
+            let impuestos = subtotal * 0.13;
+            let total = subtotal + envio + impuestos;
+
+            const datosCompra = {
+                metodoPago: metodoSeleccionado,
+                total: total,
+                items: carrito
+            };
+
+            // Enviar a Spring Boot
+            fetch('/checkout/procesar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(datosCompra)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    localStorage.removeItem('carritoPasteleria'); // Limpiar carrito
+                    window.location.href = '/checkout/confirmacion/' + data.idPedido; // Ir a confirmación
+                } else {
+                    mostrarMensaje('Error al procesar el pedido: ' + (data.message || ''), 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                mostrarMensaje('Error de conexión', 'error');
+            });
+        }
     </script>
   </body>
 </html>

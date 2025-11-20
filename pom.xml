@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>24</java.version> <!-- buscar una version a la que a todos nos sirva -->
+        <java.version>17</java.version> <!-- buscar una version a la que a todos nos sirva -->
     </properties>
     <dependencies>
         <dependency>
