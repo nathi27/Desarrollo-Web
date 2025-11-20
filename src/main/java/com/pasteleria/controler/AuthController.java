@@ -96,6 +96,7 @@ public class AuthController {
     }
 
     // Paso 1 (POST): procesar el correo y generar código
+    // Paso 1 (POST): procesar el correo y generar código
     @PostMapping("/recuperar")
     public String procesarRecuperar(
             @Valid @ModelAttribute("solicitarCodigoForm") SolicitarCodigoForm form,
@@ -110,10 +111,12 @@ public class AuthController {
         String correo = form.getCorreo().toLowerCase();
         usuarioService.generarCodigoRecuperacion(correo);
 
-        // Mensaje genérico por seguridad (no revela si el correo existe o no)
+        // Mensaje genérico por seguridad (no revela si existe o no el correo)
         redirectAttributes.addFlashAttribute("mensajeInfo",
                 "Si el correo está registrado, se ha enviado un código de verificación.");
-        redirectAttributes.addFlashAttribute("correo", correo);
+
+        // IMPORTANTE: mandar el correo como parámetro en la URL
+        redirectAttributes.addAttribute("correo", correo);
 
         return "redirect:/recuperar/confirmar";
     }
@@ -152,7 +155,9 @@ public class AuthController {
             return "auth/confirmar-codigo";
         }
 
-        redirectAttributes.addFlashAttribute("correo", correo);
+        // Mandar el correo como parámetro para el siguiente paso
+        redirectAttributes.addAttribute("correo", correo);
+
         return "redirect:/recuperar/cambiar";
     }
 

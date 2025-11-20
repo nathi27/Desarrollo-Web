@@ -28,6 +28,18 @@ public class ProductoController {
         return "producto/listado";
     }
 
+    // PRIMERO pon las rutas específicas
+    @GetMapping("/producto/ingredientes")
+    public String ingredientes(Model model) {
+        return "producto/ingredientes";
+    }
+
+    @GetMapping("/producto/informacion")
+    public String informacion(Model model) {
+        return "producto/informacion";
+    }
+
+    // LUEGO pon la ruta con parámetro {id}
     @GetMapping("/producto/{id}")
     public String detalle(@PathVariable Long id, Model model) {
         Producto producto = servicio.ver(id);
@@ -36,7 +48,7 @@ public class ProductoController {
         model.addAttribute("sabores", servicio.sabores(id));
         model.addAttribute("ingredientes", servicio.ingredientes(id));
         model.addAttribute("stockDisponible", producto != null ? producto.getStock() : 0);
-        
+
         return "producto/detalle";
     }
 
@@ -75,7 +87,7 @@ public class ProductoController {
 
         return "producto/catalogo";
     }
-    
+
     @GetMapping("/carrito")
     public String carrito() {
         return "producto/carrito";

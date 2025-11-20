@@ -8,200 +8,201 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 CODIGO DE PRODUCTOS
 -->
 <html xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="~{general/fragmentos :: head}">
-    <style>
-        .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 0;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .services-section {
-            padding: 40px 0;
-        }
-        .service-card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            margin-bottom: 30px;
-            height: 100%;
-            background: white;
-        }
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        .service-header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            border-radius: 15px 15px 0 0;
-            padding: 20px;
-            text-align: center;
-        }
-        .service-body {
-            padding: 25px;
-        }
-        .service-title {
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #333;
-            font-size: 1.3rem;
-        }
-        .service-description {
-            color: #666;
-            line-height: 1.5;
-        }
-        .products-grid {
-            padding: 40px 0;
-        }
-        .product-card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            margin-bottom: 25px;
-            height: 100%;
-            cursor: pointer;
-        }
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        .product-image {
-            height: 180px;
-            background-color: #f8f9fa;
-            border-radius: 15px 15px 0 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #6c757d;
-            font-size: 2.5rem;
-        }
-        .product-body {
-            padding: 20px;
-        }
-        .product-title {
-            color: #333;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .product-description {
-            color: #666;
-            line-height: 1.4;
-            font-size: 0.9rem;
-        }
-        .footer-section {
-            background-color: #f8f9fa;
-            padding: 40px 0;
-            margin-top: 60px;
-            text-align: center;
-        }
-        .footer-title {
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-        .footer-info {
-            color: #666;
-            margin: 8px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .btn-custom {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-    </style>
-  </head>
-  <body>
-    <header th:replace="~{general/fragmentos :: header}"></header>
-    
-    <main>
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="container">
-                <h1 class="display-5 fw-bold mb-3">Productos</h1>
-                <p class="lead mb-4">
-                    En Mimi's Bakery contamos con productos de primera calidad perfectos para cada ocasión.
-                </p>
-            </div>
-        </section>
+    <head th:replace="~{general/fragmentos :: head}">
+        <style>
+            .hero-section {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 60px 0;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+            .services-section {
+                padding: 40px 0;
+            }
+            .service-card {
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+                margin-bottom: 30px;
+                height: 100%;
+                background: white;
+                cursor: pointer;
+            }
+            .service-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            }
+            .service-header {
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                color: white;
+                border-radius: 15px 15px 0 0;
+                padding: 20px;
+                text-align: center;
+            }
+            .service-body {
+                padding: 25px;
+            }
+            .service-title {
+                font-weight: bold;
+                margin-bottom: 15px;
+                color: #333;
+                font-size: 1.3rem;
+            }
+            .service-description {
+                color: #666;
+                line-height: 1.5;
+            }
+            .products-grid {
+                padding: 40px 0;
+            }
+            .product-card {
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+                margin-bottom: 25px;
+                height: 100%;
+                cursor: pointer;
+            }
+            .product-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            }
+            .product-image {
+                height: 180px;
+                background-color: #f8f9fa;
+                border-radius: 15px 15px 0 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #6c757d;
+                font-size: 2.5rem;
+            }
+            .product-body {
+                padding: 20px;
+            }
+            .product-title {
+                color: #333;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .product-description {
+                color: #666;
+                line-height: 1.4;
+                font-size: 0.9rem;
+            }
+            .footer-section {
+                background-color: #f8f9fa;
+                padding: 40px 0;
+                margin-top: 60px;
+                text-align: center;
+            }
+            .footer-title {
+                font-weight: bold;
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+                color: #333;
+            }
+            .footer-info {
+                color: #666;
+                margin: 8px 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+            .btn-custom {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border: none;
+                color: white;
+                padding: 12px 30px;
+                border-radius: 25px;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <header th:replace="~{general/fragmentos :: header}"></header>
 
-        <!-- Servicios/Categorías -->
-        <section class="services-section">
-            <div class="container">
-                <div class="row">
-                    <!-- Ver catálogo -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card service-card" onclick="window.location.href='/catalogo'">
-                            <div class="service-header">
-                                <h5 class="mb-0">Ver catálogo</h5>
-                            </div>
-                            <div class="service-body">
-                                <p class="service-description">
-                                    Un listado con todos nuestros productos disponibles
-                                </p>
+        <main>
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="container">
+                    <h1 class="display-5 fw-bold mb-3">Productos</h1>
+                    <p class="lead mb-4">
+                        En Mimi's Bakery contamos con productos de primera calidad perfectos para cada ocasión.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Servicios/Categorías -->
+            <section class="services-section">
+                <div class="container">
+                    <div class="row">
+                        <!-- Ver catálogo -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card service-card" onclick="window.location.href='/catalogo'">
+                                <div class="service-header">
+                                    <h5 class="mb-0">Ver catálogo</h5>
+                                </div>
+                                <div class="service-body">
+                                    <p class="service-description">
+                                        Un listado con todos nuestros productos disponibles
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Personalización -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card service-card">
-                            <div class="service-header">
-                                <h5 class="mb-0">Personalización</h5>
-                            </div>
-                            <div class="service-body">
-                                <p class="service-description">
-                                    Productos personalizados perfectos para toda ocasión
-                                </p>
+                        <!-- Personalización -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card service-card" onclick="window.location.href='/pedidos/personalizado'">
+                                <div class="service-header">
+                                    <h5 class="mb-0">Personalización</h5>
+                                </div>
+                                <div class="service-body">
+                                    <p class="service-description">
+                                        Productos personalizados perfectos para toda ocasión
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Información -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card service-card">
-                            <div class="service-header">
-                                <h5 class="mb-0">Información</h5>
-                            </div>
-                            <div class="service-body">
-                                <p class="service-description">
-                                    Sabores, tamaños, rellenos y otra información importante
-                                </p>
+                        <!-- Información -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card service-card" onclick="window.location.href='/producto/informacion'">
+                                <div class="service-header">
+                                    <h5 class="mb-0">Información</h5>
+                                </div>
+                                <div class="service-body">
+                                    <p class="service-description">
+                                        Sabores, tamaños, rellenos y otra información importante
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Ingredientes -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card service-card">
-                            <div class="service-header">
-                                <h5 class="mb-0">Ingredientes</h5>
-                            </div>
-                            <div class="service-body">
-                                <p class="service-description">
-                                    ¿Tienes alergía o intolerancia? Revisa nuestros ingredientes para verificar que no vayas a tener ningún problema
-                                </p>
+                        <!-- Ingredientes -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card service-card" onclick="window.location.href='/producto/ingredientes'">
+                                <div class="service-header">
+                                    <h5 class="mb-0">Ingredientes</h5>
+                                </div>
+                                <div class="service-body">
+                                    <p class="service-description">
+                                        ¿Tienes alergía o intolerancia? Revisa nuestros ingredientes para verificar que no vayas a tener ningún problema
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-    </main>
-    
-    <footer th:replace="~{general/fragmentos :: footer}"></footer>
-  </body>
+        </main>
+
+        <footer th:replace="~{general/fragmentos :: footer}"></footer>
+    </body>
 </html>

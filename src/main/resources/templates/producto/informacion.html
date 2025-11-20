@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{general/fragmentos :: head}">
+    <title>Información - Mimi's Bakery</title>
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .content-section {
+            padding: 40px 0;
+        }
+        .info-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            background: white;
+        }
+        .info-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 25px;
+            text-align: center;
+        }
+        .info-body {
+            padding: 30px;
+        }
+        .info-text {
+            color: #555;
+            line-height: 1.7;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .option-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .option-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .option-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .option-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .option-list li:last-child {
+            border-bottom: none;
+        }
+        .btn-back {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+  </head>
+  <body>
+    <header th:replace="~{general/fragmentos :: header}"></header>
+    
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="display-5 fw-bold mb-3">Información</h1>
+                <p class="lead mb-4">
+                    Conoce todas nuestras opciones de personalización
+                </p>
+            </div>
+        </section>
+
+        <!-- Contenido Principal -->
+        <section class="content-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="card info-card">
+                            <div class="info-header">
+                                <h2 class="mb-0">Personalización de Productos</h2>
+                            </div>
+                            <div class="info-body">
+                                <p class="info-text">
+                                    En <strong>Mimi's Bakery</strong> ofrecemos una amplia variedad de opciones 
+                                    para que tu pedido sea exactamente como lo imaginaste.
+                                </p>
+
+                                <!-- Opciones Disponibles -->
+                                <div class="options-grid">
+                                    <!-- Tamaños -->
+                                    <div class="option-item">
+                                        <div class="option-title">Tamaños</div>
+                                        <ul class="option-list">
+                                            <li>Pequeño (4-6 personas)</li>
+                                            <li>Mediano (8-10 personas)</li>
+                                            <li>Grande (12-15 personas)</li>
+                                            <li>Familiar (20+ personas)</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Sabores de Bizcocho -->
+                                    <div class="option-item">
+                                        <div class="option-title">Sabores de Bizcocho</div>
+                                        <ul class="option-list">
+                                            <li>Vainilla</li>
+                                            <li>Chocolate</li>
+                                            <li>Red Velvet</li>
+                                            <li>Lemon Pound</li>
+                                            <li>Zanahoria</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Sabores de Relleno -->
+                                    <div class="option-item">
+                                        <div class="option-title">Sabores de Relleno</div>
+                                        <ul class="option-list">
+                                            <li>Buttercream</li>
+                                            <li>Chocolate</li>
+                                            <li>Leche condensada</li>
+                                            <li>Mermelada de fresa</li>
+                                            <li>Frutas frescas</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <!-- Información Adicional -->
+                                <div class="info-text">
+                                    <p><strong>Tiempos de Preparación:</strong> Los pedidos personalizados requieren 
+                                    de 2 a 3 días de anticipación.</p>
+                                    <p><strong>Entrega:</strong> Realizamos entregas en Cartago y áreas cercanas.</p>
+                                    <p><strong>Decoraciones Especiales:</strong> Ofrecemos decoraciones temáticas 
+                                    para todo tipo de celebraciones.</p>
+                                </div>
+
+                                <!-- Botón Volver -->
+                                <div class="text-center">
+                                    <button class="btn btn-back" onclick="window.location.href='/producto/listado'">
+                                        <i class="fas fa-arrow-left me-2"></i>Volver a Productos
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+  </body>
+</html>
