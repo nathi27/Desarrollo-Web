@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>25</java.version> <!-- buscar una version a la que a todos nos sirva -->
+        <java.version>24</java.version> <!-- buscar una version a la que a todos nos sirva -->
         
         <start-class>com.pasteleria.PasteleriaApplication</start-class>
         

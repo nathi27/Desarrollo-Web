@@ -5,18 +5,84 @@
     
     <header th:replace="~{general/fragmentos :: header}"></header>
 
-    <section class="py-5 mb-5 text-center text-white" style="background: linear-gradient(135deg, #d48c9d 0%, #f3d1dc 100%);">
+    <section class="py-5 mb-3 text-center text-white" style="background: linear-gradient(135deg, #d48c9d 0%, #f3d1dc 100%);">
         <div class="container">
-            <h1 class="display-3 brand-font">Nuestro Menú</h1>
+            <h1 class="display-4 brand-font">Catálogo</h1>
             <p class="lead">Elige tus favoritos y recíbelos frescos</p>
         </div>
     </section>
 
+    <!-- SECCIÓN DE FILTROS -->
+    <div class="container mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-primary mb-3">
+                    <i class="fas fa-filter me-2"></i>Filtrar Productos
+                </h5>
+                
+                <form id="filtroForm" method="get" th:action="@{/catalogo}" class="row g-3">
+                    <!-- Filtro por Categoría -->
+                    <div class="col-md-6">
+                        <label for="categoria" class="form-label fw-bold">Categoría</label>
+                        <select id="categoria" name="categoria" class="form-select">
+                            <option value="">Todas las categorías</option>
+                            <option th:each="cat : ${categorias}" 
+                                    th:value="${cat}"
+                                    th:text="${cat}"
+                                    th:selected="${filtro != null and filtro.categoria == cat}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <!-- Buscar por Nombre -->
+                    <div class="col-md-6">
+                        <label for="nombre" class="form-label fw-bold">Buscar por nombre</label>
+                        <div class="input-group">
+                            <input type="text" id="nombre" name="nombre" 
+                                   class="form-control" 
+                                   placeholder="Ej: Pie, Galleta, Pastel..."
+                                   th:value="${filtro != null ? filtro.nombre : ''}">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Botones de acción -->
+                    <div class="col-12 mt-2">
+                        <div class="d-grid gap-2 d-md-flex">
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="fas fa-filter me-2"></i>Aplicar Filtros
+                            </button>
+                            <a th:href="@{/catalogo}" class="btn btn-outline-secondary px-4">
+                                <i class="fas fa-times me-2"></i>Limpiar Filtros
+                            </a>
+                        </div>
+                    </div>
+                </form>
+                
+                <!-- Indicador de filtros activos -->
+                <div th:if="${filtroAplicado}" class="mt-3">
+                    <div class="alert alert-info py-2 mb-0">
+                        <small>
+                            <i class="fas fa-info-circle me-1"></i>
+                            Mostrando productos filtrados. 
+                            <a th:href="@{/catalogo}" class="alert-link">Ver todos</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container mb-5">
         
+        <!-- SECCIÓN: Pies & Tortas -->
         <div class="category-section mb-5" th:if="${!productosPiesTortas.empty}">
             <div class="d-flex align-items-center mb-4">
                 <h2 class="brand-font text-primary me-3">Pies & Tortas</h2>
+                <span class="badge bg-primary rounded-pill" 
+                      th:text="${productosPiesTortas.size()}">0</span>
                 <div class="flex-grow-1 border-bottom border-2" style="border-color: #f3d1dc !important;"></div>
             </div>
             
@@ -25,8 +91,10 @@
                     <div class="card h-100 border-0 shadow-sm product-card">
                         <div class="position-relative">
                             <img th:src="'https://source.unsplash.com/400x300/?cake,pie,' + ${p.idProducto}" class="card-img-top rounded-top" alt="Producto" style="height: 220px; object-fit: cover;">
-                            <span class="position-absolute top-0 end-0 bg-success text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock > 0}">Disponible</span>
-                            <span class="position-absolute top-0 end-0 bg-secondary text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock == 0}">Agotado</span>
+                            <span class="position-absolute top-0 end-0 bg-success text-white px-3 py-1 m-2 rounded-pill small fw-bold" 
+                                  th:if="${p.stock > 0}">Disponible</span>
+                            <span class="position-absolute top-0 end-0 bg-secondary text-white px-3 py-1 m-2 rounded-pill small fw-bold" 
+                                  th:if="${p.stock == 0}">Agotado</span>
                         </div>
                         
                         <div class="card-body d-flex flex-column">
@@ -35,14 +103,19 @@
                             
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <span class="fs-5 fw-bold text-primary" th:text="'₡' + ${#numbers.formatDecimal(p.precio, 0, 'COMMA', 0, 'POINT')}">₡3,000</span>
+                                <span th:if="${p.stock > 0}" class="badge bg-light text-dark">
+                                    <i class="fas fa-box me-1"></i><span th:text="${p.stock}"></span> disponibles
+                                </span>
                             </div>
                             
                             <div class="d-grid gap-2 mt-3">
-                                <a th:href="@{/producto/__${p.idProducto}__}" class="btn btn-outline-secondary btn-sm">Ver Detalles</a>
+                                <a th:href="@{/producto/__${p.idProducto}__}" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-eye me-1"></i>Ver Detalles
+                                </a>
                                 <button class="btn btn-primary btn-sm" 
                                         th:onclick="agregarAlCarrito([[${p.idProducto}]], [[${p.nombre}]], [[${p.precio}]], [[${p.descripcion}]])"
                                         th:disabled="${p.stock == 0}">
-                                    <i class="fas fa-cart-plus me-2"></i>Agregar
+                                    <i class="fas fa-cart-plus me-1"></i>Agregar
                                 </button>
                             </div>
                         </div>
@@ -51,9 +124,12 @@
             </div>
         </div>
 
+        <!-- SECCIÓN: Macarons & Donas -->
         <div class="category-section mb-5" th:if="${!productosMacarons.empty}">
             <div class="d-flex align-items-center mb-4">
                 <h2 class="brand-font text-primary me-3">Macarons & Donas</h2>
+                <span class="badge bg-primary rounded-pill" 
+                      th:text="${productosMacarons.size()}">0</span>
                 <div class="flex-grow-1 border-bottom border-2" style="border-color: #f3d1dc !important;"></div>
             </div>
             <div class="row g-4">
@@ -61,19 +137,24 @@
                     <div class="card h-100 border-0 shadow-sm product-card">
                         <div class="position-relative">
                             <img th:src="'https://source.unsplash.com/400x300/?macaron,donut,' + ${p.idProducto}" class="card-img-top rounded-top" style="height: 220px; object-fit: cover;">
-                             <span class="position-absolute top-0 end-0 bg-success text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock > 0}">Disponible</span>
-                             <span class="position-absolute top-0 end-0 bg-secondary text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock == 0}">Agotado</span>
+                            <span class="position-absolute top-0 end-0 bg-success text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock > 0}">Disponible</span>
+                            <span class="position-absolute top-0 end-0 bg-secondary text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock == 0}">Agotado</span>
                         </div>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title fw-bold" th:text="${p.nombre}">Nombre</h5>
                             <p class="card-text text-muted small flex-grow-1" th:text="${p.descripcion}">Descripción...</p>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <span class="fs-5 fw-bold text-primary" th:text="'₡' + ${#numbers.formatDecimal(p.precio, 0, 'COMMA', 0, 'POINT')}">Price</span>
+                                <span th:if="${p.stock > 0}" class="badge bg-light text-dark">
+                                    <i class="fas fa-box me-1"></i><span th:text="${p.stock}"></span> disponibles
+                                </span>
                             </div>
                             <div class="d-grid gap-2 mt-3">
-                                <a th:href="@{/producto/__${p.idProducto}__}" class="btn btn-outline-secondary btn-sm">Ver Detalles</a>
+                                <a th:href="@{/producto/__${p.idProducto}__}" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-eye me-1"></i>Ver Detalles
+                                </a>
                                 <button class="btn btn-primary btn-sm" th:onclick="agregarAlCarrito([[${p.idProducto}]], [[${p.nombre}]], [[${p.precio}]], [[${p.descripcion}]])" th:disabled="${p.stock == 0}">
-                                    <i class="fas fa-cart-plus me-2"></i>Agregar
+                                    <i class="fas fa-cart-plus me-1"></i>Agregar
                                 </button>
                             </div>
                         </div>
@@ -82,9 +163,12 @@
             </div>
         </div>
 
+        <!-- SECCIÓN: Galletas & Brookies -->
         <div class="category-section mb-5" th:if="${!productosGalletas.empty}">
             <div class="d-flex align-items-center mb-4">
                 <h2 class="brand-font text-primary me-3">Galletas & Brookies</h2>
+                <span class="badge bg-primary rounded-pill" 
+                      th:text="${productosGalletas.size()}">0</span>
                 <div class="flex-grow-1 border-bottom border-2" style="border-color: #f3d1dc !important;"></div>
             </div>
             <div class="row g-4">
@@ -92,19 +176,24 @@
                     <div class="card h-100 border-0 shadow-sm product-card">
                         <div class="position-relative">
                             <img th:src="'https://source.unsplash.com/400x300/?cookie,' + ${p.idProducto}" class="card-img-top rounded-top" style="height: 220px; object-fit: cover;">
-                             <span class="position-absolute top-0 end-0 bg-success text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock > 0}">Disponible</span>
-                             <span class="position-absolute top-0 end-0 bg-secondary text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock == 0}">Agotado</span>
+                            <span class="position-absolute top-0 end-0 bg-success text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock > 0}">Disponible</span>
+                            <span class="position-absolute top-0 end-0 bg-secondary text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock == 0}">Agotado</span>
                         </div>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title fw-bold" th:text="${p.nombre}">Nombre</h5>
                             <p class="card-text text-muted small flex-grow-1" th:text="${p.descripcion}">Descripción...</p>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <span class="fs-5 fw-bold text-primary" th:text="'₡' + ${#numbers.formatDecimal(p.precio, 0, 'COMMA', 0, 'POINT')}">Price</span>
+                                <span th:if="${p.stock > 0}" class="badge bg-light text-dark">
+                                    <i class="fas fa-box me-1"></i><span th:text="${p.stock}"></span> disponibles
+                                </span>
                             </div>
                             <div class="d-grid gap-2 mt-3">
-                                <a th:href="@{/producto/__${p.idProducto}__}" class="btn btn-outline-secondary btn-sm">Ver Detalles</a>
+                                <a th:href="@{/producto/__${p.idProducto}__}" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-eye me-1"></i>Ver Detalles
+                                </a>
                                 <button class="btn btn-primary btn-sm" th:onclick="agregarAlCarrito([[${p.idProducto}]], [[${p.nombre}]], [[${p.precio}]], [[${p.descripcion}]])" th:disabled="${p.stock == 0}">
-                                    <i class="fas fa-cart-plus me-2"></i>Agregar
+                                    <i class="fas fa-cart-plus me-1"></i>Agregar
                                 </button>
                             </div>
                         </div>
@@ -113,9 +202,12 @@
             </div>
         </div>
 
+        <!-- SECCIÓN: Pasteles de Celebración -->
         <div class="category-section mb-5" th:if="${!productosPasteles.empty}">
             <div class="d-flex align-items-center mb-4">
                 <h2 class="brand-font text-primary me-3">Pasteles de Celebración</h2>
+                <span class="badge bg-primary rounded-pill" 
+                      th:text="${productosPasteles.size()}">0</span>
                 <div class="flex-grow-1 border-bottom border-2" style="border-color: #f3d1dc !important;"></div>
             </div>
             <div class="row g-4">
@@ -123,19 +215,24 @@
                     <div class="card h-100 border-0 shadow-sm product-card">
                         <div class="position-relative">
                             <img th:src="'https://source.unsplash.com/400x300/?birthdaycake,' + ${p.idProducto}" class="card-img-top rounded-top" style="height: 220px; object-fit: cover;">
-                             <span class="position-absolute top-0 end-0 bg-success text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock > 0}">Disponible</span>
-                             <span class="position-absolute top-0 end-0 bg-secondary text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock == 0}">Agotado</span>
+                            <span class="position-absolute top-0 end-0 bg-success text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock > 0}">Disponible</span>
+                            <span class="position-absolute top-0 end-0 bg-secondary text-white px-3 py-1 m-2 rounded-pill small fw-bold" th:if="${p.stock == 0}">Agotado</span>
                         </div>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title fw-bold" th:text="${p.nombre}">Nombre</h5>
                             <p class="card-text text-muted small flex-grow-1" th:text="${p.descripcion}">Descripción...</p>
                             <div class="d-flex justify-content-between align-items-center mt-3">
                                 <span class="fs-5 fw-bold text-primary" th:text="'₡' + ${#numbers.formatDecimal(p.precio, 0, 'COMMA', 0, 'POINT')}">Price</span>
+                                <span th:if="${p.stock > 0}" class="badge bg-light text-dark">
+                                    <i class="fas fa-box me-1"></i><span th:text="${p.stock}"></span> disponibles
+                                </span>
                             </div>
                             <div class="d-grid gap-2 mt-3">
-                                <a th:href="@{/producto/__${p.idProducto}__}" class="btn btn-outline-secondary btn-sm">Ver Detalles</a>
+                                <a th:href="@{/producto/__${p.idProducto}__}" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-eye me-1"></i>Ver Detalles
+                                </a>
                                 <button class="btn btn-primary btn-sm" th:onclick="agregarAlCarrito([[${p.idProducto}]], [[${p.nombre}]], [[${p.precio}]], [[${p.descripcion}]])" th:disabled="${p.stock == 0}">
-                                    <i class="fas fa-cart-plus me-2"></i>Agregar
+                                    <i class="fas fa-cart-plus me-1"></i>Agregar
                                 </button>
                             </div>
                         </div>
@@ -144,9 +241,37 @@
             </div>
         </div>
         
+        <!-- Mensaje cuando no hay resultados -->
+        <div th:if="${productosPiesTortas.empty and productosMacarons.empty and productosGalletas.empty and productosPasteles.empty}"
+             class="text-center py-5">
+            <div class="mb-4">
+                <i class="fas fa-search fa-4x text-muted"></i>
+            </div>
+            <h4 class="text-muted mb-3">No se encontraron productos</h4>
+            <p class="text-muted mb-4">Intenta con otros criterios de búsqueda o 
+                <a th:href="@{/catalogo}" class="text-primary">ver todos los productos</a>
+            </p>
+        </div>
+        
     </div>
 
     <footer th:replace="~{general/fragmentos :: footer}"></footer>
+    
+    <!-- Script para mejorar los filtros -->
+    <script>
+        // Auto-submit al cambiar categoría (opcional)
+        document.getElementById('categoria').addEventListener('change', function() {
+            if(this.value) {
+                document.getElementById('filtroForm').submit();
+            }
+        });
+        
+        // Mostrar conteo de productos en cada categoría
+        document.addEventListener('DOMContentLoaded', function() {
+            // Actualizar contador de carrito
+            actualizarContadorCarrito();
+        });
+    </script>
     
     <style>
         .product-card {
@@ -163,13 +288,33 @@
         .product-card:hover img {
             transform: scale(1.05);
         }
+        
+        /* Estilo para filtros */
+        .form-control:focus, .form-select:focus {
+            border-color: #d48c9d;
+            box-shadow: 0 0 0 0.25rem rgba(212, 140, 157, 0.25);
+        }
+        
+        .btn-primary {
+            background-color: #d48c9d;
+            border-color: #d48c9d;
+        }
+        .btn-primary:hover {
+            background-color: #c17a8c;
+            border-color: #c17a8c;
+        }
+        
+        .badge.bg-primary {
+            background-color: #d48c9d !important;
+        }
+        
+        .category-section {
+            transition: opacity 0.3s ease;
+        }
     </style>
     
+    <!-- Script del carrito (mantenido igual) -->
     <script>
-       // ... (El script de carrito que ya tienes en carrito.html deberías moverlo a un archivo .js separado 
-       // o incluirlo aquí también para que funcione la función 'agregarAlCarrito') ...
-       // Para prueba rápida, incluye esto:
-       
        function obtenerCarrito() {
            const carrito = localStorage.getItem('carritoPasteleria');
            return carrito ? JSON.parse(carrito) : [];
@@ -183,7 +328,6 @@
            const carrito = obtenerCarrito();
            const productoExistente = carrito.find(item => item.id === id);
            
-           // Simulación de stock simple (debería venir del backend, pero por ahora lo dejamos pasar si hay > 0)
            if (productoExistente) {
                productoExistente.cantidad += 1;
            } else {
@@ -208,9 +352,6 @@
                cartBadge.style.display = totalItems > 0 ? 'inline' : 'none';
            }
        }
-       
-       // Al cargar
-       document.addEventListener('DOMContentLoaded', actualizarContadorCarrito);
     </script>
 </body>
 </html>
