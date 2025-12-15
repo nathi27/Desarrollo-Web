@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{general/fragmentos :: head}">
+    <title>Dejar Reseña - Mimi's Bakery</title>
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #d48c9d 0%, #f3d1dc 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        .card-resena {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .star-rating {
+            font-size: 2rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .star-rating:hover {
+            color: #ffc107;
+        }
+        .star-rating.selected {
+            color: #ffc107;
+        }
+        .product-info {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        .btn-cancel {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+        .character-count {
+            font-size: 0.85rem;
+            color: #6c757d;
+            text-align: right;
+        }
+        .character-count.warning {
+            color: #dc3545;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    <header th:replace="~{general/fragmentos :: header}"></header>
+    
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section text-center">
+            <div class="container">
+                <h1 class="h3 fw-bold mb-2">Dejar Reseña</h1>
+                <p class="mb-0">Comparte tu experiencia con otros clientes</p>
+            </div>
+        </section>
+        
+        <div class="container mb-5">
+            <!-- Mensajes Flash -->
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mb-4">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card card-resena">
+                        <div class="card-body p-4">
+                            <!-- Información del producto -->
+                            <div th:if="${producto}" class="product-info mb-4">
+                                <div class="row align-items-center">
+                                    <div class="col-md-2 text-center">
+                                        <i class="fas fa-birthday-cake fa-3x text-primary"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <h4 class="h5 mb-1" th:text="${producto.nombre}">Nombre del Producto</h4>
+                                        <p class="text-muted small mb-0" th:text="${producto.descripcion}">Descripción del producto</p>
+                                        <div class="mt-2">
+                                            <span class="fw-bold text-primary" 
+                                                  th:text="'₡' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 0, 'POINT')}">
+                                                ₡3,000
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Instrucción -->
+                            <div class="text-center mb-4">
+                                <h3 class="h4 mb-3">Cuéntale al resto qué te pareció tu pedido</h3>
+                            </div>
+                            
+                            <!-- Formulario -->
+                            <form th:action="@{/reseñas/crear}"
+                                  th:object="${crearResenaForm}"
+                                  method="post"
+                                  id="formResena"
+                                  novalidate>
+                                  
+                                <input type="hidden" th:field="*{idProducto}" />
+                                
+                                <!-- Calificación con estrellas -->
+                                <div class="mb-4">
+                                    <label class="form-label d-block mb-3">
+                                        Califica tu experiencia con nosotros
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    
+                                    <div class="text-center mb-3">
+                                        <div id="starContainer" class="d-inline-block">
+                                            <i class="fas fa-star star-rating mx-1" data-value="1"></i>
+                                            <i class="fas fa-star star-rating mx-1" data-value="2"></i>
+                                            <i class="fas fa-star star-rating mx-1" data-value="3"></i>
+                                            <i class="fas fa-star star-rating mx-1" data-value="4"></i>
+                                            <i class="fas fa-star star-rating mx-1" data-value="5"></i>
+                                        </div>
+                                        <input type="hidden" id="calificacion" th:field="*{calificacion}" required />
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <small class="text-muted">
+                                            <span id="ratingText">Selecciona una calificación</span>
+                                        </small>
+                                    </div>
+                                    
+                                    <div th:if="${#fields.hasErrors('calificacion')}" class="text-danger small text-center mt-2">
+                                        <span th:errors="*{calificacion}"></span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Comentario -->
+                                <div class="mb-4">
+                                    <label for="comentario" class="form-label">
+                                        Tu comentario
+                                        <span class="text-danger">*</span>
+                                        <small class="text-muted d-block">
+                                            Escribe tu experiencia con el producto (entre 10 y 500 caracteres)
+                                        </small>
+                                    </label>
+                                    
+                                    <textarea class="form-control" 
+                                              id="comentario"
+                                              th:field="*{comentario}"
+                                              rows="5"
+                                              placeholder="Ej: Me encantó el pastel, muy original y el sabor muy bueno. La entrega fue puntual y el producto llegó en perfectas condiciones..."
+                                              maxlength="500"
+                                              required></textarea>
+                                    
+                                    <div class="character-count" id="charCount">
+                                        <span id="currentChars">0</span>/500 caracteres
+                                    </div>
+                                    
+                                    <div th:if="${#fields.hasErrors('comentario')}" class="text-danger small mt-2">
+                                        <span th:errors="*{comentario}"></span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Validación de contenido -->
+                                <div class="alert alert-info small">
+                                    <div class="d-flex">
+                                        <i class="fas fa-info-circle me-2 mt-1"></i>
+                                        <div>
+                                            <p class="mb-1"><strong>Normas de publicación:</strong></p>
+                                            <ul class="mb-0">
+                                                <li>No se permite lenguaje ofensivo o inapropiado</li>
+                                                <li>No se permiten enlaces (links) en los comentarios</li>
+                                                <li>La reseña debe ser sobre tu experiencia personal</li>
+                                                <li>Las reseñas falsas o promocionales serán eliminadas</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Botones -->
+                                <div class="d-flex justify-content-between mt-4">
+                                    <a th:href="@{/reseñas}" class="btn btn-cancel">
+                                        <i class="fas fa-times me-2"></i>Cancelar
+                                    </a>
+                                    <button type="submit" class="btn btn-submit">
+                                        <i class="fas fa-paper-plane me-2"></i>Publicar Reseña
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star-rating');
+            const ratingInput = document.getElementById('calificacion');
+            const ratingText = document.getElementById('ratingText');
+            const commentTextarea = document.getElementById('comentario');
+            const charCount = document.getElementById('charCount');
+            const currentChars = document.getElementById('currentChars');
+            
+            // Textos para cada calificación
+            const ratingTexts = {
+                1: 'Muy Malo - No recomendaría',
+                2: 'Malo - Necesita mejorar',
+                3: 'Regular - Cumple lo básico',
+                4: 'Bueno - Recomendaría',
+                5: 'Excelente - Superó expectativas'
+            };
+            
+            // Inicializar calificación si ya hay valor
+            if (ratingInput.value) {
+                selectStars(parseInt(ratingInput.value));
+            }
+            
+            // Manejar clic en estrellas
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = parseInt(this.getAttribute('data-value'));
+                    selectStars(value);
+                    ratingInput.value = value;
+                    
+                    // Validar que el campo esté marcado como "touched"
+                    ratingInput.dispatchEvent(new Event('change'));
+                });
+                
+                star.addEventListener('mouseover', function() {
+                    const value = parseInt(this.getAttribute('data-value'));
+                    highlightStars(value);
+                    ratingText.textContent = ratingTexts[value] || 'Selecciona una calificación';
+                });
+            });
+            
+            // Restaurar selección al salir del hover
+            document.getElementById('starContainer').addEventListener('mouseleave', function() {
+                const currentValue = ratingInput.value ? parseInt(ratingInput.value) : 0;
+                if (currentValue > 0) {
+                    selectStars(currentValue);
+                    ratingText.textContent = ratingTexts[currentValue] || 'Selecciona una calificación';
+                } else {
+                    resetStars();
+                    ratingText.textContent = 'Selecciona una calificación';
+                }
+            });
+            
+            function selectStars(value) {
+                stars.forEach(star => {
+                    const starValue = parseInt(star.getAttribute('data-value'));
+                    if (starValue <= value) {
+                        star.classList.add('selected');
+                        star.classList.remove('text-muted');
+                    } else {
+                        star.classList.remove('selected');
+                        star.classList.add('text-muted');
+                    }
+                });
+                ratingText.textContent = ratingTexts[value] || 'Selecciona una calificación';
+            }
+            
+            function highlightStars(value) {
+                stars.forEach(star => {
+                    const starValue = parseInt(star.getAttribute('data-value'));
+                    if (starValue <= value) {
+                        star.classList.add('selected');
+                        star.classList.remove('text-muted');
+                    } else {
+                        star.classList.remove('selected');
+                        star.classList.add('text-muted');
+                    }
+                });
+            }
+            
+            function resetStars() {
+                stars.forEach(star => {
+                    star.classList.remove('selected');
+                    star.classList.remove('text-muted');
+                });
+            }
+            
+            // Contador de caracteres
+            commentTextarea.addEventListener('input', function() {
+                const length = this.value.length;
+                currentChars.textContent = length;
+                
+                if (length < 10) {
+                    charCount.classList.add('warning');
+                    charCount.textContent = length + '/500 (mínimo 10 caracteres)';
+                } else if (length > 490) {
+                    charCount.classList.add('warning');
+                    charCount.textContent = length + '/500 caracteres';
+                } else {
+                    charCount.classList.remove('warning');
+                    charCount.textContent = length + '/500 caracteres';
+                }
+            });
+            
+            // Inicializar contador
+            const initialLength = commentTextarea.value.length;
+            currentChars.textContent = initialLength;
+            if (initialLength < 10) {
+                charCount.classList.add('warning');
+                charCount.textContent = initialLength + '/500 (mínimo 10 caracteres)';
+            }
+            
+            // Validación antes de enviar
+            document.getElementById('formResena').addEventListener('submit', function(e) {
+                if (!ratingInput.value) {
+                    e.preventDefault();
+                    alert('Por favor selecciona una calificación');
+                    return;
+                }
+                
+                if (commentTextarea.value.length < 10) {
+                    e.preventDefault();
+                    alert('El comentario debe tener al menos 10 caracteres');
+                    return;
+                }
+                
+                // Validación básica de contenido ofensivo
+                const texto = commentTextarea.value.toLowerCase();
+                const palabrasProhibidas = ['pendejo', 'estupido', 'idiota', 'imbecil', 'mierda', 'carajo'];
+                
+                for (const palabra of palabrasProhibidas) {
+                    if (texto.includes(palabra)) {
+                        e.preventDefault();
+                        alert('El comentario contiene lenguaje inapropiado. Por favor, modifícalo.');
+                        return;
+                    }
+                }
+                
+                // Validación de enlaces
+                const linkRegex = /https?:\/\/[^\s]+/gi;
+                if (linkRegex.test(texto)) {
+                    e.preventDefault();
+                    alert('No se permiten enlaces en las reseñas');
+                    return;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

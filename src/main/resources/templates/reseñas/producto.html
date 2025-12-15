@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{general/fragmentos :: head}">
+    <title>Reseñas del Producto - Mimi's Bakery</title>
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #d48c9d 0%, #f3d1dc 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        .rating-summary {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .average-rating {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #d48c9d;
+            line-height: 1;
+        }
+        .stars-large {
+            color: #ffc107;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        .card-resena {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .card-resena:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+        .resena-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px 15px 0 0;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .resena-body {
+            padding: 20px;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #d48c9d 0%, #f3d1dc 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .stars-small {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+        .resena-date {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+        .empty-state i {
+            font-size: 4rem;
+            opacity: 0.5;
+            margin-bottom: 20px;
+        }
+        .btn-dejar-resena {
+            background: linear-gradient(135deg, #d48c9d 0%, #c17a8c 100%);
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-dejar-resena:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 140, 157, 0.3);
+        }
+        .progress-bar-custom {
+            background-color: #ffc107;
+        }
+        .progress {
+            height: 8px;
+            margin-bottom: 15px;
+        }
+        .rating-distribution {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header th:replace="~{general/fragmentos :: header}"></header>
+    
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section text-center">
+            <div class="container">
+                <h1 class="h3 fw-bold mb-2">Reseñas del Producto</h1>
+                <p class="mb-0" th:text="${producto.nombre}">Nombre del Producto</p>
+            </div>
+        </section>
+        
+        <div class="container mb-5">
+            <!-- Botón de volver -->
+            <div class="mb-4">
+                <a th:href="@{/producto/{id}(id=${producto.idProducto})}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Volver al Producto
+                </a>
+            </div>
+            
+            <!-- Resumen de calificaciones -->
+            <div class="rating-summary">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <div class="average-rating mb-2" 
+                             th:text="${#numbers.formatDecimal(promedioCalificacion, 1, 2)}">0.0</div>
+                        <div class="stars-large">
+                            <i class="fas fa-star" th:each="i : ${#numbers.sequence(1, 5)}"
+                               th:class="${i <= promedioCalificacion} ? 'fas fa-star' : 
+                                        ${i <= promedioCalificacion + 0.5} ? 'fas fa-star-half-alt' : 'far fa-star'">
+                            </i>
+                        </div>
+                        <div class="text-muted" th:text="${totalResenas} + ' reseñas'">0 reseñas</div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="rating-distribution">
+                            <!-- Aquí podrías agregar distribución por estrellas si tienes los datos -->
+                            <p class="mb-3">Opiniones de clientes que compraron este producto</p>
+                            <a th:href="@{/reseñas/crear/{id}(id=${producto.idProducto})}" 
+                               class="btn btn-dejar-resena">
+                                <i class="fas fa-edit me-2"></i>Dejar mi Reseña
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lista de reseñas -->
+            <h3 class="h5 mb-4">Opiniones de clientes</h3>
+            
+            <div th:if="${!resenas.empty}">
+                <div th:each="resena : ${resenas}" class="card card-resena">
+                    <div class="resena-header">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <div class="user-avatar">
+                                    <span th:text="${resena.usuario.nombre.substring(0, 1).toUpperCase()}">U</span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong th:text="${resena.usuario.nombre}">Usuario</strong>
+                                        <div class="stars-small">
+                                            <i class="fas fa-star" th:each="i : ${#numbers.sequence(1, resena.calificacion)}"></i>
+                                            <i class="far fa-star" th:each="i : ${#numbers.sequence(resena.calificacion + 1, 5)}"></i>
+                                            <span class="ms-2" th:text="resena.calificacion + '/5'">5/5</span>
+                                        </div>
+                                    </div>
+                                    <div class="resena-date">
+                                        <i class="far fa-calendar me-1"></i>
+                                        <span th:text="${#temporals.format(resena.fechaCreacion, 'dd/MM/yyyy')}">01/01/2024</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resena-body">
+                        <p class="mb-0" th:text="${resena.comentario}">
+                            Comentario del usuario sobre el producto...
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mensaje si no hay reseñas -->
+            <div th:if="${resenas.empty}" class="empty-state">
+                <i class="fas fa-comment-slash"></i>
+                <h3 class="h5 mb-3">Aún no hay reseñas para este producto</h3>
+                <p class="text-muted mb-4">Sé el primero en compartir tu experiencia</p>
+                <a th:href="@{/reseñas/crear/{id}(id=${producto.idProducto})}" 
+                   class="btn btn-dejar-resena">
+                    <i class="fas fa-edit me-2"></i>Ser el primero en opinar
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+</body>
+</html>

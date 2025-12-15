@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{general/fragmentos :: head}">
+    <title>Mis Reseñas - Mimi's Bakery</title>
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #d48c9d 0%, #f3d1dc 100%);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        .card-resena {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .card-resena:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+        .resena-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px 15px 0 0;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .resena-body {
+            padding: 20px;
+        }
+        .product-image {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 1.5rem;
+        }
+        .stars-small {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+        .resena-date {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        .btn-eliminar {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            border: none;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        .btn-eliminar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(220, 53, 69, 0.3);
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+        .empty-state i {
+            font-size: 4rem;
+            opacity: 0.5;
+            margin-bottom: 20px;
+        }
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header th:replace="~{general/fragmentos :: header}"></header>
+    
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section text-center">
+            <div class="container">
+                <h1 class="h3 fw-bold mb-2">Mis Reseñas</h1>
+                <p class="mb-0">Gestiona todas las reseñas que has publicado</p>
+            </div>
+        </section>
+        
+        <div class="container mb-5">
+            <!-- Mensajes Flash -->
+            <div th:if="${mensajeExito}" class="alert alert-success alert-dismissible fade show mb-4">
+                <span th:text="${mensajeExito}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mb-4">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            
+            <!-- Botón de volver -->
+            <div class="d-flex justify-content-between mb-4">
+                <a th:href="@{/reseñas}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Volver a Reseñas
+                </a>
+                
+                <a th:href="@{/catalogo}" class="btn btn-primary">
+                    <i class="fas fa-store me-2"></i>Seguir Comprando
+                </a>
+            </div>
+            
+            <!-- Lista de reseñas -->
+            <div th:if="${!resenas.empty}">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="h5 mb-4">Tus reseñas publicadas (<span th:text="${resenas.size()}">0</span>)</h3>
+                    </div>
+                </div>
+                
+                <div th:each="resena : ${resenas}" class="card card-resena">
+                    <div class="resena-header">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <div class="product-image">
+                                    <i class="fas fa-birthday-cake"></i>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong th:text="${resena.producto.nombre}">Nombre del Producto</strong>
+                                        <div class="stars-small">
+                                            <i class="fas fa-star" th:each="i : ${#numbers.sequence(1, resena.calificacion)}"></i>
+                                            <i class="far fa-star" th:each="i : ${#numbers.sequence(resena.calificacion + 1, 5)}"></i>
+                                            <span class="ms-2" th:text="resena.calificacion + '/5'">5/5</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <span class="resena-date">
+                                            <i class="far fa-calendar me-1"></i>
+                                            <span th:text="${#temporals.format(resena.fechaCreacion, 'dd/MM/yyyy')}">01/01/2024</span>
+                                        </span>
+                                        
+                                        <span th:if="${resena.aprobada}" class="badge bg-success status-badge">
+                                            <i class="fas fa-check me-1"></i>Publicada
+                                        </span>
+                                        <span th:unless="${resena.aprobada}" class="badge bg-warning status-badge">
+                                            <i class="fas fa-clock me-1"></i>En revisión
+                                        </span>
+                                        
+                                        <form th:action="@{/reseñas/eliminar/{id}(id=${resena.idResena})}" 
+                                              method="post" 
+                                              class="d-inline"
+                                              th:onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta reseña?');">
+                                            <button type="submit" class="btn-eliminar">
+                                                <i class="fas fa-trash me-1"></i>Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resena-body">
+                        <p class="mb-0" th:text="${resena.comentario}">
+                            Comentario del usuario sobre el producto...
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mensaje si no hay reseñas -->
+            <div th:if="${resenas.empty}" class="empty-state">
+                <i class="fas fa-comment-slash"></i>
+                <h3 class="h5 mb-3">Aún no has publicado ninguna reseña</h3>
+                <p class="text-muted mb-4">Comparte tu experiencia con otros clientes</p>
+                <a th:href="@{/reseñas}" class="btn btn-primary">
+                    <i class="fas fa-star me-2"></i>Dejar mi Primera Reseña
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+</body>
+</html>

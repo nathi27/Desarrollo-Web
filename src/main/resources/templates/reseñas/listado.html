@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{general/fragmentos :: head}">
+    <title>Reseñas - Mimi's Bakery</title>
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #d48c9d 0%, #f3d1dc 100%);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+        .card-resena {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        .card-resena:hover {
+            transform: translateY(-5px);
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .select-producto {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px 15px;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+        .select-producto:focus {
+            border-color: #d48c9d;
+            box-shadow: 0 0 0 0.25rem rgba(212, 140, 157, 0.25);
+            outline: none;
+        }
+        .instruction-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 4px solid #d48c9d;
+        }
+        .required-asterisk {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <header th:replace="~{general/fragmentos :: header}"></header>
+    
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section text-center">
+            <div class="container">
+                <h1 class="display-5 fw-bold mb-3">Reseñas</h1>
+                <p class="lead mb-0">Comparte tu experiencia con otros clientes</p>
+            </div>
+        </section>
+        
+        <div class="container mb-5">
+            <!-- Mensajes Flash -->
+            <div th:if="${mensajeExito}" class="alert alert-success alert-dismissible fade show mb-4">
+                <span th:text="${mensajeExito}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mb-4">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            
+            <!-- Instrucción principal -->
+            <div class="instruction-box">
+                <h3 class="h5 mb-3">Tu opinión ayuda a otros a tomar mejores decisiones</h3>
+                <p class="text-muted mb-0">
+                    Selecciona un producto de tu compra y comparte tu experiencia con la comunidad.
+                    Las reseñas verificadas son más útiles para otros clientes.
+                </p>
+            </div>
+            
+            <!-- Formulario de selección de producto -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card card-resena">
+                        <div class="card-body p-4">
+                            <form th:action="@{/reseñas/crear}" method="get" id="formSeleccionProducto">
+                                <!-- Campo de selección de producto -->
+                                <div class="mb-4">
+                                    <label for="idProducto" class="form-label">
+                                        Selecciona el producto que deseas reseñar
+                                        <span class="required-asterisk">*</span>
+                                    </label>
+                                    
+                                    <select class="select-producto" 
+                                            id="idProducto" 
+                                            name="idProducto"
+                                            required>
+                                        <option value="">-- Seleccionar Producto --</option>
+                                        <option th:each="producto : ${productos}"
+                                                th:value="${producto.idProducto}"
+                                                th:text="${producto.nombre} + ' - ₡' + ${#numbers.formatDecimal(producto.precio, 0, 'COMMA', 0, 'POINT')}">
+                                            Producto - Precio
+                                        </option>
+                                    </select>
+                                    
+                                    <div class="form-text text-muted mt-2">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Solo puedes reseñar productos que has comprado.
+                                    </div>
+                                </div>
+                                
+                                <!-- Botón de continuar -->
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-submit" id="btnContinuar" disabled>
+                                        <i class="fas fa-arrow-right me-2"></i>Continuar a Reseñar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Información adicional -->
+                    <div class="text-center mt-4">
+                        <p class="text-muted small">
+                            <i class="fas fa-shield-alt me-1"></i>
+                            Todas las reseñas son verificadas y moderadas para asegurar contenido apropiado.
+                        </p>
+                        <p class="text-muted small">
+                            ¿Ya has reseñado antes? 
+                            <a th:href="@{/reseñas/mis-reseñas}" class="text-primary">Ver mis reseñas</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectProducto = document.getElementById('idProducto');
+            const btnContinuar = document.getElementById('btnContinuar');
+            const form = document.getElementById('formSeleccionProducto');
+            
+            // Habilitar/deshabilitar botón según selección
+            selectProducto.addEventListener('change', function() {
+                if (this.value) {
+                    btnContinuar.disabled = false;
+                    btnContinuar.innerHTML = '<i class="fas fa-arrow-right me-2"></i>Continuar a Reseñar';
+                } else {
+                    btnContinuar.disabled = true;
+                    btnContinuar.innerHTML = '<i class="fas fa-arrow-right me-2"></i>Selecciona un producto primero';
+                }
+            });
+            
+            // Validación antes de enviar
+            form.addEventListener('submit', function(e) {
+                if (!selectProducto.value) {
+                    e.preventDefault();
+                    alert('Por favor selecciona un producto para reseñar');
+                    return false;
+                }
+                return true;
+            });
+            
+            // Inicializar estado del botón
+            if (!selectProducto.value) {
+                btnContinuar.disabled = true;
+                btnContinuar.innerHTML = '<i class="fas fa-arrow-right me-2"></i>Selecciona un producto primero';
+            }
+        });
+    </script>
+</body>
+</html>
