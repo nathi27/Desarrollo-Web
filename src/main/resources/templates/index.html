@@ -5,47 +5,94 @@
     
     <header th:replace="~{general/fragmentos :: header}"></header>
 
-    <section class="hero-banner d-flex align-items-center" style="
-        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1519340333755-56e9c1d04579?auto=format&fit=crop&w=1200&q=80');
-        background-size: cover;
-        background-position: center;
-        height: 500px;
-        color: white;
-        position: relative;">
-        <div class="container text-center position-relative z-index-2">
-            <h1 class="display-1 fw-bold mb-3" style="font-family: 'Pacifico', cursive;">Mimi's Bakery</h1>
-            <p class="lead fs-3 mb-4 fw-light">Donde cada bocado es una celebración</p>
-            <a th:href="@{/catalogo}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg mt-3">Ver Menú Completo</a>
+    <!-- Slider Principal -->
+    <section class="hero-slider">
+        <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
+            <!-- Indicadores -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="1"></button>
+            </div>
+            
+            <!-- Slides -->
+            <div class="carousel-inner">
+                <!-- Slide 1: Sobre Nosotros -->
+                <div class="carousel-item active">
+                    <div class="slider-content d-flex align-items-center" style="
+                        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519340333755-56e9c1d04579?auto=format&fit=crop&w=1200&q=80');
+                        background-size: cover;
+                        background-position: center;
+                        height: 500px;
+                        color: white;
+                        position: relative;">
+                        <div class="container text-center position-relative z-index-2">
+                            <h1 class="display-1 fw-bold mb-3" style="font-family: 'Pacifico', cursive;">Sobre Nosotros</h1>
+                            <p class="lead fs-3 mb-4 fw-light">Conoce la historia detrás de Mimi's Bakery</p>
+                            <a th:href="@{/sobre-nosotros}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg mt-3">
+                                <i class="fas fa-info-circle me-2"></i>Ver más
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2: Noticias -->
+                <div class="carousel-item">
+                    <div class="slider-content d-flex align-items-center" style="
+                        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1535920527002-b35e96722eb9?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                        background-size: cover;
+                        background-position: center;
+                        height: 500px;
+                        color: white;
+                        position: relative;">
+                        <div class="container text-center position-relative z-index-2">
+                            <h1 class="display-4 fw-bold mb-3">Noticias</h1>
+                            <p class="lead fs-2 mb-4 fw-light">¡Promociones Especiales!</p>
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <div class="news-card bg-white bg-opacity-10 p-4 rounded-3 mb-4">
+                                        <p class="mb-3 fs-5">Este próximo sábado 20 y domingo 21 de diciembre tendremos 2x1 en torta chilena. ¡No olvides apartar la tuya!</p>
+                                        <div class="d-flex justify-content-center gap-3">
+                                            <span class="badge bg-warning text-dark fs-6">2x1</span>
+                                            <span class="badge bg-danger fs-6">Oferta Limitada</span>
+                                        </div>
+                                    </div>
+                                    <a th:href="@{/catalogo}" class="btn btn-light btn-lg px-5 py-3 rounded-pill shadow-lg mt-3">
+                                        <i class="fas fa-gift me-2"></i>Ver Novedades
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Controles -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#mainSlider" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mainSlider" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
         </div>
     </section>
 
     <main class="container my-5">
-        
-        <section class="text-center mb-5 px-md-5">
-            <span class="text-primary text-uppercase fw-bold small ls-2">Nuestra Historia</span>
-            <h2 class="display-5 fw-bold mb-4 mt-2">Pasión por la Repostería</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <p class="lead text-muted">
-                        Usamos ingredientes 100% naturales y recetas tradicionales para crear momentos dulces inolvidables. 
-                        Desde Cartago para todo el país, horneamos amor en cada receta.
-                    </p>
-                </div>
-            </div>
-        </section>
 
+        <!-- Productos Destacados -->
         <section class="mb-5">
-            <h2 class="text-center mb-5 brand-font">Nuestros Favoritos</h2>
+            <h2 class="text-center mb-5 brand-font">Nuestros Productos</h2>
             
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3">
                     <div class="card h-100 border-0 shadow-sm product-card">
                         <div class="overflow-hidden rounded-top">
-                            <img src="https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Pie">
+                            <img src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Pie">
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">Pies Caseros</h5>
-                            <p class="card-text small text-muted">Rellenos de fruta fresca y masa crujiente.</p>
+                            <h5 class="card-title fw-bold">Pie Caseros</h5>
+                            <p class="card-text small text-muted">Tradicional torta rellena de mermeladas de frutas frescas.</p>
                             <a th:href="@{/catalogo}" class="text-primary text-decoration-none fw-bold small">Ver Sabores <i class="fas fa-arrow-right ms-1"></i></a>
                         </div>
                     </div>
@@ -67,7 +114,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="card h-100 border-0 shadow-sm product-card">
                         <div class="overflow-hidden rounded-top">
-                            <img src="https://images.unsplash.com/photo-1499636138143-bd649043ea52?auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Galletas">
+                            <img src="https://images.unsplash.com/photo-1559622214-f8a9850965bb?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Galletas">
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Galletas</h5>
@@ -80,7 +127,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="card h-100 border-0 shadow-sm product-card">
                         <div class="overflow-hidden rounded-top">
-                            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="Donas">
+                            <img src="https://images.unsplash.com/photo-1516919549054-e08258825f80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Donas">
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">Donas</h5>
@@ -139,10 +186,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
         
+        <!-- Características -->
         <section class="py-5 bg-light rounded-3">
             <div class="row text-center">
                 <div class="col-md-4 mb-4 mb-md-0">
@@ -162,7 +209,6 @@
                 </div>
             </div>
         </section>
-
     </main>
 
     <footer th:replace="~{general/fragmentos :: footer}"></footer>
@@ -183,6 +229,125 @@
         .product-card:hover .card-img-top {
             transform: scale(1.05);
         }
+        
+        /* Estilos para el slider */
+        .carousel-indicators button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 2px solid transparent;
+            margin: 0 5px;
+        }
+        .carousel-indicators button.active {
+            background-color: #d48c9d;
+            border-color: white;
+        }
+        
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: 5%;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            opacity: 1;
+        }
+        
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(212, 140, 157, 0.7);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background-size: 50%;
+        }
+        
+        .news-card {
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .slider-content {
+            position: relative;
+        }
+        .slider-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        
+        .z-index-2 {
+            z-index: 2;
+        }
+        
+        /* Badges especiales */
+        .badge.bg-warning {
+            font-size: 1.1rem;
+            padding: 8px 15px;
+        }
+        
+        .badge.bg-danger {
+            font-size: 1.1rem;
+            padding: 8px 15px;
+        }
+        
+        /* Animación para el alert */
+        .alert-warning {
+            animation: pulse 2s infinite;
+            border-left: 5px solid #ffc107;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
     </style>
+    
+    <script>
+        // Configuración del slider
+        document.addEventListener('DOMContentLoaded', function() {
+            const myCarousel = document.getElementById('mainSlider');
+            
+            // Configurar intervalo automático (cada 5 segundos)
+            const carousel = new bootstrap.Carousel(myCarousel, {
+                interval: 5000,
+                wrap: true,
+                pause: 'hover'
+            });
+            
+            // Pausar el slider cuando el mouse está sobre él
+            myCarousel.addEventListener('mouseenter', function() {
+                carousel.pause();
+            });
+            
+            myCarousel.addEventListener('mouseleave', function() {
+                carousel.cycle();
+            });
+            
+            // Contador para la oferta
+            function actualizarContadorOferta() {
+                const fechaOferta = new Date('2024-12-20');
+                const hoy = new Date();
+                const diferencia = fechaOferta - hoy;
+                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                
+                if (dias > 0) {
+                    console.log(`🎂 ¡Faltan ${dias} días para la oferta 2x1 en torta chilena!`);
+                } else if (dias === 0) {
+                    console.log('🎂 ¡Hoy es el día! Oferta 2x1 en torta chilena');
+                }
+            }
+            
+            // Inicializar contador
+            actualizarContadorOferta();
+        });
+    </script>
 </body>
 </html>
