@@ -128,46 +128,36 @@ public class ResenaController {
         
         return "reseñas/producto";
     }
-    
-    // ======================================================
-    // Mis reseñas (del usuario logueado) - MANTENIDO
-    // ======================================================
+
+    // Mis reseñas (del usuario logueado)
     @GetMapping("/mis-reseñas")
     public String misResenas(Model model) {
         // TODO: Obtener el ID del usuario logueado de la sesión
         Long idUsuario = 1L;
-        
-        List<Resena> resenas = resenaService.obtenerResenasPorUsuario(idUsuario);
-        model.addAttribute("resenas", resenas);
-        
+
+        // 1. Obtener las reseñas del usuario logueado
+        List<Resena> misResenas = resenaService.obtenerResenasPorUsuario(idUsuario);
+        model.addAttribute("misResenas", misResenas);
+
+        // 2. Obtener reseñas recientes de la comunidad (excluyendo al usuario actual)
+        List<Resena> resenasComunidad = resenaService.obtenerResenasRecientesExcluyendoUsuario(idUsuario);
+
+        // Si no hay suficientes reseñas excluyendo al usuario, mostrar las más recientes generales
+        if (resenasComunidad.isEmpty()) {
+            resenasComunidad = resenaService.obtenerResenasRecientesComunidad();
+        }
+
+        // 3. Obtener lista de productos para el filtro
+        List<Producto> productos = productoService.listarActivos();
+
+        model.addAttribute("resenasComunidad", resenasComunidad);
+        model.addAttribute("productos", productos);
+
         return "reseñas/mis-reseñas";
     }
     
     // ======================================================
-    // Eliminar reseña - MANTENIDO
-    // ======================================================
-    @PostMapping("/eliminar/{idResena}")
-    public String eliminarResena(
-            @PathVariable Long idResena,
-            RedirectAttributes redirectAttributes) {
-        
-        try {
-            // TODO: Obtener el ID del usuario logueado de la sesión
-            Long idUsuario = 1L;
-            
-            resenaService.eliminarResena(idResena, idUsuario);
-            redirectAttributes.addFlashAttribute("mensajeExito", 
-                "Reseña eliminada exitosamente.");
-        } catch (RuntimeException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-        }
-        
-        return "redirect:/reseñas/mis-reseñas";
-    }
-    
-    // ======================================================
     // MÉTODO OBSOLETO - Mantenido por compatibilidad
-    // Este método ya no se usa con el nuevo flujo
     // ======================================================
     @GetMapping("/crear/{idProducto}")
     public String mostrarFormularioResenaAntiguo(
@@ -176,7 +166,6 @@ public class ResenaController {
             Model model,
             RedirectAttributes redirectAttributes) {
         
-        // Redirigir al nuevo formato con parámetro GET
         redirectAttributes.addAttribute("idProducto", idProducto);
         if (idPedido != null) {
             redirectAttributes.addAttribute("idPedido", idPedido);

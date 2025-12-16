@@ -1,7 +1,6 @@
 package com.pasteleria.repository;
 
 import com.pasteleria.domain.Resena;
-import com.pasteleria.domain.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,6 +15,12 @@ public interface ResenaRepository extends JpaRepository<Resena, Long> {
     List<Resena> findByProductoIdProductoAndAprobadaTrue(Long idProducto);
     
     List<Resena> findByUsuarioIdUsuario(Long idUsuario);
+    
+    // NUEVO: Reseñas recientes excluyendo un usuario
+    List<Resena> findTop10ByUsuarioIdUsuarioNotAndAprobadaTrueOrderByFechaCreacionDesc(Long idUsuarioExcluir);
+    
+    // NUEVO: Reseñas más recientes (para la comunidad)
+    List<Resena> findTop10ByAprobadaTrueOrderByFechaCreacionDesc();
     
     @Query("SELECT AVG(r.calificacion) FROM Resena r WHERE r.producto.idProducto = :productoId AND r.aprobada = true")
     Double findPromedioCalificacionByProducto(@Param("productoId") Long productoId);

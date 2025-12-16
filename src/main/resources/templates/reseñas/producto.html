@@ -99,6 +99,17 @@
         .rating-distribution {
             margin-top: 20px;
         }
+        .btn-volver-catalogo {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        .btn-volver-catalogo:hover {
+            background: linear-gradient(135deg, #5a6268 0%, #343a40 100%);
+        }
     </style>
 </head>
 <body>
@@ -114,10 +125,20 @@
         </section>
         
         <div class="container mb-5">
-            <!-- Botón de volver -->
-            <div class="mb-4">
-                <a th:href="@{/producto/{id}(id=${producto.idProducto})}" class="btn btn-outline-primary">
-                    <i class="fas fa-arrow-left me-2"></i>Volver al Producto
+            <!-- Botones de navegación -->
+            <div class="d-flex justify-content-between mb-4">
+                <div>
+                    <a th:href="@{/producto/{id}(id=${producto.idProducto})}" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-arrow-left me-2"></i>Volver al Producto
+                    </a>
+                    <a th:href="@{/catalogo}" class="btn btn-volver-catalogo">
+                        <i class="fas fa-store me-2"></i>Ver Catálogo
+                    </a>
+                </div>
+                
+                <a th:href="@{/reseñas/crear?idProducto={id}(id=${producto.idProducto})}" 
+                   class="btn btn-dejar-resena">
+                    <i class="fas fa-edit me-2"></i>Dejar mi Reseña
                 </a>
             </div>
             
@@ -128,28 +149,33 @@
                         <div class="average-rating mb-2" 
                              th:text="${#numbers.formatDecimal(promedioCalificacion, 1, 2)}">0.0</div>
                         <div class="stars-large">
-                            <i class="fas fa-star" th:each="i : ${#numbers.sequence(1, 5)}"
-                               th:class="${i <= promedioCalificacion} ? 'fas fa-star' : 
-                                        ${i <= promedioCalificacion + 0.5} ? 'fas fa-star-half-alt' : 'far fa-star'">
-                            </i>
+                            <!-- CORREGIDO: Solo 5 estrellas máximo -->
+                            <span th:each="i : ${#numbers.sequence(1, 5)}">
+                                <i th:class="${i <= promedioCalificacion} ? 'fas fa-star' : 
+                                           ${i <= promedioCalificacion + 0.5} ? 'fas fa-star-half-alt' : 'far fa-star'"></i>
+                            </span>
                         </div>
-                        <div class="text-muted" th:text="${totalResenas} + ' reseñas'">0 reseñas</div>
+                        <div class="text-muted" th:text="${totalResenas} + ' reseña(s)'">0 reseñas</div>
                     </div>
                     <div class="col-md-8">
                         <div class="rating-distribution">
-                            <!-- Aquí podrías agregar distribución por estrellas si tienes los datos -->
-                            <p class="mb-3">Opiniones de clientes que compraron este producto</p>
-                            <a th:href="@{/reseñas/crear/{id}(id=${producto.idProducto})}" 
-                               class="btn btn-dejar-resena">
-                                <i class="fas fa-edit me-2"></i>Dejar mi Reseña
-                            </a>
+                            <p class="mb-3">Opiniones verificadas de clientes que compraron este producto</p>
+                            <p class="text-muted small mb-0">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Todas las reseñas son de compradores verificados
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
             
             <!-- Lista de reseñas -->
-            <h3 class="h5 mb-4">Opiniones de clientes</h3>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="h5 mb-0">Opiniones de clientes</h3>
+                <span class="text-muted small" th:text="'Mostrando ' + ${resenas.size()} + ' de ' + ${totalResenas} + ' reseñas'">
+                    Mostrando X de Y reseñas
+                </span>
+            </div>
             
             <div th:if="${!resenas.empty}">
                 <div th:each="resena : ${resenas}" class="card card-resena">
@@ -165,8 +191,10 @@
                                     <div>
                                         <strong th:text="${resena.usuario.nombre}">Usuario</strong>
                                         <div class="stars-small">
-                                            <i class="fas fa-star" th:each="i : ${#numbers.sequence(1, resena.calificacion)}"></i>
-                                            <i class="far fa-star" th:each="i : ${#numbers.sequence(resena.calificacion + 1, 5)}"></i>
+                                            <!-- CORREGIDO: Solo 5 estrellas máximo -->
+                                            <span th:each="i : ${#numbers.sequence(1, 5)}">
+                                                <i th:class="${i <= resena.calificacion} ? 'fas fa-star' : 'far fa-star'"></i>
+                                            </span>
                                             <span class="ms-2" th:text="resena.calificacion + '/5'">5/5</span>
                                         </div>
                                     </div>
@@ -184,6 +212,14 @@
                         </p>
                     </div>
                 </div>
+                
+                <!-- Botón para dejar reseña al final -->
+                <div class="text-center mt-4">
+                    <a th:href="@{/reseñas/crear?idProducto={id}(id=${producto.idProducto})}" 
+                       class="btn btn-dejar-resena">
+                        <i class="fas fa-edit me-2"></i>Dejar mi Reseña
+                    </a>
+                </div>
             </div>
             
             <!-- Mensaje si no hay reseñas -->
@@ -191,7 +227,7 @@
                 <i class="fas fa-comment-slash"></i>
                 <h3 class="h5 mb-3">Aún no hay reseñas para este producto</h3>
                 <p class="text-muted mb-4">Sé el primero en compartir tu experiencia</p>
-                <a th:href="@{/reseñas/crear/{id}(id=${producto.idProducto})}" 
+                <a th:href="@{/reseñas/crear?idProducto={id}(id=${producto.idProducto})}" 
                    class="btn btn-dejar-resena">
                     <i class="fas fa-edit me-2"></i>Ser el primero en opinar
                 </a>

@@ -92,6 +92,16 @@ public class ResenaService {
         return resenaRepository.findByUsuarioIdUsuario(idUsuario);
     }
     
+    // NUEVO: Obtener reseñas recientes excluyendo un usuario
+    public List<Resena> obtenerResenasRecientesExcluyendoUsuario(Long idUsuarioExcluir) {
+        return resenaRepository.findTop10ByUsuarioIdUsuarioNotAndAprobadaTrueOrderByFechaCreacionDesc(idUsuarioExcluir);
+    }
+    
+    // NUEVO: Obtener reseñas recientes de la comunidad
+    public List<Resena> obtenerResenasRecientesComunidad() {
+        return resenaRepository.findTop10ByAprobadaTrueOrderByFechaCreacionDesc();
+    }
+    
     public Double obtenerPromedioCalificacion(Long idProducto) {
         Double promedio = resenaRepository.findPromedioCalificacionByProducto(idProducto);
         return promedio != null ? promedio : 0.0;
