@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{general/fragmentos :: head}">
+    <title>Sobre Nosotros - Mimi's Bakery</title>
+</head>
+<body>
+    
+    <header th:replace="~{general/fragmentos :: header}"></header>
+
+    <main class="container my-5">
+        <!-- Título Principal -->
+        <div class="text-center mb-5">
+            <h1 class="brand-font display-4 mb-3">Sobre Nosotros</h1>
+            <p class="lead text-muted">Descubre la historia detrás de cada dulce que creamos</p>
+        </div>
+
+        <!-- Sección 1: Historia Principal -->
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="card border-0 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=800&q=80" 
+                         class="card-img-top rounded-3" 
+                         alt="Historia de Mimi's Bakery">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary rounded-circle p-3 me-3">
+                                <i class="fas fa-heart text-white fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0 fw-bold">Desde el 2020</h5>
+                                <p class="text-muted mb-0">Endulzando momentos especiales</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ps-lg-4">
+                    <h2 class="brand-font mb-4">Nuestra Historia</h2>
+                    <p class="lead mb-4">
+                        En <span class="text-primary fw-bold">Mimi's Bakery</span>, cada pastel lleva una historia de pasión y cariño.
+                    </p>
+                    <p class="mb-4">
+                        Nuestro emprendimiento nació en el 2020 de las manos de Andrey y Obando, quien, mientras estudiaba en el colegio, 
+                        convirtió su amor por la repostería en un sueño hecho realidad.
+                    </p>
+                    <p class="mb-4">
+                        El nombre <span class="text-primary fw-bold">"Mimi"</span> es un homenaje a su sobrina y a Tammy, el conejito de la familia, 
+                        símbolos de ternura y creatividad, que inspiran nuestro logo y filosofía.
+                    </p>
+                    <div class="d-flex align-items-center mt-4">
+                        <div class="border-start border-3 border-primary ps-3">
+                            <p class="mb-0 fst-italic text-muted">
+                                "La repostería es el arte de convertir ingredientes simples en momentos memorables"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 2: Evolución -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm bg-light">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="brand-font text-center mb-4">Nuestra Evolución</h3>
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <div class="timeline ps-lg-4">
+                                    <div class="timeline-item mb-4">
+                                        <div class="timeline-marker bg-primary"></div>
+                                        <div class="timeline-content">
+                                            <h5 class="fw-bold">2020 - Los Inicios</h5>
+                                            <p class="mb-0">
+                                                Comenzamos con cupcakes, brownies y galletas decoradas, 
+                                                vendiendo a amigos y familiares mientras aprendíamos el arte de la repostería.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item mb-4">
+                                        <div class="timeline-marker bg-primary"></div>
+                                        <div class="timeline-content">
+                                            <h5 class="fw-bold">2021 - El Descubrimiento</h5>
+                                            <p class="mb-0">
+                                                Fue el <span class="text-primary fw-bold">Lunch Box Cake</span> -un pastel personalizado 
+                                                para ocasiones especiales- el que nos definió y nos hizo únicos.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-marker bg-primary"></div>
+                                        <div class="timeline-content">
+                                            <h5 class="fw-bold">Hoy - Nuestra Esencia</h5>
+                                            <p class="mb-0">
+                                                Ofrecemos una amplia variedad de productos artesanales, desde pasteles clásicos 
+                                                hasta cajas de regalo, siempre adaptados al gusto único de cada cliente.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 mt-4 mt-lg-0 text-center">
+                                <div class="bg-primary rounded-circle d-inline-flex align-items-center justify-content-center" 
+                                     style="width: 200px; height: 200px;">
+                                    <i class="fas fa-birthday-cake text-white fa-4x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección 3: Mensaje Final -->
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center p-5 bg-primary bg-opacity-10 rounded-3">
+                    <i class="fas fa-quote-left text-primary fa-3x mb-4"></i>
+                    <h3 class="brand-font mb-4">¡Bienvenidos a nuestro rincón dulce!</h3>
+                    <p class="lead mb-4">
+                        Donde cada bocado cuenta una historia de pasión, dedicación y amor por la repostería.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a th:href="@{/producto/listado}" class="btn btn-outline-primary">
+                            <i class="fas fa-shopping-bag me-2"></i>Ver Productos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+
+    <style>
+        /* Estilos para la línea de tiempo */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e9ecef;
+        }
+        
+        .timeline-item {
+            position: relative;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #d48c9d;
+        }
+        
+        .timeline-content {
+            padding-left: 20px;
+        }
+        
+        /* Efectos hover para tarjetas */
+        .card {
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+        }
+        
+        /* Estilos para iconos grandes */
+        .fa-3x, .fa-4x {
+            color: #d48c9d;
+        }
+        
+        /* Estilos para el botón de WhatsApp flotante */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .display-4 {
+                font-size: 2.5rem;
+            }
+            
+            .timeline {
+                padding-left: 20px;
+            }
+            
+            .timeline-marker {
+                left: -26px;
+            }
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Resaltar enlace activo en navbar
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Animaciones de entrada
+            const animatedElements = document.querySelectorAll('.row, .card, .timeline-item');
+            animatedElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+            
+            // Botón de WhatsApp flotante
+            const whatsappButton = document.createElement('a');
+            whatsappButton.href = 'https://wa.me/50689852145';
+            whatsappButton.target = '_blank';
+            whatsappButton.className = 'whatsapp-float';
+            whatsappButton.innerHTML = '<i class="fab fa-whatsapp"></i>';
+            whatsappButton.title = 'Chatea con nosotros en WhatsApp';
+            document.body.appendChild(whatsappButton);
+            
+            // Contador de años de experiencia
+            const startYear = 2020;
+            const currentYear = new Date().getFullYear();
+            const yearsExperience = currentYear - startYear;
+            
+            console.log(`🎂 Mimi's Bakery: ${yearsExperience} años endulzando momentos especiales`);
+        });
+    </script>
+</body>
+</html>

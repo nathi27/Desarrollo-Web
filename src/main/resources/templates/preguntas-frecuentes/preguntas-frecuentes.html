@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{general/fragmentos :: head}">
+    <title>Preguntas Frecuentes - Mimi's Bakery</title>
+</head>
+<body>
+    
+    <header th:replace="~{general/fragmentos :: header}"></header>
+
+    <main class="container my-5">
+        <!-- Título Principal -->
+        <div class="text-center mb-5">
+            <h1 class="brand-font display-4 mb-3">Preguntas Frecuentes</h1>
+            <p class="lead text-muted">Encuentra respuestas a las preguntas más comunes sobre nuestros productos y servicios</p>
+        </div>
+
+        <!-- Barra de búsqueda -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text bg-white border-end-0">
+                        <i class="fas fa-search text-muted"></i>
+                    </span>
+                    <input type="text" class="form-control border-start-0" 
+                           id="buscadorPreguntas" 
+                           placeholder="Busca en nuestras preguntas frecuentes...">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search me-2"></i>Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categorías de preguntas -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <button class="btn btn-outline-primary categoria-btn active" data-categoria="todas">
+                        Todas las preguntas
+                    </button>
+                    <button class="btn btn-outline-primary categoria-btn" data-categoria="pedidos">
+                        <i class="fas fa-shopping-cart me-2"></i>Pedidos
+                    </button>
+                    <button class="btn btn-outline-primary categoria-btn" data-categoria="entregas">
+                        <i class="fas fa-truck me-2"></i>Entregas
+                    </button>
+                    <button class="btn btn-outline-primary categoria-btn" data-categoria="pagos">
+                        <i class="fas fa-credit-card me-2"></i>Pagos
+                    </button>
+                    <button class="btn btn-outline-primary categoria-btn" data-categoria="productos">
+                        <i class="fas fa-birthday-cake me-2"></i>Productos
+                    </button>
+                    <button class="btn btn-outline-primary categoria-btn" data-categoria="alergias">
+                        <i class="fas fa-allergies me-2"></i>Alergias
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acordeón de preguntas -->
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="accordion" id="faqAccordion">
+                    
+                    <!-- Sección: Pedidos -->
+                    <h3 class="mt-4 mb-3 brand-font categoria-titulo" data-categoria="pedidos">
+                        <i class="fas fa-shopping-cart me-2"></i>Pedidos
+                    </h3>
+                    
+                    <!-- Pregunta 1 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="pedidos">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta1">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Puedo pedir un pastel con diseño personalizado?
+                            </button>
+                        </h2>
+                        <div id="pregunta1" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>¡Claro! Nos encanta crear pasteles personalizados para ocasiones especiales.</p>
+                                <ul>
+                                    <li>Podés enviarnos una imagen de referencia o describir tu idea</li>
+                                    <li>Te contactaremos para confirmar detalles, precios y disponibilidad</li>
+                                    <li>Para diseños complejos, recomendamos pedir con al menos 72 horas de anticipación</li>
+                                    <li>También ofrecemos servicio de consulta gratuita para diseños personalizados</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 2 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="pedidos">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta2">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Con cuánta anticipación debo hacer mi pedido?
+                            </button>
+                        </h2>
+                        <div id="pregunta2" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>El tiempo de anticipación depende del tipo de pedido:</p>
+                                <ul>
+                                    <li><strong>Pedidos estándar:</strong> 24 horas de anticipación</li>
+                                    <li><strong>Pasteles personalizados:</strong> 48-72 horas de anticipación</li>
+                                    <li><strong>Pedidos grandes (más de 20 porciones):</strong> 3-5 días de anticipación</li>
+                                    <li><strong>Pedidos para eventos especiales (bodas, cumpleaños grandes):</strong> 1-2 semanas de anticipación</li>
+                                </ul>
+                                <p class="text-muted mt-2">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Siempre puedes contactarnos para consultar disponibilidad de último minuto.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 3 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="pedidos">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta3">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Puedo modificar o cancelar mi pedido después de realizado?
+                            </button>
+                        </h2>
+                        <div id="pregunta3" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Sí, con ciertas condiciones:</p>
+                                <ul>
+                                    <li><strong>Modificaciones:</strong> Se pueden hacer hasta 24 horas antes de la entrega/recogida</li>
+                                    <li><strong>Cancelaciones:</strong> 
+                                        <ul>
+                                            <li>Con 48+ horas de anticipación: Reembolso del 100%</li>
+                                            <li>Con 24-48 horas de anticipación: Reembolso del 50%</li>
+                                            <li>Con menos de 24 horas: No aplica reembolso</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <div class="alert alert-info mt-3">
+                                    <i class="fas fa-phone me-2"></i>
+                                    Para modificar o cancelar tu pedido, contáctanos al 8985-2145
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sección: Entregas -->
+                    <h3 class="mt-4 mb-3 brand-font categoria-titulo" data-categoria="entregas">
+                        <i class="fas fa-truck me-2"></i>Entregas a Domicilio
+                    </h3>
+                    
+                    <!-- Pregunta 4 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="entregas">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta4">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Ofrecen entregas a domicilio?
+                            </button>
+                        </h2>
+                        <div id="pregunta4" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Sí, hacemos entregas a domicilio dentro del Gran Área Metropolitana (GAM).</p>
+                                <ul>
+                                    <li><strong>Costo de envío:</strong> Varía según la zona (₡1,500 - ₡4,000)</li>
+                                    <li><strong>Zonas de cobertura:</strong> Cartago Centro, San José, Heredia, Alajuela (consultar disponibilidad)</li>
+                                    <li><strong>Horario de entregas:</strong> Lunes a Sábado según disponibilidad</li>
+                                    <li><strong>Tiempo de entrega:</strong> Generalmente 2-4 horas después de la confirmación del pedido</li>
+                                </ul>
+                                <div class="alert alert-warning mt-3">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    Para zonas fuera de Cartago Centro, el costo puede variar. Contáctanos para una cotización exacta.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 5 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="entregas">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta5">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Qué pasa si no hay nadie en la dirección de entrega?
+                            </button>
+                        </h2>
+                        <div id="pregunta5" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Nuestro proceso para entregas fallidas:</p>
+                                <ol>
+                                    <li>Intentamos contactarte por teléfono</li>
+                                    <li>Esperamos 15 minutos en la dirección</li>
+                                    <li>Si no podemos entregar:
+                                        <ul>
+                                            <li>Dejamos una nota con información de contacto</li>
+                                            <li>Programamos un nuevo intento (con costo adicional)</li>
+                                            <li>Puedes recoger en nuestra pastelería</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <p class="text-muted mt-2">
+                                    <strong>Recomendación:</strong> Proporciona un número de contacto alternativo y especifica instrucciones especiales de entrega.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sección: Pagos -->
+                    <h3 class="mt-4 mb-3 brand-font categoria-titulo" data-categoria="pagos">
+                        <i class="fas fa-credit-card me-2"></i>Métodos de Pago
+                    </h3>
+                    
+                    <!-- Pregunta 6 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="pagos">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta6">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Cuáles métodos de pago aceptan?
+                            </button>
+                        </h2>
+                        <div id="pregunta6" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Aceptamos los siguientes métodos de pago:</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-mobile-alt text-success fa-2x me-3"></i>
+                                            <div>
+                                                <h6 class="mb-1 fw-bold">SINPE Móvil</h6>
+                                                <p class="mb-0 small text-muted">Número: 8985-2145</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-university text-primary fa-2x me-3"></i>
+                                            <div>
+                                                <h6 class="mb-1 fw-bold">Transferencia Bancaria</h6>
+                                                <p class="mb-0 small text-muted">BCR o BAC (detalles al confirmar pedido)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-money-bill-wave text-success fa-2x me-3"></i>
+                                            <div>
+                                                <h6 class="mb-1 fw-bold">Efectivo</h6>
+                                                <p class="mb-0 small text-muted">Al retirar o recibir el pedido</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="alert alert-success mt-3">
+                                    <i class="fas fa-shield-alt me-2"></i>
+                                    Todos los pagos son 100% seguros. Para pagos electrónicos, envía el comprobante al WhatsApp 8985-2145.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 7 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="pagos">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta7">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Necesito pagar por adelantado?
+                            </button>
+                        </h2>
+                        <div id="pregunta7" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Los requisitos de pago dependen del tipo de pedido:</p>
+                                <ul>
+                                    <li><strong>Pedidos pequeños (menos de ₡15,000):</strong> Pago al recibir</li>
+                                    <li><strong>Pedidos medianos (₡15,000 - ₡50,000):</strong> 50% de anticipo, 50% al recibir</li>
+                                    <li><strong>Pedidos grandes (más de ₡50,000):</strong> 100% de anticipo</li>
+                                    <li><strong>Pedidos personalizados complejos:</strong> 100% de anticipo</li>
+                                    <li><strong>Pedidos para eventos (bodas, etc.):</strong> Plan de pagos personalizado</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sección: Productos -->
+                    <h3 class="mt-4 mb-3 brand-font categoria-titulo" data-categoria="productos">
+                        <i class="fas fa-birthday-cake me-2"></i>Productos
+                    </h3>
+                    
+                    <!-- Pregunta 8 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="productos">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta8">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Los productos contienen conservantes?
+                            </button>
+                        </h2>
+                        <div id="pregunta8" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>¡No! En Mimi's Bakery nos enorgullecemos de usar solo ingredientes frescos y naturales:</p>
+                                <ul>
+                                    <li>Sin conservantes artificiales</li>
+                                    <li>Sin colorantes artificiales</li>
+                                    <li>Sin saborizantes artificiales</li>
+                                    <li>Frutas frescas de temporada</li>
+                                    <li>Chocolate de alta calidad</li>
+                                    <li>Harinas orgánicas cuando es posible</li>
+                                </ul>
+                                <div class="alert alert-info mt-3">
+                                    <i class="fas fa-clock me-2"></i>
+                                    <strong>Importante:</strong> Por no usar conservantes, nuestros productos tienen una vida útil más corta. Consume dentro de 2-3 días y refrigera.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 9 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="productos">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta9">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Puedo congelar los pasteles?
+                            </button>
+                        </h2>
+                        <div id="pregunta9" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Sí, la mayoría de nuestros pasteles se pueden congelar, pero con ciertas recomendaciones:</p>
+                                <ul>
+                                    <li><strong>Mejor para congelar:</strong> Pasteles con crema de mantequilla, ganache o fondant</li>
+                                    <li><strong>No recomendado congelar:</strong> Pasteles con crema batida o frutas frescas</li>
+                                    <li><strong>Tiempo máximo de congelación:</strong> 1 mes</li>
+                                    <li><strong>Descongelación:</strong> En refrigerador por 24 horas antes de servir</li>
+                                </ul>
+                                <p class="text-muted mt-2">
+                                    <strong>Nota:</strong> La textura puede cambiar ligeramente después de congelar.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sección: Alergias -->
+                    <h3 class="mt-4 mb-3 brand-font categoria-titulo" data-categoria="alergias">
+                        <i class="fas fa-allergies me-2"></i>Alergias e Intolerancias
+                    </h3>
+                    
+                    <!-- Pregunta 10 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="alergias">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta10">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Tienen opciones para personas alérgicas o veganas?
+                            </button>
+                        </h2>
+                        <div id="pregunta10" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Sí, contamos con opciones especiales para diferentes necesidades dietéticas:</p>
+                                
+                                <h6 class="fw-bold mt-3">Opciones sin gluten:</h6>
+                                <ul>
+                                    <li>Pastel de chocolate sin gluten</li>
+                                    <li>Galletas de avena sin gluten</li>
+                                    <li>Brownies sin gluten</li>
+                                </ul>
+                                
+                                <h6 class="fw-bold mt-3">Opciones sin lactosa:</h6>
+                                <ul>
+                                    <li>Pasteles con leche de almendra</li>
+                                    <li>Postres con crema vegetal</li>
+                                    <li>Chocolate sin lactosa</li>
+                                </ul>
+                                
+                                <h6 class="fw-bold mt-3">Opciones veganas:</h6>
+                                <ul>
+                                    <li>Pastel de zanahoria vegano</li>
+                                    <li>Brownies veganos</li>
+                                    <li>Galletas veganas</li>
+                                </ul>
+                                
+                                <div class="alert alert-warning mt-3">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <strong>Importante:</strong> Aunque preparamos estos productos con cuidado, nuestra cocina no está completamente libre de alérgenos. Si tienes alergias severas, consulta con nuestro equipo antes de ordenar.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pregunta 11 -->
+                    <div class="accordion-item border-0 mb-3" data-categoria="alergias">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed rounded-3" type="button" 
+                                    data-bs-toggle="collapse" data-bs-target="#pregunta11">
+                                <i class="fas fa-question-circle text-primary me-3"></i>
+                                ¿Cómo debo informar sobre alergias al hacer un pedido?
+                            </button>
+                        </h2>
+                        <div id="pregunta11" class="accordion-collapse collapse" 
+                             data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>Para garantizar tu seguridad, sigue estos pasos:</p>
+                                <ol>
+                                    <li><strong>Menciona todas las alergias</strong> al hacer el pedido (oralmente o por escrito)</li>
+                                    <li><strong>Especifica la severidad</strong> de la alergia</li>
+                                    <li><strong>Pregunta sobre ingredientes específicos</strong> si tienes dudas</li>
+                                    <li><strong>Para alergias severas:</strong> Considera pedir productos especiales que preparamos con equipo separado</li>
+                                    <li><strong>En eventos:</strong> Informa con anticipación para que podamos prepararnos adecuadamente</li>
+                                </ol>
+                                <div class="alert alert-success mt-3">
+                                    <i class="fas fa-heart me-2"></i>
+                                    Tu salud es nuestra prioridad. No dudes en hacernos todas las preguntas necesarias sobre ingredientes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección para preguntas no respondidas -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card border-primary border-2">
+                    <div class="card-body p-4 p-md-5 text-center">
+                        <i class="fas fa-comments text-primary fa-3x mb-4"></i>
+                        <h3 class="brand-font mb-3">¿No encontraste tu pregunta?</h3>
+                        <p class="text-muted mb-4">Estamos aquí para ayudarte. Contáctanos y resolveremos todas tus dudas.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a th:href="@{/contacto}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-envelope me-2"></i>Ir a Contacto
+                            </a>
+                            <a href="https://wa.me/50689852145" target="_blank" class="btn btn-success btn-lg">
+                                <i class="fab fa-whatsapp me-2"></i>WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+
+    <style>
+        .accordion-button:not(.collapsed) {
+            background-color: rgba(212, 140, 157, 0.1);
+            color: #d48c9d;
+            font-weight: 600;
+        }
+        
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(212, 140, 157, 0.25);
+            border-color: #d48c9d;
+        }
+        
+        .categoria-btn.active {
+            background-color: #d48c9d;
+            border-color: #d48c9d;
+            color: white;
+        }
+        
+        .categoria-btn:hover:not(.active) {
+            background-color: rgba(212, 140, 157, 0.1);
+            border-color: #d48c9d;
+            color: #d48c9d;
+        }
+        
+        .categoria-titulo {
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .accordion-item {
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-item.hidden {
+            display: none;
+        }
+        
+        /* Estilos para la barra de búsqueda */
+        .input-group-text {
+            border-radius: 8px 0 0 8px !important;
+        }
+        
+        .form-control {
+            border-radius: 0 !important;
+        }
+        
+        .btn-primary {
+            border-radius: 0 8px 8px 0 !important;
+        }
+        
+        /* Estilos para las alertas dentro de las respuestas */
+        .alert {
+            border-left: 4px solid;
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Resaltar enlace activo en navbar
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Funcionalidad de búsqueda
+            const buscador = document.getElementById('buscadorPreguntas');
+            const preguntas = document.querySelectorAll('.accordion-item');
+            const titulosCategorias = document.querySelectorAll('.categoria-titulo');
+            
+            buscador.addEventListener('input', function() {
+                const termino = this.value.toLowerCase().trim();
+                
+                preguntas.forEach(pregunta => {
+                    const textoPregunta = pregunta.querySelector('.accordion-button').textContent.toLowerCase();
+                    const textoRespuesta = pregunta.querySelector('.accordion-body').textContent.toLowerCase();
+                    
+                    if (textoPregunta.includes(termino) || textoRespuesta.includes(termino)) {
+                        pregunta.classList.remove('hidden');
+                    } else {
+                        pregunta.classList.add('hidden');
+                    }
+                });
+                
+                // Mostrar/ocultar títulos de categorías según si tienen preguntas visibles
+                titulosCategorias.forEach(titulo => {
+                    const categoria = titulo.getAttribute('data-categoria');
+                    const preguntasCategoria = document.querySelectorAll(`.accordion-item[data-categoria="${categoria}"]:not(.hidden)`);
+                    
+                    if (preguntasCategoria.length > 0) {
+                        titulo.classList.remove('hidden');
+                    } else {
+                        titulo.classList.add('hidden');
+                    }
+                });
+            });
+            
+            // Funcionalidad de filtrado por categorías
+            const botonesCategoria = document.querySelectorAll('.categoria-btn');
+            
+            botonesCategoria.forEach(boton => {
+                boton.addEventListener('click', function() {
+                    // Remover clase active de todos los botones
+                    botonesCategoria.forEach(btn => btn.classList.remove('active'));
+                    // Agregar clase active al botón clickeado
+                    this.classList.add('active');
+                    
+                    const categoriaSeleccionada = this.getAttribute('data-categoria');
+                    
+                    // Mostrar/ocultar preguntas según categoría
+                    preguntas.forEach(pregunta => {
+                        const categoriaPregunta = pregunta.getAttribute('data-categoria');
+                        
+                        if (categoriaSeleccionada === 'todas' || categoriaSeleccionada === categoriaPregunta) {
+                            pregunta.classList.remove('hidden');
+                        } else {
+                            pregunta.classList.add('hidden');
+                        }
+                    });
+                    
+                    // Mostrar/ocultar títulos de categorías
+                    titulosCategorias.forEach(titulo => {
+                        const categoriaTitulo = titulo.getAttribute('data-categoria');
+                        
+                        if (categoriaSeleccionada === 'todas' || categoriaSeleccionada === categoriaTitulo) {
+                            titulo.classList.remove('hidden');
+                        } else {
+                            titulo.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+            
+            // Expandir automáticamente la pregunta si hay parámetro en la URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const preguntaParam = urlParams.get('pregunta');
+            
+            if (preguntaParam) {
+                const preguntaElement = document.getElementById(preguntaParam);
+                if (preguntaElement) {
+                    const collapse = new bootstrap.Collapse(preguntaElement);
+                    setTimeout(() => {
+                        preguntaElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                }
+            }
+            
+            // Animación para mostrar preguntas
+            setTimeout(() => {
+                preguntas.forEach((pregunta, index) => {
+                    setTimeout(() => {
+                        pregunta.style.opacity = '1';
+                        pregunta.style.transform = 'translateY(0)';
+                    }, index * 50);
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

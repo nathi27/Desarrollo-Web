@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{general/fragmentos :: head}">
+    <title>Contacto - Mimi's Bakery</title>
+</head>
+<body>
+    
+    <header th:replace="~{general/fragmentos :: header}"></header>
+
+    <main class="container my-5">
+        <!-- Título Principal -->
+        <div class="text-center mb-5">
+            <h1 class="brand-font display-4 mb-3" th:text="'Contacto'">Contacto</h1>
+            <p class="lead text-muted">Estamos aquí para atenderte y endulzar tu día</p>
+        </div>
+
+        <div class="row g-5">
+            <!-- Información de Contacto -->
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="mb-4 brand-font">Información de Contacto</h3>
+                        
+                        <!-- Ubicación -->
+                        <div class="d-flex mb-4">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-primary fa-2x"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <h5 class="fw-bold mb-2">Ubicación</h5>
+                                <p class="text-muted mb-0" th:text="${ubicacion}">El Carmen, Cartago</p>
+                                <p class="text-muted">Costa Rica</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Horario -->
+                        <div class="d-flex mb-4">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-clock text-primary fa-2x"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <h5 class="fw-bold mb-2">Horario de Atención</h5>
+                                <ul class="list-unstyled text-muted">
+                                    <li class="mb-1">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Lunes - Viernes: 10:00 a.m - 8:00 p.m
+                                    </li>
+                                    <li class="mb-1">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Sábado: 10:00 a.m - 3:00 p.m
+                                    </li>
+                                    <li class="mb-1">
+                                        <i class="fas fa-times-circle text-danger me-2"></i>
+                                        Domingo: Cerrado
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Teléfono -->
+                        <div class="d-flex mb-4">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-phone text-primary fa-2x"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <h5 class="fw-bold mb-2">Teléfono</h5>
+                                <p class="text-muted mb-1" th:text="${telefono}">8985-2145</p>
+                                <small class="text-muted">Llamadas y WhatsApp</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Redes Sociales -->
+                        <div class="d-flex mb-4">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-hashtag text-primary fa-2x"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <h5 class="fw-bold mb-2">Redes Sociales</h5>
+                                <div class="d-flex gap-3">
+                                    <a th:href="${instagramUrl}" 
+                                       target="_blank" 
+                                       class="btn btn-outline-danger btn-sm">
+                                        <i class="fab fa-instagram me-2"></i>Instagram
+                                    </a>
+                                    <a th:href="${facebookUrl}" 
+                                       class="btn btn-outline-primary btn-sm">
+                                        <i class="fab fa-facebook me-2"></i>Facebook
+                                    </a>
+                                </div>
+                                <p class="text-muted mt-2 small">
+                                    <i class="fab fa-instagram me-1"></i>
+                                    Instagram: <strong th:text="${instagramUser}">@mimisbakery__</strong>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Email -->
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-envelope text-primary fa-2x"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-4">
+                                <h5 class="fw-bold mb-2">Correo Electrónico</h5>
+                                <p class="text-muted mb-1" th:text="${email}">mimisbakeryc@gmail.com</p>
+                                <small class="text-muted">Respondemos en menos de 24 horas</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mapa -->
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h3 class="mb-4 brand-font">Encuéntranos</h3>
+                        <p class="text-muted mb-4">Visítanos en nuestra pastelería en El Carmen, Cartago</p>
+                        
+                        <!-- Widget de Google Maps -->
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.982055385939!2d-83.92186112478591!3d9.93500739013612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e3f5e3c6f9a5%3A0x4f5f5f5f5f5f5f5f!2sEl%20Carmen%2C%20Cartago%2C%20Costa%20Rica!5e0!3m2!1sen!2scr!4v1640995200000!5m2!1sen!2scr" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        
+                        <!-- Información Adicional del Mapa -->
+                        <div class="alert alert-info mt-4">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-info-circle fa-lg"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="alert-heading mb-2">¿Cómo llegar?</h6>
+                                    <p class="mb-0 small">
+                                        Estamos ubicados en el corazón de El Carmen, Cartago. 
+                                        Puedes usar Waze o Google Maps con la dirección "El Carmen, Cartago" 
+                                        y buscar nuestro letrero rosa.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Consejos de Visita -->
+                        <div class="mt-4">
+                            <h6 class="fw-bold mb-3">
+                                <i class="fas fa-lightbulb text-warning me-2"></i>
+                                Consejos para tu Visita
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="border rounded p-3 h-100">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-car text-success me-2"></i>
+                                            <h6 class="mb-0 fw-bold">Estacionamiento</h6>
+                                        </div>
+                                        <p class="small text-muted mb-0">
+                                            Disponemos de estacionamiento gratuito frente a la pastelería
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="border rounded p-3 h-100">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-utensils text-primary me-2"></i>
+                                            <h6 class="mb-0 fw-bold">Pedidos Anticipados</h6>
+                                        </div>
+                                        <p class="small text-muted mb-0">
+                                            Para pedidos grandes, te recomendamos llamar con 48 horas de anticipación
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enlace a Preguntas Frecuentes -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card border-primary border-2">
+                    <div class="card-body p-4 p-md-5 text-center">
+                        <i class="fas fa-question-circle text-primary fa-3x mb-4"></i>
+                        <h3 class="brand-font mb-3">¿Tienes alguna pregunta?</h3>
+                        <p class="text-muted mb-4">Consulta nuestra sección de preguntas frecuentes donde respondemos las dudas más comunes de nuestros clientes.</p>
+                        <a th:href="@{/preguntas-frecuentes}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-question-circle me-2"></i>Ver Preguntas Frecuentes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mensaje Final -->
+        <div class="text-center mt-5 p-4 bg-light rounded-3">
+            <i class="fas fa-heart text-primary fa-3x mb-3"></i>
+            <h4 class="brand-font mb-3">¡Te esperamos!</h4>
+            <p class="text-muted mb-0">
+                Cada pastel que horneamos está hecho con amor y dedicación. 
+                Ven a visitarnos y déjanos endulzar tu día.
+            </p>
+        </div>
+    </main>
+
+    <footer th:replace="~{general/fragmentos :: footer}"></footer>
+
+    <style>
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+        }
+        
+        /* Estilos para iconos */
+        .fa-2x {
+            width: 2rem;
+            text-align: center;
+        }
+        
+        /* Estilos para botones de redes sociales */
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #d48c9d;
+            border-color: #d48c9d;
+            color: white;
+        }
+        
+        /* Estilos para el iframe del mapa */
+        iframe {
+            border-radius: 8px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .display-4 {
+                font-size: 2.5rem;
+            }
+            
+            .card-body {
+                padding: 1.5rem !important;
+            }
+        }
+    </style>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Resaltar el enlace activo en el navbar
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Animación para las tarjetas
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+            
+            // WhatsApp directo
+            const whatsappButton = document.createElement('a');
+            whatsappButton.href = 'https://wa.me/50689852145';
+            whatsappButton.target = '_blank';
+            whatsappButton.className = 'btn btn-success position-fixed rounded-circle shadow-lg';
+            whatsappButton.style.bottom = '20px';
+            whatsappButton.style.right = '20px';
+            whatsappButton.style.zIndex = '1000';
+            whatsappButton.style.width = '60px';
+            whatsappButton.style.height = '60px';
+            whatsappButton.innerHTML = '<i class="fab fa-whatsapp fa-2x"></i>';
+            document.body.appendChild(whatsappButton);
+        });
+    </script>
+</body>
+</html>
