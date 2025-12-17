@@ -1,126 +1,167 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-
-<!--
-CODIGO DE PRODUCTOS
--->
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="~{general/fragmentos :: head}">
         <style>
             .hero-section {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: linear-gradient(135deg, #d48c9d 0%, #b06d7f 100%);
                 color: white;
-                padding: 60px 0;
+                padding: 80px 0;
                 text-align: center;
                 margin-bottom: 40px;
             }
-            .services-section {
-                padding: 40px 0;
+            
+            .hero-section h1 {
+                font-family: 'Pacifico', cursive;
             }
-            .service-card {
-                border: none;
-                border-radius: 15px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            
+            .cards-section {
+                padding: 60px 0;
+            }
+            
+            /* ESTILO DE LA TARJETA/CUADRO CON BORDES */
+            .product-card {
+                border: 2px solid #e0e0e0; /* Borde externo visible */
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.05);
                 transition: all 0.3s ease;
                 margin-bottom: 30px;
-                height: 100%;
                 background: white;
-                cursor: pointer;
+                overflow: hidden;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
             }
-            .service-card:hover {
+            
+            .product-card:hover {
                 transform: translateY(-5px);
-                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                box-shadow: 0 8px 16px rgba(212, 140, 157, 0.15);
+                border-color: #d48c9d; 
             }
-            .service-header {
-                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-                color: white;
-                border-radius: 15px 15px 0 0;
+            
+            /* CONTENEDOR DE IMAGEN */
+            .card-img-container {
+                width: 100%;
+                height: 180px; /* ALTURA FIJA PARA TODAS LAS IMÁGENES */
+                overflow: hidden; /* Evita que la imagen se salga */
+                border-bottom: 1px solid #e9ecef;
+                background-color: #f8f9fa; 
+            }
+            
+            /* IMAGEN DENTRO DEL CONTENEDOR */
+            .card-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* Ajusta la imagen sin deformarla */
+                object-position: center; /* Centra la imagen */
+                transition: transform 0.3s ease;
+            }
+            
+            .product-card:hover .card-img {
+                transform: scale(1.05); 
+            }
+            
+            /* CONTENIDO DENTRO DEL CUADRO */
+            .card-content {
                 padding: 20px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            /* TÍTULO DENTRO DEL CUADRO */
+            .card-title {
+                font-weight: bold;
+                color: #333;
+                font-size: 1.2rem;
+                margin-bottom: 10px;
                 text-align: center;
             }
-            .service-body {
-                padding: 25px;
-            }
-            .service-title {
-                font-weight: bold;
-                margin-bottom: 15px;
-                color: #333;
-                font-size: 1.3rem;
-            }
-            .service-description {
-                color: #666;
-                line-height: 1.5;
-            }
-            .products-grid {
-                padding: 40px 0;
-            }
-            .product-card {
-                border: none;
-                border-radius: 15px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                transition: all 0.3s ease;
-                margin-bottom: 25px;
-                height: 100%;
-                cursor: pointer;
-            }
-            .product-card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-            }
-            .product-image {
-                height: 180px;
-                background-color: #f8f9fa;
-                border-radius: 15px 15px 0 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #6c757d;
-                font-size: 2.5rem;
-            }
-            .product-body {
-                padding: 20px;
-            }
-            .product-title {
-                color: #333;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-            .product-description {
+            
+            /* DESCRIPCIÓN DENTRO DEL CUADRO */
+            .card-description {
                 color: #666;
                 line-height: 1.4;
                 font-size: 0.9rem;
-            }
-            .footer-section {
-                background-color: #f8f9fa;
-                padding: 40px 0;
-                margin-top: 60px;
+                margin-bottom: 20px;
                 text-align: center;
+                flex-grow: 1;
             }
-            .footer-title {
-                font-weight: bold;
-                font-size: 1.5rem;
-                margin-bottom: 15px;
-                color: #333;
-            }
-            .footer-info {
-                color: #666;
-                margin: 8px 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-            }
-            .btn-custom {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            
+            /* BOTÓN DENTRO DEL CUADRO */
+            .card-button {
+                display: block;
+                width: 100%;
+                background: #d48c9d;
                 border: none;
                 color: white;
-                padding: 12px 30px;
-                border-radius: 25px;
+                padding: 10px;
+                border-radius: 5px;
                 font-weight: bold;
-                margin-top: 10px;
+                text-align: center;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                font-size: 0.95rem;
+            }
+            
+            .card-button:hover {
+                background: #b06d7f;
+                color: white;
+                text-decoration: none;
+                transform: translateY(-2px);
+            }
+            
+            
+            .product-card {
+                animation: fadeIn 0.5s ease forwards;
+                opacity: 0;
+            }
+            
+            @keyframes fadeIn {
+                to {
+                    opacity: 1;
+                }
+            }
+            
+            .product-card:nth-child(1) { animation-delay: 0.1s; }
+            .product-card:nth-child(2) { animation-delay: 0.2s; }
+            .product-card:nth-child(3) { animation-delay: 0.3s; }
+            .product-card:nth-child(4) { animation-delay: 0.4s; }
+            
+            
+            @media (max-width: 768px) {
+                .hero-section {
+                    padding: 60px 0;
+                }
+                
+                .hero-section h1 {
+                    font-size: 2.5rem;
+                }
+                
+                .card-img-container {
+                    height: 160px; 
+                }
+                
+                .card-content {
+                    padding: 15px;
+                }
+                
+                .card-title {
+                    font-size: 1.1rem;
+                }
+                
+                .card-description {
+                    font-size: 0.85rem;
+                }
+            }
+            
+            @media (max-width: 576px) {
+                .card-img-container {
+                    height: 150px;
+                }
+                
+                .product-card {
+                    margin-bottom: 20px;
+                }
             }
         </style>
     </head>
@@ -131,78 +172,153 @@ CODIGO DE PRODUCTOS
             <!-- Hero Section -->
             <section class="hero-section">
                 <div class="container">
-                    <h1 class="display-5 fw-bold mb-3">Productos</h1>
-                    <p class="lead mb-4">
-                        En Mimi's Bakery contamos con productos de primera calidad perfectos para cada ocasión.
-                    </p>
+                    <h1 class="display-4 fw-bold mb-3">Productos</h1>
                 </div>
             </section>
 
-            <!-- Servicios/Categorías -->
-            <section class="services-section">
+            <!-- Sección de Tarjetas/Cuadros -->
+            <section class="cards-section">
                 <div class="container">
                     <div class="row">
-                        <!-- Ver catálogo -->
+                        
+                        <!-- CUADRO 1: Ver catálogo -->
                         <div class="col-md-6 col-lg-3">
-                            <div class="card service-card" onclick="window.location.href='/catalogo'">
-                                <div class="service-header">
-                                    <h5 class="mb-0">Ver catálogo</h5>
+                            <div class="product-card">
+                                <!-- CONTENEDOR DE IMAGEN -->
+                                <div class="card-img-container">
+                                    <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=600&h=400&q=80" 
+                                         class="card-img" 
+                                         alt="Catálogo de productos">
                                 </div>
-                                <div class="service-body">
-                                    <p class="service-description">
+                                
+                                <!-- CONTENIDO -->
+                                <div class="card-content">
+                                    <!-- TÍTULO -->
+                                    <h5 class="card-title">Ver catálogo</h5>
+                                    
+                                    <!-- DESCRIPCIÓN -->
+                                    <p class="card-description">
                                         Un listado con todos nuestros productos disponibles
                                     </p>
+                                    
+                                    <!-- BOTÓN -->
+                                    <a href="/catalogo" class="card-button">
+                                        Entrar aquí
+                                    </a>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Personalización -->
+                        <!-- CUADRO 2: Personalización -->
                         <div class="col-md-6 col-lg-3">
-                            <div class="card service-card" onclick="window.location.href='/pedidos/personalizado'">
-                                <div class="service-header">
-                                    <h5 class="mb-0">Personalización</h5>
+                            <div class="product-card">
+                                <!-- CONTENEDOR DE IMAGEN -->
+                                <div class="card-img-container">
+                                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80" 
+                                         class="card-img" 
+                                         alt="Personalización de productos">
                                 </div>
-                                <div class="service-body">
-                                    <p class="service-description">
+                                
+                                <!-- CONTENIDO -->
+                                <div class="card-content">
+                                    <!-- TÍTULO -->
+                                    <h5 class="card-title">Personalización</h5>
+                                    
+                                    <!-- DESCRIPCIÓN -->
+                                    <p class="card-description">
                                         Productos personalizados perfectos para toda ocasión
                                     </p>
+                                    
+                                    <!-- BOTÓN -->
+                                    <a href="/pedidos/personalizado" class="card-button">
+                                        Entrar aquí
+                                    </a>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Información -->
+                        <!-- CUADRO 3: Información -->
                         <div class="col-md-6 col-lg-3">
-                            <div class="card service-card" onclick="window.location.href='/producto/informacion'">
-                                <div class="service-header">
-                                    <h5 class="mb-0">Información</h5>
+                            <div class="product-card">
+                                <!-- CONTENEDOR DE IMAGEN -->
+                                <div class="card-img-container">
+                                    <img src="https://plus.unsplash.com/premium_photo-1661546025229-c5e334a69746?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                                         class="card-img" 
+                                         alt="Información de productos">
                                 </div>
-                                <div class="service-body">
-                                    <p class="service-description">
+                                
+                                <!-- CONTENIDO -->
+                                <div class="card-content">
+                                    <!-- TÍTULO -->
+                                    <h5 class="card-title">Información</h5>
+                                    
+                                    <!-- DESCRIPCIÓN -->
+                                    <p class="card-description">
                                         Sabores, tamaños, rellenos y otra información importante
                                     </p>
+                                    
+                                    <!-- BOTÓN -->
+                                    <a href="/producto/informacion" class="card-button">
+                                        Entrar aquí
+                                    </a>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Ingredientes -->
+                        <!-- CUADRO 4: Ingredientes -->
                         <div class="col-md-6 col-lg-3">
-                            <div class="card service-card" onclick="window.location.href='/producto/ingredientes'">
-                                <div class="service-header">
-                                    <h5 class="mb-0">Ingredientes</h5>
+                            <div class="product-card">
+                                <!-- CONTENEDOR DE IMAGEN -->
+                                <div class="card-img-container">
+                                    <img src="https://plus.unsplash.com/premium_photo-1700593946937-5b2a2eddbcd6?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                                         class="card-img" 
+                                         alt="Ingredientes de productos">
                                 </div>
-                                <div class="service-body">
-                                    <p class="service-description">
-                                        ¿Tienes alergía o intolerancia? Revisa nuestros ingredientes para verificar que no vayas a tener ningún problema
+                                
+                                <!-- CONTENIDO -->
+                                <div class="card-content">
+                                    <!-- TÍTULO -->
+                                    <h5 class="card-title">Ingredientes</h5>
+                                    
+                                    <!-- DESCRIPCIÓN -->
+                                    <p class="card-description">
+                                        Revisa nuestros ingredientes para verificar que no vayas a tener ningún problema
                                     </p>
+                                    
+                                    <!-- BOTÓN -->
+                                    <a href="/producto/ingredientes" class="card-button">
+                                        Entrar aquí
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </section>
-
         </main>
 
         <footer th:replace="~{general/fragmentos :: footer}"></footer>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Animación de las tarjetas
+                setTimeout(() => {
+                    const cards = document.querySelectorAll('.product-card');
+                    cards.forEach(card => {
+                        card.style.opacity = '1';
+                    });
+                }, 300);
+                
+                // Asegurar que todas las imágenes tengan el mismo tamaño
+                const images = document.querySelectorAll('.card-img');
+                images.forEach(img => {
+                    
+                    img.onload = function() {
+                        this.style.objectFit = 'cover';
+                    };
+                });
+            });
+        </script>
     </body>
 </html>
