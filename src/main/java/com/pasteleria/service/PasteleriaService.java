@@ -5,10 +5,7 @@
 
 package com.pasteleria.service;
 
-/**
- *
- * @author Sebastian
- */
+
 public class PasteleriaService {
 
 }

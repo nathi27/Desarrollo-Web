@@ -22,25 +22,25 @@ public class CheckoutController {
     @Autowired private DetallePedidoRepository detalleRepository; 
     @Autowired private ProductoRepository productoRepository;
 
-    // Procesa la compra que viene desde JavaScript
+    
     @PostMapping("/procesar")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> procesarCompra(@RequestBody CompraDto compra) {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            // 1. Crear el Pedido
+            
             Pedido pedido = new Pedido();
             pedido.setFecha(LocalDateTime.now());
             pedido.setMetodoPago(compra.getMetodoPago());
             pedido.setTotal(compra.getTotal());
             pedido.setEstado("Completado");
-            // Aquí deberías obtener el usuario de la sesión, por ahora ponemos null o uno fijo
+            
             pedido.setIdUsuario(1L); 
 
             Pedido pedidoGuardado = pedidoRepository.save(pedido);
 
-            // 2. Guardar los detalles
+            
             for (CompraDto.ItemCarritoDto item : compra.getItems()) {
                 DetallePedido detalle = new DetallePedido();
                 detalle.setPedido(pedidoGuardado);
@@ -61,7 +61,7 @@ public class CheckoutController {
         }
     }
 
-    // HU19: Ver confirmación
+    
     @GetMapping("/confirmacion/{id}")
     public String confirmacion(@PathVariable Long id, Model model) {
         Pedido pedido = pedidoRepository.findById(id).orElse(null);

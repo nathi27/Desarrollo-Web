@@ -5,18 +5,18 @@
     
     <header th:replace="~{general/fragmentos :: header}"></header>
 
-    <!-- Slider Principal -->
+    
     <section class="hero-slider">
         <div id="mainSlider" class="carousel slide" data-bs-ride="carousel">
-            <!-- Indicadores -->
+           
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="0" class="active"></button>
                 <button type="button" data-bs-target="#mainSlider" data-bs-slide-to="1"></button>
             </div>
             
-            <!-- Slides -->
+            
             <div class="carousel-inner">
-                <!-- Slide 1: Sobre Nosotros -->
+                
                 <div class="carousel-item active">
                     <div class="slider-content d-flex align-items-center" style="
                         background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1519340333755-56e9c1d04579?auto=format&fit=crop&w=1200&q=80');
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 
-                <!-- Slide 2: Noticias -->
+                
                 <div class="carousel-item">
                     <div class="slider-content d-flex align-items-center" style="
                         background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1535920527002-b35e96722eb9?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
@@ -66,7 +66,7 @@
                 </div>
             </div>
             
-            <!-- Controles -->
+            
             <button class="carousel-control-prev" type="button" data-bs-target="#mainSlider" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Anterior</span>
@@ -80,7 +80,7 @@
 
     <main class="container my-5">
 
-        <!-- Productos Destacados -->
+        
         <section class="mb-5">
             <h2 class="text-center mb-5 brand-font">Nuestros Productos</h2>
             
@@ -189,7 +189,7 @@
             </div>
         </section>
         
-        <!-- Características -->
+        
         <section class="py-5 bg-light rounded-3">
             <div class="row text-center">
                 <div class="col-md-4 mb-4 mb-md-0">
@@ -230,7 +230,7 @@
             transform: scale(1.05);
         }
         
-        /* Estilos para el slider */
+        
         .carousel-indicators button {
             width: 12px;
             height: 12px;
@@ -286,7 +286,7 @@
             z-index: 2;
         }
         
-        /* Badges especiales */
+        
         .badge.bg-warning {
             font-size: 1.1rem;
             padding: 8px 15px;
@@ -297,7 +297,7 @@
             padding: 8px 15px;
         }
         
-        /* Animación para el alert */
+        
         .alert-warning {
             animation: pulse 2s infinite;
             border-left: 5px solid #ffc107;
@@ -311,18 +311,18 @@
     </style>
     
     <script>
-        // Configuración del slider
+        
         document.addEventListener('DOMContentLoaded', function() {
             const myCarousel = document.getElementById('mainSlider');
             
-            // Configurar intervalo automático (cada 5 segundos)
+            
             const carousel = new bootstrap.Carousel(myCarousel, {
                 interval: 5000,
                 wrap: true,
                 pause: 'hover'
             });
             
-            // Pausar el slider cuando el mouse está sobre él
+            
             myCarousel.addEventListener('mouseenter', function() {
                 carousel.pause();
             });
@@ -331,7 +331,7 @@
                 carousel.cycle();
             });
             
-            // Contador para la oferta
+            
             function actualizarContadorOferta() {
                 const fechaOferta = new Date('2024-12-20');
                 const hoy = new Date();
@@ -345,7 +345,7 @@
                 }
             }
             
-            // Inicializar contador
+            
             actualizarContadorOferta();
         });
     </script>

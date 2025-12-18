@@ -13,11 +13,11 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPedido;
 
-    private Long idUsuario; // Vinculamos con el usuario que compra
+    private Long idUsuario; 
     private LocalDateTime fecha;
     private Double total;
-    private String metodoPago; // Aquí guardaremos "Sinpe", "Tarjeta", etc.
-    private String estado; // "Pendiente", "Pagado", etc.
+    private String metodoPago; 
+    private String estado; 
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     private List<DetallePedido> detalles;

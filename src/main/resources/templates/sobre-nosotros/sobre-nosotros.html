@@ -8,13 +8,13 @@
     <header th:replace="~{general/fragmentos :: header}"></header>
 
     <main class="container my-5">
-        <!-- Título Principal -->
+        
         <div class="text-center mb-5">
             <h1 class="brand-font display-4 mb-3">Sobre Nosotros</h1>
             <p class="lead text-muted">Descubre la historia detrás de cada dulce que creamos</p>
         </div>
 
-        <!-- Sección 1: Historia Principal -->
+        
         <div class="row align-items-center mb-5">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="card border-0 shadow-sm">
@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <!-- Sección 2: Evolución -->
+        
         <div class="row mb-5">
             <div class="col-12">
                 <div class="card border-0 shadow-sm bg-light">
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <!-- Sección 3: Mensaje Final -->
+        
         <div class="row">
             <div class="col-12">
                 <div class="text-center p-5 bg-primary bg-opacity-10 rounded-3">
@@ -134,7 +134,7 @@
     <footer th:replace="~{general/fragmentos :: footer}"></footer>
 
     <style>
-        /* Estilos para la línea de tiempo */
+        
         .timeline {
             position: relative;
             padding-left: 30px;
@@ -169,7 +169,7 @@
             padding-left: 20px;
         }
         
-        /* Efectos hover para tarjetas */
+        
         .card {
             transition: all 0.3s ease;
         }
@@ -179,12 +179,12 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
         }
         
-        /* Estilos para iconos grandes */
+       
         .fa-3x, .fa-4x {
             color: #d48c9d;
         }
         
-        /* Estilos para el botón de WhatsApp flotante */
+        
         .whatsapp-float {
             position: fixed;
             bottom: 20px;
@@ -208,7 +208,7 @@
             box-shadow: 0 6px 16px rgba(0,0,0,0.2);
         }
         
-        /* Responsive adjustments */
+       
         @media (max-width: 768px) {
             .display-4 {
                 font-size: 2.5rem;
@@ -226,7 +226,7 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Resaltar enlace activo en navbar
+            
             const currentPage = window.location.pathname;
             const navLinks = document.querySelectorAll('.nav-link');
             
@@ -236,7 +236,7 @@
                 }
             });
             
-            // Animaciones de entrada
+            
             const animatedElements = document.querySelectorAll('.row, .card, .timeline-item');
             animatedElements.forEach((element, index) => {
                 element.style.opacity = '0';
@@ -249,7 +249,7 @@
                 }, index * 100);
             });
             
-            // Botón de WhatsApp flotante
+            
             const whatsappButton = document.createElement('a');
             whatsappButton.href = 'https://wa.me/50689852145';
             whatsappButton.target = '_blank';
@@ -258,7 +258,7 @@
             whatsappButton.title = 'Chatea con nosotros en WhatsApp';
             document.body.appendChild(whatsappButton);
             
-            // Contador de años de experiencia
+            
             const startYear = 2020;
             const currentYear = new Date().getFullYear();
             const yearsExperience = currentYear - startYear;

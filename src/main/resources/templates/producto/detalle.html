@@ -3,9 +3,7 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
-<!--
-CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
--->
+
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="~{general/fragmentos :: head}">
         <style>
@@ -52,7 +50,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 transform: translateY(-3px);
                 box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
             }
-            /* NUEVO ESTILO PARA BOTÓN DESHABILITADO */
+            
             .btn-add-cart:disabled {
                 background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
                 cursor: not-allowed;
@@ -118,7 +116,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 z-index: 1050;
                 min-width: 300px;
             }
-            /* NUEVO ESTILO PARA INFORMACIÓN DE STOCK */
+            
             .stock-info {
                 text-align: center;
                 margin-bottom: 15px;
@@ -151,22 +149,22 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
         <header th:replace="~{general/fragmentos :: header}"></header>
 
         <main class="container py-4">
-            <!-- Botón Volver -->
+            
             <div class="mb-4">
                 <a class="btn btn-outline-primary" th:href="@{/catalogo}">
                     <i class="fa-solid fa-arrow-left me-2"></i>Volver al catálogo
                 </a>
             </div>
 
-            <!-- Tarjeta Principal del Producto -->
+            
             <div class="card shadow-lg border-0">
-                <!-- Header con Nombre del Producto -->
+                
                 <div class="product-hero text-center">
                     <h1 class="display-6 fw-bold mb-0" th:text="${producto.nombre}">Nombre del producto</h1>
                 </div>
 
                 <div class="card-body p-4">
-                    <!-- Sección de Precio -->
+                    
                     <div class="price-section">
                         <div class="price-label">
                             <i class="fas fa-tag me-2"></i>Precio
@@ -176,7 +174,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                         </div>
                     </div>
 
-                    <!-- Información de Stock -->
+                   
                     <div class="stock-info">
                         <span th:if="${producto.stock > 0}">
                             <i class="fas fa-check-circle me-2 stock-disponible"></i>
@@ -188,7 +186,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                         </span>
                     </div>
 
-                    <!-- Descripción -->
+                   
                     <div class="info-card">
                         <div class="card-header">
                             <i class="fas fa-info-circle me-2"></i>Descripción
@@ -198,7 +196,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                         </div>
                     </div>
 
-                    <!-- Conservación -->
+                    
                     <div class="info-card" th:if="${producto.conservacion}">
                         <div class="card-header">
                             <i class="fas fa-snowflake me-2"></i>Instrucciones de Conservación
@@ -209,7 +207,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                     </div>
 
                     <div class="row mt-4">
-                        <!-- Tamaños Disponibles CON SELECTOR -->
+                        
                         <div class="col-lg-4 mb-3">
                             <div class="info-card h-100">
                                 <div class="card-header">
@@ -218,7 +216,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                                 <div class="card-body">
                                     <div th:if="${#lists.isEmpty(tamanos)}" class="text-muted text-center">Sin tamaños</div>
                                     <div th:if="${!#lists.isEmpty(tamanos)}">
-                                        <!-- Selector de Tamaño -->
+                                        
                                         <div class="selector-label">Selecciona un tamaño:</div>
                                         <select class="selector-tamano" id="selectorTamano">
                                             <option value="">-- Elegir tamaño --</option>
@@ -229,7 +227,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                                             </option>
                                         </select>
                                         
-                                        <!-- Lista de tamaños (solo visual) -->
+                                        
                                         <ul class="feature-list mt-3">
                                             <li th:each="t : ${tamanos}" th:text="${t.etiqueta}">Tamaño</li>
                                         </ul>
@@ -238,7 +236,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                             </div>
                         </div>
 
-                        <!-- Sabores CON SELECTOR -->
+                        
                         <div class="col-lg-4 mb-3">
                             <div class="info-card h-100">
                                 <div class="card-header">
@@ -247,7 +245,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                                 <div class="card-body">
                                     <div th:if="${#lists.isEmpty(sabores)}" class="text-muted text-center">Sin sabores</div>
                                     <div th:if="${!#lists.isEmpty(sabores)}">
-                                        <!-- Selector de Sabor -->
+                                        
                                         <div class="selector-label">Selecciona un sabor:</div>
                                         <select class="selector-sabor" id="selectorSabor">
                                             <option value="">-- Elegir sabor --</option>
@@ -258,7 +256,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                                             </option>
                                         </select>
                                         
-                                        <!-- Lista de sabores -->
+                                        
                                         <ul class="feature-list mt-3">
                                             <li th:each="s : ${sabores}" th:text="${s.etiqueta}">Sabor</li>
                                         </ul>
@@ -267,7 +265,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                             </div>
                         </div>
 
-                        <!-- Ingredientes -->
+                        
                         <div class="col-lg-4 mb-3">
                             <div class="info-card h-100">
                                 <div class="card-header">
@@ -285,9 +283,9 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
 
                     <div class="section-divider"></div>
 
-                    <!-- Acciones -->
+                    
                     <div class="text-center">
-                        <!-- Botón Agregar al Carrito -->
+                        
                         <button class="btn btn-add-cart mb-3" 
                                 th:disabled="${producto.stock == 0}"
                                 onclick="agregarAlCarritoDesdeDetalle()"
@@ -309,16 +307,16 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
         <footer th:replace="~{general/fragmentos :: footer}"></footer>
 
         <script>
-            // Variables para las selecciones
+            
             let tamanoSeleccionado = '';
             let saborSeleccionado = '';
 
-            // Inicializar al cargar la página
+            
             document.addEventListener('DOMContentLoaded', function() {
                 console.log("Página cargada, inicializando carrito...");
                 actualizarContadorCarrito();
                 
-                // Configurar event listeners para los selectores
+                
                 document.getElementById('selectorTamano').addEventListener('change', function() {
                     tamanoSeleccionado = this.value;
                     console.log("Tamaño seleccionado:", tamanoSeleccionado);
@@ -330,16 +328,16 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 });
             });
 
-            // Función específica para esta página
+            
             function agregarAlCarritoDesdeDetalle() {
-                // Obtener datos del producto desde Thymeleaf
+                
                 const id = [[${producto.idProducto}]];
                 const nombreBase = "[[${producto.nombre}]]";
                 const precio = [[${producto.precio}]];
                 const descripcion = "[[${producto.descripcion}]]";
                 const stock = [[${producto.stock}]];
                 
-                // Obtener selecciones actuales
+                
                 const tamanoSelect = document.getElementById('selectorTamano');
                 const saborSelect = document.getElementById('selectorSabor');
                 
@@ -355,13 +353,13 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                     sabor: saborSeleccionado
                 });
                 
-                // Validar stock antes de agregar
+                
                 if (stock <= 0) {
                     mostrarMensaje('❌ ' + nombreBase + ' está agotado', 'error');
                     return;
                 }
                 
-                // Validar que se hayan seleccionado tamaño y sabor si están disponibles
+                
                 const tieneTamanos = [[${!#lists.isEmpty(tamanos)}]];
                 const tieneSabores = [[${!#lists.isEmpty(sabores)}]];
                 
@@ -375,7 +373,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                     return;
                 }
                 
-                // Construir nombre del producto con las selecciones
+                
                 let nombreFinal = nombreBase;
                 if (tamanoSeleccionado) {
                     nombreFinal += ` - ${tamanoSeleccionado}`;
@@ -387,7 +385,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 agregarAlCarrito(id, nombreFinal, precio, descripcion, stock);
             }
 
-            // Función principal para agregar al carrito
+            
             function agregarAlCarrito(id, nombre, precio, descripcion, stock) {
                 console.log("Ejecutando agregarAlCarrito con:", {id, nombre, precio, stock});
                 
@@ -395,7 +393,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 const productoExistente = carrito.find(item => item.id === id && item.nombre === nombre);
                 
                 if (productoExistente) {
-                    // Verificar que no exceda el stock disponible
+                    
                     if (productoExistente.cantidad >= stock) {
                         mostrarMensaje('❌ Cantidad mayor al stock disponible. Stock máximo: ' + stock, 'error');
                         return;
@@ -404,7 +402,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                     productoExistente.cantidad += 1;
                     mostrarMensaje('✅ ' + nombre + ' agregado al carrito', 'success');
                 } else {
-                    // Verificar stock para nuevo producto
+                    
                     if (stock <= 0) {
                         mostrarMensaje('❌ ' + nombre + ' está agotado', 'error');
                         return;
@@ -426,9 +424,9 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 actualizarContadorCarrito();
             }
 
-            // Función para mostrar mensajes
+            
             function mostrarMensaje(mensaje, tipo) {
-                // Crear notificación
+                
                 const toast = document.createElement('div');
                 toast.className = `alert alert-${tipo === 'error' ? 'danger' : 'success'} alert-dismissible fade show toast-notification`;
                 toast.innerHTML = `
@@ -444,7 +442,7 @@ CODIGO DE DETALLES DE CATÁLOGOS DE PRODUCTOS
                 }, 3000);
             }
 
-            // Función para actualizar contador del carrito
+            
             function actualizarContadorCarrito() {
                 const carrito = JSON.parse(localStorage.getItem('carritoPasteleria') || '[]');
                 const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);

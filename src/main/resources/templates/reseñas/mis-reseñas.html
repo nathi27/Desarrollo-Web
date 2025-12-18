@@ -136,7 +136,7 @@
     <header th:replace="~{general/fragmentos :: header}"></header>
     
     <main>
-        <!-- Hero Section -->
+        
         <section class="hero-section text-center">
             <div class="container">
                 <h1 class="h3 fw-bold mb-2">Reseñas</h1>
@@ -145,7 +145,7 @@
         </section>
         
         <div class="container mb-5">
-            <!-- Mensajes Flash -->
+            
             <div th:if="${mensajeExito}" class="alert alert-success alert-dismissible fade show mb-4">
                 <span th:text="${mensajeExito}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -156,7 +156,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
             
-            <!-- Botón de volver -->
+           
             <div class="d-flex justify-content-between mb-4">
                 <a th:href="@{/reseñas}" class="btn btn-outline-primary">
                     <i class="fas fa-arrow-left me-2"></i>Volver a Reseñas
@@ -167,9 +167,7 @@
                 </a>
             </div>
             
-            <!-- =========================================== -->
-            <!-- SECCIÓN 1: MIS RESEÑAS -->
-            <!-- =========================================== -->
+            
             <div class="mb-5">
                 <h2 class="section-title">Mis Reseñas</h2>
                 
@@ -191,7 +189,7 @@
                                         <div>
                                             <strong th:text="${resena.producto.nombre}">Nombre del Producto</strong>
                                             <div class="stars-small">
-                                                <!-- Solo 5 estrellas máximo -->
+                                                
                                                 <span th:each="i : ${#numbers.sequence(1, 5)}">
                                                     <i th:class="${i <= resena.calificacion} ? 'fas fa-star' : 'far fa-star'"></i>
                                                 </span>
@@ -211,7 +209,7 @@
                                                 <i class="fas fa-clock me-1"></i>En revisión
                                             </span>
                                             
-                                            <!-- BOTÓN REMOVIDO: Ya no aparece el botón de eliminar -->
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -231,7 +229,7 @@
                     </div>
                 </div>
                 
-                <!-- Mensaje si no hay reseñas propias -->
+               
                 <div th:if="${misResenas.empty}" class="empty-state">
                     <i class="fas fa-comment-slash"></i>
                     <h3 class="h5 mb-3">Aún no has publicado ninguna reseña</h3>
@@ -242,14 +240,12 @@
                 </div>
             </div>
             
-            <!-- =========================================== -->
-            <!-- SECCIÓN 2: RESEÑAS DE LA COMUNIDAD -->
-            <!-- =========================================== -->
+           
             <div class="community-resenas">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2 class="section-title mb-0">Reseñas de la Comunidad</h2>
                     
-                    <!-- Filtro por producto -->
+                    
                     <div class="product-filter">
                         <label class="filter-label">Filtrar por producto:</label>
                         <select class="filter-select" id="filtroProducto" onchange="filtrarResenas()">
@@ -284,7 +280,7 @@
                                             <div>
                                                 <span class="badge-producto me-2" th:text="${resena.producto.nombre}">Producto</span>
                                                 <div class="stars-small d-inline-block">
-                                                    <!-- Solo 5 estrellas máximo -->
+                                                    
                                                     <span th:each="i : ${#numbers.sequence(1, 5)}">
                                                         <i th:class="${i <= resena.calificacion} ? 'fas fa-star' : 'far fa-star'"></i>
                                                     </span>
@@ -306,7 +302,7 @@
                         </div>
                     </div>
                     
-                    <!-- Botón para ver más productos -->
+                    
                     <div class="text-center mt-4">
                         <a th:href="@{/catalogo}" class="btn btn-outline-primary">
                             <i class="fas fa-store me-2"></i>Ver todos los productos
@@ -314,14 +310,14 @@
                     </div>
                 </div>
                 
-                <!-- Mensaje si no hay reseñas de comunidad -->
+                
                 <div th:if="${resenasComunidad.empty}" class="empty-state">
                     <i class="fas fa-comments"></i>
                     <h3 class="h5 mb-3">Aún no hay reseñas de la comunidad</h3>
                     <p class="text-muted">Sé el primero en compartir tu experiencia</p>
                 </div>
                 
-                <!-- Mensaje cuando se filtra y no hay resultados -->
+                
                 <div id="sinResultados" class="empty-state" style="display: none;">
                     <i class="fas fa-search"></i>
                     <h3 class="h5 mb-3">No hay reseñas para este producto</h3>
@@ -337,7 +333,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Página de reseñas cargada');
             
-            // Función para filtrar reseñas por producto
+            
             window.filtrarResenas = function() {
                 const filtro = document.getElementById('filtroProducto').value;
                 const reseñas = document.querySelectorAll('.resena-item');
@@ -355,7 +351,7 @@
                     }
                 });
                 
-                // Mostrar mensaje si no hay resultados
+                
                 if (visibleCount === 0 && filtro !== 'todos') {
                     sinResultados.style.display = 'block';
                 } else {

@@ -9,7 +9,7 @@ public class ContactoController {
     
     @GetMapping("/contacto")
     public String mostrarPaginaContacto(Model model) {
-        // Agregar datos de contacto al modelo
+        
         model.addAttribute("pagina", "contacto");
         model.addAttribute("telefono", "8985-2145");
         model.addAttribute("email", "mimisbakeryc@gmail.com");

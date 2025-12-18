@@ -116,7 +116,7 @@
     <header th:replace="~{general/fragmentos :: header}"></header>
     
     <main>
-        <!-- Hero Section -->
+        
         <section class="hero-section text-center">
             <div class="container">
                 <h1 class="h3 fw-bold mb-2">Reseñas del Producto</h1>
@@ -125,7 +125,7 @@
         </section>
         
         <div class="container mb-5">
-            <!-- Botones de navegación -->
+           
             <div class="d-flex justify-content-between mb-4">
                 <div>
                     <a th:href="@{/producto/{id}(id=${producto.idProducto})}" class="btn btn-outline-primary me-2">
@@ -142,14 +142,14 @@
                 </a>
             </div>
             
-            <!-- Resumen de calificaciones -->
+            
             <div class="rating-summary">
                 <div class="row align-items-center">
                     <div class="col-md-4">
                         <div class="average-rating mb-2" 
                              th:text="${#numbers.formatDecimal(promedioCalificacion, 1, 2)}">0.0</div>
                         <div class="stars-large">
-                            <!-- CORREGIDO: Solo 5 estrellas máximo -->
+                            
                             <span th:each="i : ${#numbers.sequence(1, 5)}">
                                 <i th:class="${i <= promedioCalificacion} ? 'fas fa-star' : 
                                            ${i <= promedioCalificacion + 0.5} ? 'fas fa-star-half-alt' : 'far fa-star'"></i>
@@ -169,7 +169,7 @@
                 </div>
             </div>
             
-            <!-- Lista de reseñas -->
+            
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="h5 mb-0">Opiniones de clientes</h3>
                 <span class="text-muted small" th:text="'Mostrando ' + ${resenas.size()} + ' de ' + ${totalResenas} + ' reseñas'">
@@ -191,7 +191,7 @@
                                     <div>
                                         <strong th:text="${resena.usuario.nombre}">Usuario</strong>
                                         <div class="stars-small">
-                                            <!-- CORREGIDO: Solo 5 estrellas máximo -->
+                                            
                                             <span th:each="i : ${#numbers.sequence(1, 5)}">
                                                 <i th:class="${i <= resena.calificacion} ? 'fas fa-star' : 'far fa-star'"></i>
                                             </span>
@@ -213,7 +213,7 @@
                     </div>
                 </div>
                 
-                <!-- Botón para dejar reseña al final -->
+                
                 <div class="text-center mt-4">
                     <a th:href="@{/reseñas/crear?idProducto={id}(id=${producto.idProducto})}" 
                        class="btn btn-dejar-resena">
@@ -222,7 +222,7 @@
                 </div>
             </div>
             
-            <!-- Mensaje si no hay reseñas -->
+            
             <div th:if="${resenas.empty}" class="empty-state">
                 <i class="fas fa-comment-slash"></i>
                 <h3 class="h5 mb-3">Aún no hay reseñas para este producto</h3>

@@ -18,9 +18,9 @@
                 padding: 60px 0;
             }
             
-            /* ESTILO DE LA TARJETA/CUADRO CON BORDES */
+            
             .product-card {
-                border: 2px solid #e0e0e0; /* Borde externo visible */
+                border: 2px solid #e0e0e0; 
                 border-radius: 10px;
                 box-shadow: 0 4px 8px rgba(0,0,0,0.05);
                 transition: all 0.3s ease;
@@ -38,21 +38,21 @@
                 border-color: #d48c9d; 
             }
             
-            /* CONTENEDOR DE IMAGEN */
+            
             .card-img-container {
                 width: 100%;
-                height: 180px; /* ALTURA FIJA PARA TODAS LAS IMÁGENES */
-                overflow: hidden; /* Evita que la imagen se salga */
+                height: 180px; 
+                overflow: hidden; 
                 border-bottom: 1px solid #e9ecef;
                 background-color: #f8f9fa; 
             }
             
-            /* IMAGEN DENTRO DEL CONTENEDOR */
+            
             .card-img {
                 width: 100%;
                 height: 100%;
-                object-fit: cover; /* Ajusta la imagen sin deformarla */
-                object-position: center; /* Centra la imagen */
+                object-fit: cover; 
+                object-position: center; 
                 transition: transform 0.3s ease;
             }
             
@@ -60,7 +60,7 @@
                 transform: scale(1.05); 
             }
             
-            /* CONTENIDO DENTRO DEL CUADRO */
+            
             .card-content {
                 padding: 20px;
                 flex-grow: 1;
@@ -68,7 +68,7 @@
                 flex-direction: column;
             }
             
-            /* TÍTULO DENTRO DEL CUADRO */
+            
             .card-title {
                 font-weight: bold;
                 color: #333;
@@ -77,7 +77,7 @@
                 text-align: center;
             }
             
-            /* DESCRIPCIÓN DENTRO DEL CUADRO */
+            
             .card-description {
                 color: #666;
                 line-height: 1.4;
@@ -87,7 +87,7 @@
                 flex-grow: 1;
             }
             
-            /* BOTÓN DENTRO DEL CUADRO */
+            
             .card-button {
                 display: block;
                 width: 100%;
@@ -169,39 +169,39 @@
         <header th:replace="~{general/fragmentos :: header}"></header>
 
         <main>
-            <!-- Hero Section -->
+            
             <section class="hero-section">
                 <div class="container">
                     <h1 class="display-4 fw-bold mb-3">Productos</h1>
                 </div>
             </section>
 
-            <!-- Sección de Tarjetas/Cuadros -->
+            
             <section class="cards-section">
                 <div class="container">
                     <div class="row">
                         
-                        <!-- CUADRO 1: Ver catálogo -->
+                        
                         <div class="col-md-6 col-lg-3">
                             <div class="product-card">
-                                <!-- CONTENEDOR DE IMAGEN -->
+                                
                                 <div class="card-img-container">
                                     <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=600&h=400&q=80" 
                                          class="card-img" 
                                          alt="Catálogo de productos">
                                 </div>
                                 
-                                <!-- CONTENIDO -->
+                                
                                 <div class="card-content">
-                                    <!-- TÍTULO -->
+                                    
                                     <h5 class="card-title">Ver catálogo</h5>
                                     
-                                    <!-- DESCRIPCIÓN -->
+                                    
                                     <p class="card-description">
                                         Un listado con todos nuestros productos disponibles
                                     </p>
                                     
-                                    <!-- BOTÓN -->
+                                    
                                     <a href="/catalogo" class="card-button">
                                         Entrar aquí
                                     </a>
@@ -209,27 +209,27 @@
                             </div>
                         </div>
 
-                        <!-- CUADRO 2: Personalización -->
+                        
                         <div class="col-md-6 col-lg-3">
                             <div class="product-card">
-                                <!-- CONTENEDOR DE IMAGEN -->
+                                
                                 <div class="card-img-container">
                                     <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&h=400&q=80" 
                                          class="card-img" 
                                          alt="Personalización de productos">
                                 </div>
                                 
-                                <!-- CONTENIDO -->
+                                
                                 <div class="card-content">
-                                    <!-- TÍTULO -->
+                                    
                                     <h5 class="card-title">Personalización</h5>
                                     
-                                    <!-- DESCRIPCIÓN -->
+                                    
                                     <p class="card-description">
                                         Productos personalizados perfectos para toda ocasión
                                     </p>
                                     
-                                    <!-- BOTÓN -->
+                                   
                                     <a href="/pedidos/personalizado" class="card-button">
                                         Entrar aquí
                                     </a>
@@ -237,27 +237,27 @@
                             </div>
                         </div>
 
-                        <!-- CUADRO 3: Información -->
+                        
                         <div class="col-md-6 col-lg-3">
                             <div class="product-card">
-                                <!-- CONTENEDOR DE IMAGEN -->
+                                
                                 <div class="card-img-container">
                                     <img src="https://plus.unsplash.com/premium_photo-1661546025229-c5e334a69746?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                                          class="card-img" 
                                          alt="Información de productos">
                                 </div>
                                 
-                                <!-- CONTENIDO -->
+                               
                                 <div class="card-content">
-                                    <!-- TÍTULO -->
+                                    
                                     <h5 class="card-title">Información</h5>
                                     
-                                    <!-- DESCRIPCIÓN -->
+                                    
                                     <p class="card-description">
                                         Sabores, tamaños, rellenos y otra información importante
                                     </p>
                                     
-                                    <!-- BOTÓN -->
+                                    
                                     <a href="/producto/informacion" class="card-button">
                                         Entrar aquí
                                     </a>
@@ -265,27 +265,27 @@
                             </div>
                         </div>
 
-                        <!-- CUADRO 4: Ingredientes -->
+                        
                         <div class="col-md-6 col-lg-3">
                             <div class="product-card">
-                                <!-- CONTENEDOR DE IMAGEN -->
+                                
                                 <div class="card-img-container">
                                     <img src="https://plus.unsplash.com/premium_photo-1700593946937-5b2a2eddbcd6?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                                          class="card-img" 
                                          alt="Ingredientes de productos">
                                 </div>
                                 
-                                <!-- CONTENIDO -->
+                                
                                 <div class="card-content">
-                                    <!-- TÍTULO -->
+                                    
                                     <h5 class="card-title">Ingredientes</h5>
                                     
-                                    <!-- DESCRIPCIÓN -->
+                                    
                                     <p class="card-description">
                                         Revisa nuestros ingredientes para verificar que no vayas a tener ningún problema
                                     </p>
                                     
-                                    <!-- BOTÓN -->
+                                    
                                     <a href="/producto/ingredientes" class="card-button">
                                         Entrar aquí
                                     </a>
@@ -302,7 +302,7 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                // Animación de las tarjetas
+                
                 setTimeout(() => {
                     const cards = document.querySelectorAll('.product-card');
                     cards.forEach(card => {
@@ -310,7 +310,7 @@
                     });
                 }, 300);
                 
-                // Asegurar que todas las imágenes tengan el mismo tamaño
+                
                 const images = document.querySelectorAll('.card-img');
                 images.forEach(img => {
                     

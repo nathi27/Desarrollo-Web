@@ -6,33 +6,32 @@ package com.pasteleria.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
-public class RegistroUsuarioForm {
+public class ActualizarCuentaForm {
     
-    @NotBlank(message = "El nombre es obligatorio")
+     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
 
     @NotBlank(message = "El correo es obligatorio")
     @Email(message = "El correo no tiene un formato válido")
     private String correo;
 
-    @NotBlank(message = "La contraseña es obligatoria")
-    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
-    private String password;
-
-    @NotBlank(message = "Debe confirmar la contraseña")
+    
+    private String passwordActual;
+    private String nuevaPassword;
     private String confirmarPassword;
 
-    
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
     public String getCorreo() { return correo; }
     public void setCorreo(String correo) { this.correo = correo; }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getPasswordActual() { return passwordActual; }
+    public void setPasswordActual(String passwordActual) { this.passwordActual = passwordActual; }
+
+    public String getNuevaPassword() { return nuevaPassword; }
+    public void setNuevaPassword(String nuevaPassword) { this.nuevaPassword = nuevaPassword; }
 
     public String getConfirmarPassword() { return confirmarPassword; }
     public void setConfirmarPassword(String confirmarPassword) { this.confirmarPassword = confirmarPassword; }

@@ -47,7 +47,7 @@
 
         <form th:action="@{/pedidos/procesar}" method="post" class="bg-white p-4 rounded shadow-sm">
             
-            <!-- Sección Producto -->
+            
             <div class="row mb-4">
                 <div class="col-12">
                     <h3 class="section-title">Producto</h3>
@@ -66,7 +66,7 @@
                 </div>
             </div>
 
-            <!-- Sección Sabor Bizcocho -->
+            
             <div class="row mb-4">
                 <div class="col-12">
                     <h3 class="section-title">Sabor Bizcocho</h3>
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <!-- Sección Sabor Relleno -->
+            
             <div class="row mb-4">
                 <div class="col-12">
                     <h3 class="section-title">Sabor Relleno</h3>
@@ -104,7 +104,7 @@
                 </div>
             </div>
 
-            <!-- Sección Tamaño -->
+            
             <div class="row mb-4">
                 <div class="col-12">
                     <h3 class="section-title">Tamaño</h3>
@@ -123,7 +123,7 @@
                 </div>
             </div>
 
-            <!-- Personalización Adicional -->
+            
             <div class="row mb-4">
                 <div class="col-12">
                     <h3 class="section-title">Personalización Adicional</h3>
@@ -135,7 +135,7 @@
                 </div>
             </div>
 
-            <!-- Información del Cliente -->
+            
             <div class="row mb-4">
                 <div class="col-12">
                     <h3 class="section-title">Tus Datos</h3>
@@ -160,7 +160,7 @@
                 </div>
             </div>
 
-            <!-- Botón de Envío -->
+            
             <div class="row">
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary btn-lg w-100 btn-primary-custom">
@@ -175,22 +175,22 @@
 
     <script>
         function seleccionarOpcion(elemento, tipo) {
-            // Remover selección de otros elementos del mismo tipo
+            
             const cards = elemento.parentElement.parentElement.querySelectorAll('.option-card');
             cards.forEach(card => {
                 card.classList.remove('selected');
                 card.classList.remove('border-primary');
             });
             
-            // Seleccionar el elemento actual
+            
             elemento.classList.add('selected');
             elemento.classList.add('border-primary');
             
-            // Actualizar el campo hidden correspondiente
+            
             document.getElementById(tipo + 'Seleccionado').value = elemento.getAttribute('data-value');
         }
 
-        // Validación antes de enviar
+       
         document.querySelector('form').addEventListener('submit', function(e) {
             const camposRequeridos = ['producto', 'bizcocho', 'relleno', 'tamano'];
             let valido = true;

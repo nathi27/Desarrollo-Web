@@ -39,7 +39,7 @@ public class PedidoPersonalizado {
     @Column(name = "fecha_entrega")
     private LocalDateTime fechaEntrega;
 
-    // Relación con el cliente (usuario)
+    
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;

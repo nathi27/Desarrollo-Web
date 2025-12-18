@@ -29,8 +29,7 @@ public class PedidoPersonalizadoController {
 
     @PostMapping("/procesar")
     public String procesarPedido() {
-        // Aquí va la lógica para procesar el pedido
-        // Por ahora solo redirige a confirmación
+        
         return "redirect:/pedidos/confirmacion";
     }
 

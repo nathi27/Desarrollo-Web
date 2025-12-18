@@ -16,10 +16,10 @@ public interface ResenaRepository extends JpaRepository<Resena, Long> {
     
     List<Resena> findByUsuarioIdUsuario(Long idUsuario);
     
-    // NUEVO: Reseñas recientes excluyendo un usuario
+    
     List<Resena> findTop10ByUsuarioIdUsuarioNotAndAprobadaTrueOrderByFechaCreacionDesc(Long idUsuarioExcluir);
     
-    // NUEVO: Reseñas más recientes (para la comunidad)
+    
     List<Resena> findTop10ByAprobadaTrueOrderByFechaCreacionDesc();
     
     @Query("SELECT AVG(r.calificacion) FROM Resena r WHERE r.producto.idProducto = :productoId AND r.aprobada = true")

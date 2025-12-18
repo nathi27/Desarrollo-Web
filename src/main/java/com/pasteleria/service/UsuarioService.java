@@ -19,37 +19,28 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
+import com.pasteleria.dto.ActualizarCuentaForm;
 
 @Service
 
 public class UsuarioService {
-    
+
     private final UsuarioRepository usuarioRepository;
     private final ExpiracionTokenContrasenaRepository tokenRepository;
     private final Random random = new Random();
 
     public UsuarioService(UsuarioRepository usuarioRepository,
-                          ExpiracionTokenContrasenaRepository tokenRepository) {
+            ExpiracionTokenContrasenaRepository tokenRepository) {
         this.usuarioRepository = usuarioRepository;
         this.tokenRepository = tokenRepository;
     }
 
-    // ======================================================
-    // HU1: Registro de usuarios
-    // ======================================================
-
-    /**
-     * Verifica si ya existe un usuario con ese correo.
-     */
+    
     public boolean existeCorreo(String correo) {
         return usuarioRepository.existsByCorreo(correo);
     }
 
-    /**
-     * Regla de contraseña (HU1):
-     *  - mínimo 8 caracteres
-     *  - al menos UNA mayúscula
-     */
+    
     public boolean passwordValida(String password) {
         if (password == null || password.length() < 8) {
             return false;
@@ -58,44 +49,33 @@ public class UsuarioService {
         return tieneMayuscula;
     }
 
-    /**
-     * Registra un nuevo usuario en la BD a partir del formulario.
-     */
+    
     @Transactional
     public Usuario registrarNuevoUsuario(RegistroUsuarioForm form) {
         Usuario usuario = new Usuario();
         usuario.setNombre(form.getNombre());
-        // Guardamos el correo en minúsculas para consistencia
+        
         usuario.setCorreo(form.getCorreo().toLowerCase());
         usuario.setPasswordHash(hashPassword(form.getPassword()));
-        usuario.setActivo(Boolean.TRUE); // importante que no quede null
+        usuario.setActivo(Boolean.TRUE); 
         usuario.setFechaCreacion(LocalDateTime.now());
         usuario.setFechaModificacion(LocalDateTime.now());
 
         return usuarioRepository.save(usuario);
     }
 
-    // ======================================================
-    // HU13: Recuperación / cambio de contraseña
-    // ======================================================
-
-    /**
-     * Genera un código de 6 dígitos, lo guarda en la tabla
-     * expiracion_token_contraseña y "simula" el envío al correo.
-     *
-     * Retorna el código solo para pruebas (en producción no se devolvería).
-     */
+    
     @Transactional
     public String generarCodigoRecuperacion(String correo) {
         Optional<Usuario> opt = usuarioRepository.findByCorreo(correo);
         if (opt.isEmpty()) {
-            // Por seguridad, no indicamos si existe o no el correo.
+            
             return null;
         }
 
         Usuario usuario = opt.get();
 
-        // Generamos código 6 dígitos, ej: 034921
+        
         String codigo = String.format("%06d", random.nextInt(1_000_000));
         LocalDateTime expira = LocalDateTime.now().plusMinutes(15);
 
@@ -103,25 +83,19 @@ public class UsuarioService {
         token.setUsuario(usuario);
         token.setCodigo(codigo);
         token.setExpiraEn(expira);
-        token.setUsado(0); // 0 = no usado
+        token.setUsado(0); 
         token.setFechaCreacion(LocalDateTime.now());
         token.setFechaModificacion(LocalDateTime.now());
 
         tokenRepository.save(token);
 
-        // Aquí iría el envío real por correo (SMTP, servicio externo, etc.)
-        // Para pruebas, lo mostramos en consola:
+        
         System.out.println("Código de recuperación para " + correo + ": " + codigo);
 
         return codigo;
     }
 
-    /**
-     * Valida que el código:
-     *  - exista para ese usuario
-     *  - no esté usado (usado = 0)
-     *  - no esté vencido (expira_en > ahora)
-     */
+    
     @Transactional
     public boolean validarCodigo(String correo, String codigo) {
         Optional<Usuario> opt = usuarioRepository.findByCorreo(correo);
@@ -130,11 +104,11 @@ public class UsuarioService {
         }
         Usuario usuario = opt.get();
 
-        Optional<ExpiracionTokenContrasena> tokenOpt =
-                tokenRepository.findTopByUsuarioAndCodigoAndUsadoAndExpiraEnAfterOrderByExpiraEnDesc(
+        Optional<ExpiracionTokenContrasena> tokenOpt
+                = tokenRepository.findTopByUsuarioAndCodigoAndUsadoAndExpiraEnAfterOrderByExpiraEnDesc(
                         usuario,
                         codigo,
-                        0, // buscamos tokens NO usados
+                        0, 
                         LocalDateTime.now()
                 );
 
@@ -142,18 +116,16 @@ public class UsuarioService {
             return false;
         }
 
-        // Marcamos el token como usado
+        
         ExpiracionTokenContrasena token = tokenOpt.get();
-        token.setUsado(1); // 1 = usado
+        token.setUsado(1); 
         token.setFechaModificacion(LocalDateTime.now());
         tokenRepository.save(token);
 
         return true;
     }
 
-    /**
-     * Cambia la contraseña de un usuario según su correo.
-     */
+  
     @Transactional
     public boolean cambiarPassword(String correo, String nuevaPass) {
         Optional<Usuario> opt = usuarioRepository.findByCorreo(correo);
@@ -169,10 +141,59 @@ public class UsuarioService {
         return true;
     }
 
-    // ======================================================
-    // Utilidad: Hash de contraseña con SHA-256 (simple)
-    // ======================================================
+   
+    public Optional<Usuario> obtenerPorCorreo(String correo) {
+        if (correo == null) {
+            return Optional.empty();
+        }
+        String correoNormalizado = correo.trim().toLowerCase();
+        return usuarioRepository.findByCorreo(correoNormalizado);
+    }
 
+    public boolean correoEnUsoPorOtroUsuario(String correo, Long idUsuario) {
+        if (correo == null || idUsuario == null) {
+            return false;
+        }
+        String correoNormalizado = correo.trim().toLowerCase();
+        return usuarioRepository.existsByCorreoAndIdUsuarioNot(correoNormalizado, idUsuario);
+    }
+
+    public boolean passwordActualCorrecta(Usuario usuario, String passwordActual) {
+        if (usuario == null || passwordActual == null) {
+            return false;
+        }
+        String actual = passwordActual.trim();
+        if (actual.length() == 0) {
+            return false;
+        }
+        String hashIngresado = hashPassword(actual);
+        String hashGuardado = usuario.getPasswordHash();
+        if (hashGuardado == null) {
+            return false;
+        }
+        return hashGuardado.equals(hashIngresado);
+    }
+
+    @Transactional
+    public Usuario aplicarCambiosCuenta(Usuario usuario, ActualizarCuentaForm form) {
+        
+
+        usuario.setNombre(form.getNombre() == null ? "" : form.getNombre().trim());
+        usuario.setCorreo(form.getCorreo() == null ? "" : form.getCorreo().trim().toLowerCase());
+
+        String nueva = form.getNuevaPassword();
+        if (nueva != null) {
+            String n = nueva.trim();
+            if (n.length() > 0) {
+                usuario.setPasswordHash(hashPassword(n));
+            }
+        }
+
+        usuario.setFechaModificacion(LocalDateTime.now());
+        return usuarioRepository.save(usuario);
+    }
+
+    
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -192,5 +213,5 @@ public class UsuarioService {
             throw new IllegalStateException("No se pudo inicializar SHA-256", e);
         }
     }
-    
+
 }

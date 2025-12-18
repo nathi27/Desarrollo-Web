@@ -25,9 +25,7 @@ public class ResenaController {
         this.productoService = productoService;
     }
     
-    // ======================================================
-    // Página principal de reseñas - MODIFICADA
-    // ======================================================
+   
     @GetMapping("")
     public String mostrarResenas(Model model) {
         // Obtener todos los productos activos para el dropdown
@@ -36,33 +34,27 @@ public class ResenaController {
         return "reseñas/listado";
     }
     
-    // ======================================================
-    // Formulario para crear reseña - MODIFICADO
-    // Ahora recibe el producto como parámetro GET (idProducto)
-    // ======================================================
+    
     @GetMapping("/crear")
     public String mostrarFormularioResena(
             @RequestParam("idProducto") Long idProducto,
             Model model,
             RedirectAttributes redirectAttributes) {
         
-        // Validar que se proporcionó un ID de producto
+        
         if (idProducto == null) {
             redirectAttributes.addFlashAttribute("error", "Debes seleccionar un producto");
             return "redirect:/reseñas";
         }
         
-        // Validar que el producto existe
+        
         Producto producto = productoService.ver(idProducto);
         if (producto == null) {
             redirectAttributes.addFlashAttribute("error", "Producto no encontrado");
             return "redirect:/reseñas";
         }
         
-        // TODO: Validar que el usuario ha comprado este producto
-        // Por ahora permitimos cualquier usuario
-        
-        // Crear formulario con el producto seleccionado
+       
         CrearResenaForm form = new CrearResenaForm();
         form.setIdProducto(idProducto);
         
@@ -72,9 +64,7 @@ public class ResenaController {
         return "reseñas/crear";
     }
     
-    // ======================================================
-    // Procesar nueva reseña - MANTENIDO
-    // ======================================================
+    
     @PostMapping("/crear")
     public String procesarResena(
             @Valid @ModelAttribute("crearResenaForm") CrearResenaForm form,
@@ -89,8 +79,7 @@ public class ResenaController {
         }
         
         try {
-            // TODO: Obtener el ID del usuario logueado de la sesión
-            // Por ahora usamos un usuario de prueba (ID 1)
+            
             Long idUsuario = 1L;
             
             resenaService.crearResena(form, idUsuario);
@@ -107,9 +96,7 @@ public class ResenaController {
         return "redirect:/producto/" + form.getIdProducto();
     }
     
-    // ======================================================
-    // Ver reseñas de un producto específico - MANTENIDO
-    // ======================================================
+    
     @GetMapping("/producto/{idProducto}")
     public String verResenasProducto(@PathVariable Long idProducto, Model model) {
         Producto producto = productoService.ver(idProducto);
@@ -129,25 +116,25 @@ public class ResenaController {
         return "reseñas/producto";
     }
 
-    // Mis reseñas (del usuario logueado)
+    
     @GetMapping("/mis-reseñas")
     public String misResenas(Model model) {
-        // TODO: Obtener el ID del usuario logueado de la sesión
+        
         Long idUsuario = 1L;
 
-        // 1. Obtener las reseñas del usuario logueado
+        
         List<Resena> misResenas = resenaService.obtenerResenasPorUsuario(idUsuario);
         model.addAttribute("misResenas", misResenas);
 
-        // 2. Obtener reseñas recientes de la comunidad (excluyendo al usuario actual)
+        
         List<Resena> resenasComunidad = resenaService.obtenerResenasRecientesExcluyendoUsuario(idUsuario);
 
-        // Si no hay suficientes reseñas excluyendo al usuario, mostrar las más recientes generales
+        
         if (resenasComunidad.isEmpty()) {
             resenasComunidad = resenaService.obtenerResenasRecientesComunidad();
         }
 
-        // 3. Obtener lista de productos para el filtro
+        
         List<Producto> productos = productoService.listarActivos();
 
         model.addAttribute("resenasComunidad", resenasComunidad);
@@ -156,9 +143,7 @@ public class ResenaController {
         return "reseñas/mis-reseñas";
     }
     
-    // ======================================================
-    // MÉTODO OBSOLETO - Mantenido por compatibilidad
-    // ======================================================
+   
     @GetMapping("/crear/{idProducto}")
     public String mostrarFormularioResenaAntiguo(
             @PathVariable Long idProducto,

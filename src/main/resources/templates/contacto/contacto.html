@@ -8,20 +8,20 @@
     <header th:replace="~{general/fragmentos :: header}"></header>
 
     <main class="container my-5">
-        <!-- Título Principal -->
+        
         <div class="text-center mb-5">
             <h1 class="brand-font display-4 mb-3" th:text="'Contacto'">Contacto</h1>
             <p class="lead text-muted">Estamos aquí para atenderte y endulzar tu día</p>
         </div>
 
         <div class="row g-5">
-            <!-- Información de Contacto -->
+            
             <div class="col-lg-6">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body p-4 p-md-5">
                         <h3 class="mb-4 brand-font">Información de Contacto</h3>
                         
-                        <!-- Ubicación -->
+                        
                         <div class="d-flex mb-4">
                             <div class="flex-shrink-0">
                                 <i class="fas fa-map-marker-alt text-primary fa-2x"></i>
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         
-                        <!-- Horario -->
+                        
                         <div class="d-flex mb-4">
                             <div class="flex-shrink-0">
                                 <i class="fas fa-clock text-primary fa-2x"></i>
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         
-                        <!-- Teléfono -->
+                        
                         <div class="d-flex mb-4">
                             <div class="flex-shrink-0">
                                 <i class="fas fa-phone text-primary fa-2x"></i>
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         
-                        <!-- Redes Sociales -->
+                        
                         <div class="d-flex mb-4">
                             <div class="flex-shrink-0">
                                 <i class="fas fa-hashtag text-primary fa-2x"></i>
@@ -94,7 +94,7 @@
                             </div>
                         </div>
                         
-                        <!-- Email -->
+                        
                         <div class="d-flex">
                             <div class="flex-shrink-0">
                                 <i class="fas fa-envelope text-primary fa-2x"></i>
@@ -109,14 +109,14 @@
                 </div>
             </div>
             
-            <!-- Mapa -->
+            
             <div class="col-lg-6">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body p-4">
                         <h3 class="mb-4 brand-font">Encuéntranos</h3>
                         <p class="text-muted mb-4">Visítanos en nuestra pastelería en El Carmen, Cartago</p>
                         
-                        <!-- Widget de Google Maps -->
+                        
                         <div class="ratio ratio-16x9 mb-4">
                             <iframe 
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.982055385939!2d-83.92186112478591!3d9.93500739013612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e3f5e3c6f9a5%3A0x4f5f5f5f5f5f5f5f!2sEl%20Carmen%2C%20Cartago%2C%20Costa%20Rica!5e0!3m2!1sen!2scr!4v1640995200000!5m2!1sen!2scr" 
@@ -129,7 +129,7 @@
                             </iframe>
                         </div>
                         
-                        <!-- Información Adicional del Mapa -->
+                        
                         <div class="alert alert-info mt-4">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
@@ -146,7 +146,7 @@
                             </div>
                         </div>
                         
-                        <!-- Consejos de Visita -->
+                        
                         <div class="mt-4">
                             <h6 class="fw-bold mb-3">
                                 <i class="fas fa-lightbulb text-warning me-2"></i>
@@ -182,7 +182,7 @@
             </div>
         </div>
         
-        <!-- Enlace a Preguntas Frecuentes -->
+        
         <div class="row mt-5">
             <div class="col-12">
                 <div class="card border-primary border-2">
@@ -198,7 +198,7 @@
             </div>
         </div>
         
-        <!-- Mensaje Final -->
+        
         <div class="text-center mt-5 p-4 bg-light rounded-3">
             <i class="fas fa-heart text-primary fa-3x mb-3"></i>
             <h4 class="brand-font mb-3">¡Te esperamos!</h4>
@@ -221,13 +221,13 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
         }
         
-        /* Estilos para iconos */
+        
         .fa-2x {
             width: 2rem;
             text-align: center;
         }
         
-        /* Estilos para botones de redes sociales */
+        
         .btn-outline-danger:hover {
             background-color: #dc3545;
             color: white;
@@ -239,12 +239,12 @@
             color: white;
         }
         
-        /* Estilos para el iframe del mapa */
+        
         iframe {
             border-radius: 8px;
         }
         
-        /* Responsive adjustments */
+        
         @media (max-width: 768px) {
             .display-4 {
                 font-size: 2.5rem;
@@ -258,7 +258,7 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Resaltar el enlace activo en el navbar
+            
             const currentPage = window.location.pathname;
             const navLinks = document.querySelectorAll('.nav-link');
             
@@ -268,7 +268,7 @@
                 }
             });
             
-            // Animación para las tarjetas
+            
             const cards = document.querySelectorAll('.card');
             cards.forEach((card, index) => {
                 card.style.opacity = '0';
@@ -281,7 +281,7 @@
                 }, 100 * index);
             });
             
-            // WhatsApp directo
+            
             const whatsappButton = document.createElement('a');
             whatsappButton.href = 'https://wa.me/50689852145';
             whatsappButton.target = '_blank';

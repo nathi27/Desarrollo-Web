@@ -66,7 +66,7 @@
     <header th:replace="~{general/fragmentos :: header}"></header>
     
     <main>
-        <!-- Hero Section -->
+        
         <section class="hero-section text-center">
             <div class="container">
                 <h1 class="display-5 fw-bold mb-3">Reseñas</h1>
@@ -75,7 +75,7 @@
         </section>
         
         <div class="container mb-5">
-            <!-- Mensajes Flash -->
+           
             <div th:if="${mensajeExito}" class="alert alert-success alert-dismissible fade show mb-4">
                 <span th:text="${mensajeExito}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -86,7 +86,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
             
-            <!-- Instrucción principal -->
+            
             <div class="instruction-box">
                 <h3 class="h5 mb-3">Tu opinión ayuda a otros a tomar mejores decisiones</h3>
                 <p class="text-muted mb-0">
@@ -95,13 +95,13 @@
                 </p>
             </div>
             
-            <!-- Formulario de selección de producto -->
+            
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card card-resena">
                         <div class="card-body p-4">
                             <form th:action="@{/reseñas/crear}" method="get" id="formSeleccionProducto">
-                                <!-- Campo de selección de producto -->
+                                
                                 <div class="mb-4">
                                     <label for="idProducto" class="form-label">
                                         Selecciona el producto que deseas reseñar
@@ -126,7 +126,7 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Botón de continuar -->
+                                
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-submit" id="btnContinuar" disabled>
                                         <i class="fas fa-arrow-right me-2"></i>Continuar a Reseñar
@@ -136,7 +136,7 @@
                         </div>
                     </div>
                     
-                    <!-- Información adicional -->
+                    
                     <div class="text-center mt-4">
                         <p class="text-muted small">
                             <i class="fas fa-shield-alt me-1"></i>
@@ -160,7 +160,7 @@
             const btnContinuar = document.getElementById('btnContinuar');
             const form = document.getElementById('formSeleccionProducto');
             
-            // Habilitar/deshabilitar botón según selección
+            
             selectProducto.addEventListener('change', function() {
                 if (this.value) {
                     btnContinuar.disabled = false;
@@ -171,7 +171,7 @@
                 }
             });
             
-            // Validación antes de enviar
+            
             form.addEventListener('submit', function(e) {
                 if (!selectProducto.value) {
                     e.preventDefault();
@@ -181,7 +181,7 @@
                 return true;
             });
             
-            // Inicializar estado del botón
+            
             if (!selectProducto.value) {
                 btnContinuar.disabled = true;
                 btnContinuar.innerHTML = '<i class="fas fa-arrow-right me-2"></i>Selecciona un producto primero';

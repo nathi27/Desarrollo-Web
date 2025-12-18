@@ -52,19 +52,19 @@ public class ProductoController {
             @RequestParam(value = "nombre", required = false) String nombre,
             Model model) {
         
-        // Obtiene todos los productos activos
+        
         List<Producto> todosProductos = servicio.listarActivos();
         
-        // Crear DTO de filtro
+        
         FiltroProductoDTO filtro = new FiltroProductoDTO(categoria, nombre);
         
-        // Filtrar productos según los criterios
+        
         List<Producto> productosFiltrados = todosProductos.stream()
                 .filter(p -> filtrarPorCategoria(p, categoria))
                 .filter(p -> filtrarPorNombre(p, nombre))
                 .collect(Collectors.toList());
         
-        // Filtrar por categorías específicas (manteniendo tu lógica original)
+        
         List<Producto> piesTortas = productosFiltrados.stream()
                 .filter(p -> p.getNombre().contains("Pie")
                         || p.getNombre().contains("Torta")
@@ -87,16 +87,16 @@ public class ProductoController {
                         || p.getNombre().contains("Lunch"))
                 .collect(Collectors.toList());
 
-        // Agregar atributos al modelo
+       
         model.addAttribute("productosPiesTortas", piesTortas);
         model.addAttribute("productosMacarons", macarons);
         model.addAttribute("productosGalletas", galletas);
         model.addAttribute("productosPasteles", pasteles);
         
-        // Agregar el filtro para mantener valores en el formulario
+        
         model.addAttribute("filtro", filtro);
         
-        // Agregar lista de categorías fijas para el dropdown
+        
         model.addAttribute("categorias", List.of(
             "Pies & Tortas",
             "Macarons & Donas", 
@@ -104,7 +104,7 @@ public class ProductoController {
             "Pasteles de Celebración"
         ));
         
-        // Indicar si hay filtro aplicado
+        
         boolean filtroAplicado = categoria != null && !categoria.isEmpty() 
                 || nombre != null && !nombre.isEmpty();
         model.addAttribute("filtroAplicado", filtroAplicado);
@@ -112,7 +112,7 @@ public class ProductoController {
         return "producto/catalogo";
     }
 
-    // Métodos auxiliares para filtrar
+    
     private boolean filtrarPorCategoria(Producto producto, String categoria) {
         if (categoria == null || categoria.isEmpty()) {
             return true;

@@ -27,12 +27,12 @@ public class Resena {
     private Pedido pedido;
     
     @Column(nullable = false)
-    private Integer calificacion; // 1-5 estrellas
+    private Integer calificacion; 
     
     @Column(columnDefinition = "TEXT", nullable = false)
     private String comentario;
     
-    private Boolean aprobada; // Para moderación de contenido
+    private Boolean aprobada; 
     
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaCreacion;

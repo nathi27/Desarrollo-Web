@@ -72,7 +72,7 @@
     <header th:replace="~{general/fragmentos :: header}"></header>
     
     <main>
-        <!-- Hero Section -->
+       
         <section class="hero-section text-center">
             <div class="container">
                 <h1 class="h3 fw-bold mb-2">Dejar Reseña</h1>
@@ -81,7 +81,7 @@
         </section>
         
         <div class="container mb-5">
-            <!-- Mensajes Flash -->
+           
             <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mb-4">
                 <span th:text="${error}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -91,7 +91,7 @@
                 <div class="col-lg-8">
                     <div class="card card-resena">
                         <div class="card-body p-4">
-                            <!-- Información del producto -->
+                           
                             <div th:if="${producto}" class="product-info mb-4">
                                 <div class="row align-items-center">
                                     <div class="col-md-2 text-center">
@@ -110,12 +110,12 @@
                                 </div>
                             </div>
                             
-                            <!-- Instrucción -->
+                            
                             <div class="text-center mb-4">
                                 <h3 class="h4 mb-3">Cuéntale al resto qué te pareció tu pedido</h3>
                             </div>
                             
-                            <!-- Formulario -->
+                            
                             <form th:action="@{/reseñas/crear}"
                                   th:object="${crearResenaForm}"
                                   method="post"
@@ -124,7 +124,7 @@
                                   
                                 <input type="hidden" th:field="*{idProducto}" />
                                 
-                                <!-- Calificación con estrellas -->
+                                
                                 <div class="mb-4">
                                     <label class="form-label d-block mb-3">
                                         Califica tu experiencia con nosotros
@@ -153,7 +153,7 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Comentario -->
+                                
                                 <div class="mb-4">
                                     <label for="comentario" class="form-label">
                                         Tu comentario
@@ -180,7 +180,7 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Validación de contenido -->
+                                
                                 <div class="alert alert-info small">
                                     <div class="d-flex">
                                         <i class="fas fa-info-circle me-2 mt-1"></i>
@@ -196,7 +196,7 @@
                                     </div>
                                 </div>
                                 
-                                <!-- Botones -->
+                                
                                 <div class="d-flex justify-content-between mt-4">
                                     <a th:href="@{/reseñas}" class="btn btn-cancel">
                                         <i class="fas fa-times me-2"></i>Cancelar
@@ -224,7 +224,7 @@
             const charCount = document.getElementById('charCount');
             const currentChars = document.getElementById('currentChars');
             
-            // Textos para cada calificación
+            
             const ratingTexts = {
                 1: 'Muy Malo - No recomendaría',
                 2: 'Malo - Necesita mejorar',
@@ -233,19 +233,19 @@
                 5: 'Excelente - Superó expectativas'
             };
             
-            // Inicializar calificación si ya hay valor
+            
             if (ratingInput.value) {
                 selectStars(parseInt(ratingInput.value));
             }
             
-            // Manejar clic en estrellas
+            
             stars.forEach(star => {
                 star.addEventListener('click', function() {
                     const value = parseInt(this.getAttribute('data-value'));
                     selectStars(value);
                     ratingInput.value = value;
                     
-                    // Validar que el campo esté marcado como "touched"
+                    
                     ratingInput.dispatchEvent(new Event('change'));
                 });
                 
@@ -256,7 +256,7 @@
                 });
             });
             
-            // Restaurar selección al salir del hover
+            
             document.getElementById('starContainer').addEventListener('mouseleave', function() {
                 const currentValue = ratingInput.value ? parseInt(ratingInput.value) : 0;
                 if (currentValue > 0) {
@@ -302,7 +302,7 @@
                 });
             }
             
-            // Contador de caracteres
+            
             commentTextarea.addEventListener('input', function() {
                 const length = this.value.length;
                 currentChars.textContent = length;
@@ -319,7 +319,7 @@
                 }
             });
             
-            // Inicializar contador
+            
             const initialLength = commentTextarea.value.length;
             currentChars.textContent = initialLength;
             if (initialLength < 10) {
@@ -327,7 +327,7 @@
                 charCount.textContent = initialLength + '/500 (mínimo 10 caracteres)';
             }
             
-            // Validación antes de enviar
+           
             document.getElementById('formResena').addEventListener('submit', function(e) {
                 if (!ratingInput.value) {
                     e.preventDefault();
@@ -341,7 +341,7 @@
                     return;
                 }
                 
-                // Validación básica de contenido ofensivo
+                
                 const texto = commentTextarea.value.toLowerCase();
                 const palabrasProhibidas = ['pendejo', 'estupido', 'idiota', 'imbecil', 'mierda', 'carajo'];
                 
@@ -353,7 +353,7 @@
                     }
                 }
                 
-                // Validación de enlaces
+                
                 const linkRegex = /https?:\/\/[^\s]+/gi;
                 if (linkRegex.test(texto)) {
                     e.preventDefault();

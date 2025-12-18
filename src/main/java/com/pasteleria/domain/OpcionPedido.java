@@ -18,8 +18,8 @@ public class OpcionPedido {
     @Column(name = "id_opcion")
     private Long idOpcion;
 
-    private String categoria; // "producto", "sabor_bizcocho", "sabor_relleno", "tamano"
-    private String valor; // "Pastel", "Chocolate", etc.
+    private String categoria; 
+    private String valor; 
     private String descripcion;
     
     @Column(precision = 10, scale = 2)
